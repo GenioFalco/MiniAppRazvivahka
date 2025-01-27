@@ -43,7 +43,7 @@ app.add_middleware(
 bot = Bot(token=os.getenv("BOT_TOKEN"))
 dp = Dispatcher()
 
-WEBAPP_URL = "https://ваш-username.github.io/MiniAppRazvivahka"  # Обновите на ваш URL
+WEBAPP_URL = "https://geniofalco.github.io/MiniAppRazvivahka"  # Обновите на ваш реальный URL
 
 @app.on_event("startup")
 async def startup_event():
