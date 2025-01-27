@@ -24,21 +24,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Check frontend directory
+        run: |
+          if [ ! -d "frontend" ]; then
+            echo "Frontend directory not found!"
+            mkdir -p frontend
+          fi
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'
 
       - name: Install Dependencies
-        run: |
-          cd frontend
-          npm install
+        working-directory: frontend
+        run: npm install
 
       - name: Build
-        run: |
-          cd frontend
-          npm run build
+        working-directory: frontend
+        run: npm run build
         env:
           NODE_ENV: production
 
