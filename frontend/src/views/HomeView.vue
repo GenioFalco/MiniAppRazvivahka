@@ -1,105 +1,102 @@
 <template>
   <div class="home">
-    <div class="welcome-section">
-      <h1>Добро пожаловать в Развивахку!</h1>
-      <p>Давайте учиться и развиваться вместе</p>
-    </div>
-    
-    <div class="categories">
-      <div 
-        v-for="category in categories" 
-        :key="category.id" 
-        class="category-card"
-        @click="selectCategory(category)"
-      >
-        <div class="category-icon">{{ category.emoji }}</div>
-        <h3>{{ category.name }}</h3>
-        <p>{{ category.description }}</p>
+    <div class="menu-list">
+      <div class="menu-item" @click="navigateToCategory('creativity')">
+        <div class="menu-icon">🎨</div>
+        <div class="menu-text">ТВОРЧЕСТВО</div>
+      </div>
+      
+      <div class="menu-item" @click="navigateToCategory('daily')">
+        <div class="menu-icon">©️</div>
+        <div class="menu-text">ЗАДАНИЯ НА ДЕНЬ</div>
+      </div>
+      
+      <div class="menu-item" @click="navigateToCategory('riddles')">
+        <div class="menu-icon">💬</div>
+        <div class="menu-text">ЗАГАДКИ</div>
+      </div>
+      
+      <div class="menu-item" @click="navigateToCategory('tonguetwisters')">
+        <div class="menu-icon">⏰</div>
+        <div class="menu-text">СКОРОГОВОРКИ</div>
+      </div>
+      
+      <div class="menu-item" @click="navigateToCategory('rebus')">
+        <div class="menu-icon">❓</div>
+        <div class="menu-text">РЕБУСЫ</div>
+      </div>
+      
+      <div class="menu-item" @click="navigateToCategory('articulation')">
+        <div class="menu-icon">👋</div>
+        <div class="menu-text">АРТИКУЛЯРНАЯ ГИМНАСТИКА</div>
+      </div>
+      
+      <div class="menu-item" @click="navigateToCategory('neuro')">
+        <div class="menu-icon">🧠</div>
+        <div class="menu-text">НЕЙРОГИМНАСТИКА</div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const categories = ref([
-  {
-    id: 1,
-    name: 'Математика',
-    description: 'Увлекательные задачи по математике',
-    emoji: '🔢'
-  },
-  {
-    id: 2,
-    name: 'Логика',
-    description: 'Развивающие логические задачи',
-    emoji: '🧩'
-  },
-  {
-    id: 3,
-    name: 'Память',
-    description: 'Упражнения для развития памяти',
-    emoji: '🧠'
-  }
-])
-
-const selectCategory = (category) => {
-  router.push(`/tasks?category=${category.id}`)
+const navigateToCategory = (category) => {
+  router.push(`/tasks?category=${category}`)
 }
 </script>
 
 <style scoped>
 .home {
-  padding: 1rem;
+  padding: 0;
+  background-color: var(--tg-theme-bg-color);
+  min-height: 100vh;
 }
 
-.welcome-section {
-  text-align: center;
-  margin-bottom: 2rem;
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.welcome-section h1 {
-  color: var(--tg-theme-button-color, #2196F3);
-  margin-bottom: 0.5rem;
-  font-size: 1.5rem;
-}
-
-.categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-}
-
-.category-card {
-  background: var(--tg-theme-secondary-bg-color, white);
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-align: center;
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background-color: var(--tg-theme-secondary-bg-color);
   cursor: pointer;
-  transition: transform 0.2s;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: background-color 0.2s;
 }
 
-.category-card:hover {
-  transform: translateY(-5px);
+.menu-item:active {
+  background-color: var(--tg-theme-button-color);
+  opacity: 0.7;
 }
 
-.category-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+.menu-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-right: 16px;
 }
 
-.category-card h3 {
-  color: var(--tg-theme-text-color, #2196F3);
-  margin-bottom: 0.5rem;
+.menu-text {
+  color: var(--tg-theme-text-color);
+  font-size: 16px;
+  font-weight: 500;
 }
 
-.category-card p {
-  color: var(--tg-theme-hint-color, #666);
-  font-size: 0.9rem;
+/* Добавляем эффект при наведении только на устройствах с мышью */
+@media (hover: hover) {
+  .menu-item:hover {
+    background-color: var(--tg-theme-button-color);
+    opacity: 0.7;
+  }
 }
 </style>
