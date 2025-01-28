@@ -57,17 +57,9 @@ const router = useRouter()
 
 const handleClick = async (category) => {
   try {
-    // Прямой вызов вибрации сразу при нажатии
-    if (window.Telegram?.WebApp) {
-      // Используем все доступные методы вибрации Telegram
-      window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy')
-      window.Telegram.WebApp.HapticFeedback.notificationOccurred('success')
-      window.Telegram.WebApp.HapticFeedback.selectionChanged()
-    }
-
-    // Стандартная вибрация как запасной вариант
+    // Простая вибрация через Web Vibration API
     if ('vibrate' in navigator) {
-      navigator.vibrate([50, 50, 50])
+      navigator.vibrate(100)
     }
     
     // Эффект нажатия
