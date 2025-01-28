@@ -1,85 +1,57 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div class="app" :class="{ 'dark': isDarkTheme }">
+    <RouterView />
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<script setup>
+import { ref, onMounted, computed } from 'vue'
+import { RouterView } from 'vue-router'
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+const isDarkTheme = computed(() => {
+  return window.Telegram?.WebApp?.colorScheme === 'dark'
+})
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+// Инициализация Telegram WebApp
+onMounted(() => {
+  if (window.Telegram?.WebApp) {
+    window.Telegram.WebApp.ready()
+    window.Telegram.WebApp.expand()
   }
+})
+</script>
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+<style>
+:root {
+  --tg-theme-bg-color: var(--tg-theme-bg-color, #fff);
+  --tg-theme-text-color: var(--tg-theme-text-color, #000);
+  --tg-theme-hint-color: var(--tg-theme-hint-color, #999);
+  --tg-theme-link-color: var(--tg-theme-link-color, #2678b6);
+  --tg-theme-button-color: var(--tg-theme-button-color, #2678b6);
+  --tg-theme-button-text-color: var(--tg-theme-button-text-color, #fff);
+  --tg-theme-secondary-bg-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+body {
+  background-color: var(--tg-theme-bg-color);
+  color: var(--tg-theme-text-color);
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
+.app {
+  min-height: 100vh;
+  padding: 1rem;
+}
 
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.dark {
+  --tg-theme-bg-color: #1f1f1f;
+  --tg-theme-text-color: #fff;
+  --tg-theme-hint-color: #aaa;
+  --tg-theme-link-color: #64b5f6;
+  --tg-theme-button-color: #64b5f6;
+  --tg-theme-secondary-bg-color: #2f2f2f;
 }
 </style>

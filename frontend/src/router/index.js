@@ -7,17 +7,30 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: HomeView
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue'),
+      path: '/tasks',
+      name: 'tasks',
+      component: () => import('../views/TasksView.vue')
     },
-  ],
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('../views/ProfileView.vue')
+    }
+  ]
+})
+
+// Middleware для проверки Telegram WebApp
+router.beforeEach((to, from, next) => {
+  const telegram = window.Telegram?.WebApp
+  if (telegram) {
+    // Если приложение запущено в Telegram
+    telegram.ready()
+    telegram.expand()
+  }
+  next()
 })
 
 export default router

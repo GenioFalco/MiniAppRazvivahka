@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
-from aiogram import Bot, Dispatcher, types
+from aiogram import Bot, Dispatcher, types, F
+from aiogram.filters import Command
 from aiogram.enums import ParseMode
 from aiogram.types import WebAppInfo, MenuButtonWebApp
 from sqlalchemy.orm import Session
@@ -128,7 +129,7 @@ async def webhook(request: Request):
     await dp.feed_update(bot=bot, update=telegram_update)
     return {"ok": True}
 
-@dp.message(commands=["start"])
+@dp.message(Command("start"))
 async def cmd_start(message: types.Message):
     """Обработчик команды /start"""
     user_id = message.from_user.id
