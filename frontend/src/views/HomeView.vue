@@ -121,11 +121,11 @@ const playClickSound = () => {
 
 .top-menu {
   display: grid;
-  grid-template-columns: 120px 240px; /* Профиль слева, сетка 2x2 справа */
+  grid-template-columns: 120px 1fr; /* Профиль слева, сетка справа */
   gap: 15px;
   margin-bottom: 30px;
   width: 100%;
-  max-width: 600px;
+  max-width: 375px; /* Уменьшаем максимальную ширину для более компактного вида */
 }
 
 .menu-card {
@@ -137,40 +137,49 @@ const playClickSound = () => {
   cursor: pointer;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  padding: 15px;
+  padding: 10px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: all 0.2s ease;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   height: 100%;
+  aspect-ratio: 1; /* Делаем все карточки квадратными */
 }
 
 /* Специальный стиль для карточки профиля */
 .menu-card:first-child {
-  grid-row: span 2; /* Растягиваем на 2 строки */
-  height: 255px; /* Высота равна двум карточкам + gap */
+  grid-row: span 2;
+  height: 100%; /* Высота будет равна высоте сетки справа */
+  aspect-ratio: auto; /* Отменяем квадратную форму для профиля */
 }
 
 /* Контейнер для сетки 2x2 */
 .menu-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 15px;
   height: 100%;
+  aspect-ratio: 2/1; /* Соотношение сторон для сетки 2x2 */
 }
 
 .menu-icon {
-  width: 50px;
-  height: 50px;
-  margin-bottom: 8px;
+  width: 40px; /* Уменьшаем размер иконок */
+  height: 40px;
+  margin-bottom: 5px;
 }
 
 /* Обновляем стили для профиля */
 .menu-card:first-child .menu-icon {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 15px;
+  width: 60px; /* Немного уменьшаем иконку профиля */
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+/* Добавляем стили для текста */
+.menu-card span {
+  font-size: 14px;
+  line-height: 1.2;
 }
 
 .categories {
