@@ -76,7 +76,7 @@ const handleClick = async (category) => {
     }
     
     // Эффект нажатия
-    const elements = document.querySelectorAll('.category-item, .menu-card')
+    const elements = document.querySelectorAll('.category-item, .menu-card, .profile-card')
     elements.forEach(el => {
       if (el.contains(event.target)) {
         el.classList.add('press-down')
@@ -86,17 +86,17 @@ const handleClick = async (category) => {
 
     setTimeout(() => {
       if (category === 'profile') {
-        router.push('/profile')
+        router.push({ name: 'profile' })
       } else {
-        router.push(`/tasks?category=${category}`)
+        router.push({ name: 'tasks', query: { category } })
       }
     }, 150)
   } catch (error) {
     console.error('Error in handleClick:', error)
     if (category === 'profile') {
-      router.push('/profile')
+      router.push({ name: 'profile' })
     } else {
-      router.push(`/tasks?category=${category}`)
+      router.push({ name: 'tasks', query: { category } })
     }
   }
 }
