@@ -57,28 +57,29 @@ const router = useRouter()
 
 const handleClick = async (category) => {
   try {
-    // Короткая, резкая вибрация в стиле iOS
+    // Пробуем все доступные способы вибрации
     if (window.Telegram?.WebApp?.HapticFeedback) {
-      // Используем Telegram API для тактильной отдачи
-      window.Telegram.WebApp.HapticFeedback.impactOccurred('light')
-    } else if (window.navigator && window.navigator.vibrate) {
-      // Если Telegram API недоступен, используем стандартный API
-      window.navigator.vibrate(10) // Очень короткая вибрация для имитации iOS
+      window.Telegram.WebApp.HapticFeedback.impactOccurred('medium')
+      window.Telegram.WebApp.HapticFeedback.notificationOccurred('success')
     }
     
-    // Добавляем класс для анимации вдавливания
+    if (window.navigator && window.navigator.vibrate) {
+      window.navigator.vibrate(15)
+    }
+    
+    // Добавляем только эффект вдавливания без тряски
     const elements = document.querySelectorAll('.category-item, .menu-card')
     elements.forEach(el => {
       if (el.contains(event.target)) {
-        el.classList.add('press-effect')
-        setTimeout(() => el.classList.remove('press-effect'), 200) // Уменьшаем время анимации
+        el.classList.add('press-down')
+        setTimeout(() => el.classList.remove('press-down'), 150)
       }
     })
 
-    // Уменьшаем задержку навигации
+    // Быстрая навигация
     setTimeout(() => {
       router.push(`/tasks?category=${category}`)
-    }, 200)
+    }, 150)
   } catch (error) {
     console.error('Error in handleClick:', error)
     router.push(`/tasks?category=${category}`)
@@ -123,7 +124,10 @@ const playClickSound = () => {
   align-items: center;
   text-align: center;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent; /* Убираем стандартное выделение на iOS */
+  transition: transform 0.08s ease-in-out;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  will-change: transform;
 }
 
 .menu-icon {
@@ -151,16 +155,15 @@ const playClickSound = () => {
   cursor: pointer;
   position: relative;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: all 0.1s ease; /* Уменьшаем время перехода */
-  transform-origin: center center;
+  transition: transform 0.08s ease-in-out;
   -webkit-tap-highlight-color: transparent;
-  user-select: none; /* Предотвращаем выделение текста */
+  user-select: none;
+  will-change: transform;
 }
 
-/* Эффект при нажатии - более быстрый и четкий */
+/* Простой эффект вдавливания без тряски */
 .category-item:active {
-  transform: scale(0.98) translateY(1px); /* Уменьшаем эффект */
-  background: rgba(255, 255, 255, 0.15);
+  transform: scale(0.97);
   box-shadow: 0 1px 2px rgba(0,0,0,0.15);
 }
 
@@ -173,28 +176,25 @@ const playClickSound = () => {
   height: 40px;
 }
 
-/* Обновленная анимация нажатия - более короткая и четкая */
-@keyframes pressDown {
-  0% { 
-    transform: scale(1);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  100% { 
-    transform: scale(0.98) translateY(1px);
+/* Простая анимация вдавливания */
+@keyframes pressDownSimple {
+  to { 
+    transform: scale(0.97);
     box-shadow: 0 1px 2px rgba(0,0,0,0.15);
   }
 }
 
-.press-effect {
-  animation: pressDown 0.15s ease-out forwards;
+.press-down {
+  animation: pressDownSimple 0.08s ease-in-out forwards;
 }
 
-/* Отключаем анимацию для устройств, предпочитающих отсутствие анимации */
+/* Отключаем все анимации для устройств с отключенной анимацией */
 @media (prefers-reduced-motion: reduce) {
-  .category-item {
+  .category-item,
+  .menu-card {
     transition: none;
   }
-  .press-effect {
+  .press-down {
     animation: none;
   }
 }
