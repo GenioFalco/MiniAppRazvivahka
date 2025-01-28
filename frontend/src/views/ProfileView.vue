@@ -1,58 +1,52 @@
 <template>
-  <div class="profile bg-gradient-to-b from-blue-900 to-blue-800 h-screen w-screen flex flex-col items-center text-white">
+  <div class="profile">
     <!-- Header -->
-    <header class="w-full flex items-center justify-between px-4 py-3">
-      <button class="text-2xl">&#8592;</button>
-      <h1 class="text-xl font-bold">Тима#564</h1>
-      <button>
-        <img :src="gearIcon" alt="Settings" class="w-6 h-6" />
+    <header>
+      <button class="back-button">←</button>
+      <div class="user-info">
+        <img :src="profileIcon" alt="Profile" class="profile-mini" />
+        <span class="username">ТИМА#564</span>
+      </div>
+      <button class="settings-button">
+        <img :src="gearIcon" alt="Settings" />
       </button>
     </header>
 
-    <!-- User Stats -->
-    <div class="stats w-full px-6 flex items-center justify-between my-4">
-      <div class="flex items-center">
-        <img :src="coinIcon" alt="Coins" class="w-6 h-6 mr-2" />
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <img :src="coinIcon" alt="Coins" />
         <span>1,555,000</span>
       </div>
-      <div class="flex items-center">
-        <img :src="dailyIcon" alt="Targets" class="w-6 h-6 mr-2" />
+      <div class="stat-item">
+        <img :src="dailyIcon" alt="Daily" />
         <span>25</span>
       </div>
-      <div class="flex items-center">
-        <img :src="trophyIcon" alt="Trophies" class="w-6 h-6 mr-2" />
+      <div class="stat-item">
+        <img :src="trophyIcon" alt="Trophies" />
         <span>3</span>
       </div>
     </div>
 
-    <!-- XP Bar -->
-    <div class="xp-bar w-3/4 bg-gray-700 h-4 rounded-full overflow-hidden">
-      <div
-        class="bg-blue-500 h-full"
-        :style="{ width: xpProgress + '%' }"
-      ></div>
+    <!-- Level Progress -->
+    <div class="level-info">
+      <span>Уровень 7</span>
+      <div class="xp-bar">
+        <div class="xp-progress" :style="{ width: xpProgress + '%' }"></div>
+      </div>
+      <span class="xp-text">XP {{ xp }}/100</span>
     </div>
-    <p class="mt-2 text-sm">Уровень {{ level }} ({{ xp }}/100 XP)</p>
 
     <!-- Character -->
-    <div class="character my-6">
-      <img :src="profileIcon" alt="Character" class="w-40 h-40" />
-      <button
-        class="mt-4 px-6 py-2 bg-blue-600 rounded-full text-lg font-bold shadow-lg hover:bg-blue-700 transition"
-        @click="exchange"
-      >
-        Обменять
-      </button>
+    <div class="character-container">
+      <img :src="profileIcon" alt="Character" class="character-image" />
+      <button class="exchange-button">ОБМЕНЯТЬ</button>
     </div>
 
-    <!-- Actions -->
-    <div class="actions flex justify-around w-full px-6">
-      <button
-        v-for="(action, index) in actions"
-        :key="index"
-        class="p-3 bg-blue-600 rounded-full shadow-lg hover:bg-blue-700 transition"
-      >
-        <img :src="action.icon" :alt="action.name" class="w-6 h-6" />
+    <!-- Bottom Actions -->
+    <div class="bottom-actions">
+      <button v-for="(action, index) in actions" :key="index" class="action-button">
+        <img :src="action.icon" :alt="action.name" />
       </button>
     </div>
   </div>
@@ -70,12 +64,10 @@ import creativityIcon from '@/assets/creativity.png'
 import rebusIcon from '@/assets/rebus.png'
 import riddlesIcon from '@/assets/riddles.png'
 
-// Параметры профиля
 const level = ref(7);
 const xp = ref(25);
 const xpProgress = ref((xp.value / 100) * 100);
 
-// Действия профиля
 const actions = ref([
   { name: "Настройка", icon: neuroIcon },
   { name: "Статистика", icon: creativityIcon },
@@ -84,7 +76,6 @@ const actions = ref([
   { name: "Настройки", icon: gearIcon },
 ]);
 
-// Функция обмена
 function exchange() {
   alert("Функция обмена не реализована!");
 }
@@ -92,6 +83,153 @@ function exchange() {
 
 <style scoped>
 .profile {
-  font-family: "Arial", sans-serif;
+  background: linear-gradient(180deg, #1e3a8a 0%, #1e40af 100%);
+  min-height: 100vh;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.back-button {
+  font-size: 1.5rem;
+  color: white;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.profile-mini {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.settings-button {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+}
+
+.settings-button img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.stats-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.75rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stat-item img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.level-info {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.xp-bar {
+  width: 100%;
+  height: 0.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  margin: 0.5rem 0;
+  overflow: hidden;
+}
+
+.xp-progress {
+  height: 100%;
+  background: #3b82f6;
+  border-radius: 1rem;
+  transition: width 0.3s ease;
+}
+
+.character-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: auto 0;
+}
+
+.character-image {
+  width: 12rem;
+  height: 12rem;
+  object-fit: contain;
+}
+
+.exchange-button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.exchange-button:active {
+  transform: scale(0.98);
+}
+
+.bottom-actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem 0;
+  margin-top: auto;
+}
+
+.action-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  padding: 0.75rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.action-button img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.action-button:active {
+  background: rgba(255, 255, 255, 0.2);
 }
 </style>
