@@ -88,26 +88,26 @@ const handleClick = async (category) => {
       // Обработка разных типов кнопок
       switch(category) {
         case 'profile':
-          router.push('/MiniAppRazvivahka/profile')
+          router.push('/profile')
           break;
         case 'subscription':
         case 'photoalbum':
         case 'shop':
         case 'link':
           // Для верхних кнопок меню
-          router.push(`/MiniAppRazvivahka/tasks?category=${category}`)
+          router.push(`/tasks?category=${category}`)
           break;
         default:
           // Для категорий внизу
-          router.push(`/MiniAppRazvivahka/tasks?category=${category}`)
+          router.push(`/tasks?category=${category}`)
       }
     }, 150)
   } catch (error) {
     console.error('Error in handleClick:', error)
     if (category === 'profile') {
-      router.push('/MiniAppRazvivahka/profile')
+      router.push('/profile')
     } else {
-      router.push(`/MiniAppRazvivahka/tasks?category=${category}`)
+      router.push(`/tasks?category=${category}`)
     }
   }
 }
