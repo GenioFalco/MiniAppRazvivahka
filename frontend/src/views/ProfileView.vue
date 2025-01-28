@@ -5,22 +5,22 @@
       <button class="text-2xl">&#8592;</button>
       <h1 class="text-xl font-bold">Тима#564</h1>
       <button>
-        <img :src="new URL('@/assets/gear-icon.png', import.meta.url).href" alt="Settings" class="w-6 h-6" />
+        <img :src="gearIcon" alt="Settings" class="w-6 h-6" />
       </button>
     </header>
 
     <!-- User Stats -->
     <div class="stats w-full px-6 flex items-center justify-between my-4">
       <div class="flex items-center">
-        <img :src="new URL('@/assets/coin-icon.png', import.meta.url).href" alt="Coins" class="w-6 h-6 mr-2" />
+        <img :src="coinIcon" alt="Coins" class="w-6 h-6 mr-2" />
         <span>1,555,000</span>
       </div>
       <div class="flex items-center">
-        <img :src="new URL('@/assets/daily.png', import.meta.url).href" alt="Targets" class="w-6 h-6 mr-2" />
+        <img :src="dailyIcon" alt="Targets" class="w-6 h-6 mr-2" />
         <span>25</span>
       </div>
       <div class="flex items-center">
-        <img :src="new URL('@/assets/trophy-icon.png', import.meta.url).href" alt="Trophies" class="w-6 h-6 mr-2" />
+        <img :src="trophyIcon" alt="Trophies" class="w-6 h-6 mr-2" />
         <span>3</span>
       </div>
     </div>
@@ -36,7 +36,7 @@
 
     <!-- Character -->
     <div class="character my-6">
-      <img :src="new URL('@/assets/profile.png', import.meta.url).href" alt="Character" class="w-40 h-40" />
+      <img :src="profileIcon" alt="Character" class="w-40 h-40" />
       <button
         class="mt-4 px-6 py-2 bg-blue-600 rounded-full text-lg font-bold shadow-lg hover:bg-blue-700 transition"
         @click="exchange"
@@ -60,6 +60,15 @@
 
 <script setup>
 import { ref } from "vue";
+import gearIcon from '@/assets/gear-icon.png'
+import coinIcon from '@/assets/coin-icon.png'
+import dailyIcon from '@/assets/daily.png'
+import trophyIcon from '@/assets/trophy-icon.png'
+import profileIcon from '@/assets/profile.png'
+import neuroIcon from '@/assets/neuro.png'
+import creativityIcon from '@/assets/creativity.png'
+import rebusIcon from '@/assets/rebus.png'
+import riddlesIcon from '@/assets/riddles.png'
 
 // Параметры профиля
 const level = ref(7);
@@ -68,11 +77,11 @@ const xpProgress = ref((xp.value / 100) * 100);
 
 // Действия профиля
 const actions = ref([
-  { name: "Настройка", icon: new URL('@/assets/neuro.png', import.meta.url).href },
-  { name: "Статистика", icon: new URL('@/assets/creativity.png', import.meta.url).href },
-  { name: "Подсказки", icon: new URL('@/assets/rebus.png', import.meta.url).href },
-  { name: "Ручной режим", icon: new URL('@/assets/riddles.png', import.meta.url).href },
-  { name: "Настройки", icon: new URL('@/assets/gear-icon.png', import.meta.url).href },
+  { name: "Настройка", icon: neuroIcon },
+  { name: "Статистика", icon: creativityIcon },
+  { name: "Подсказки", icon: rebusIcon },
+  { name: "Ручной режим", icon: riddlesIcon },
+  { name: "Настройки", icon: gearIcon },
 ]);
 
 // Функция обмена
