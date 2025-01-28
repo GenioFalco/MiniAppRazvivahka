@@ -57,17 +57,21 @@ const router = useRouter()
 
 const handleClick = async (category) => {
   try {
-    // Пробуем все доступные способы вибрации
+    // Усиленная вибрация для мобильных
     if (window.Telegram?.WebApp?.HapticFeedback) {
-      window.Telegram.WebApp.HapticFeedback.impactOccurred('medium')
-      window.Telegram.WebApp.HapticFeedback.notificationOccurred('success')
+      // Двойной импульс для более заметной отдачи
+      window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy')
+      setTimeout(() => {
+        window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy')
+      }, 50)
     }
     
     if (window.navigator && window.navigator.vibrate) {
-      window.navigator.vibrate(15)
+      // Серия коротких вибраций для более заметного эффекта
+      window.navigator.vibrate([30, 30, 30])
     }
     
-    // Добавляем только эффект вдавливания без тряски
+    // Эффект нажатия
     const elements = document.querySelectorAll('.category-item, .menu-card')
     elements.forEach(el => {
       if (el.contains(event.target)) {
@@ -76,7 +80,6 @@ const handleClick = async (category) => {
       }
     })
 
-    // Быстрая навигация
     setTimeout(() => {
       router.push(`/tasks?category=${category}`)
     }, 150)
@@ -124,10 +127,9 @@ const playClickSound = () => {
   align-items: center;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.08s ease-in-out;
+  transition: all 0.2s ease;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  will-change: transform;
 }
 
 .menu-icon {
@@ -155,20 +157,37 @@ const playClickSound = () => {
   cursor: pointer;
   position: relative;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: transform 0.08s ease-in-out;
+  transition: all 0.2s ease;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  will-change: transform;
 }
 
-/* Простой эффект вдавливания без тряски */
-.category-item:active {
-  transform: scale(0.97);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+/* Эффект при наведении только для ПК */
+@media (hover: hover) {
+  .category-item:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .menu-card:hover {
+    transform: scale(1.05);
+  }
 }
 
-.menu-card:active {
-  transform: scale(0.97);
+/* Эффект вдавливания только для мобильных */
+@media (hover: none) {
+  .category-item:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  }
+  
+  .menu-card:active {
+    transform: scale(0.95);
+  }
+  
+  .press-down {
+    animation: pressDownSimple 0.15s ease-out forwards;
+  }
 }
 
 .category-icon {
@@ -176,19 +195,15 @@ const playClickSound = () => {
   height: 40px;
 }
 
-/* Простая анимация вдавливания */
+/* Анимация вдавливания для мобильных */
 @keyframes pressDownSimple {
   to { 
-    transform: scale(0.97);
+    transform: scale(0.95);
     box-shadow: 0 1px 2px rgba(0,0,0,0.15);
   }
 }
 
-.press-down {
-  animation: pressDownSimple 0.08s ease-in-out forwards;
-}
-
-/* Отключаем все анимации для устройств с отключенной анимацией */
+/* Отключаем анимации для устройств с отключенной анимацией */
 @media (prefers-reduced-motion: reduce) {
   .category-item,
   .menu-card {
