@@ -5,7 +5,7 @@
       <button class="text-2xl">&#8592;</button>
       <h1 class="text-xl font-bold">Тима#564</h1>
       <button>
-        <img src="gear-icon.png" alt="Settings" class="w-6 h-6" />
+        <img src="@/assets/settings.png" alt="Settings" class="w-6 h-6" />
       </button>
     </header>
 
@@ -68,11 +68,11 @@ const xpProgress = ref((xp.value / 100) * 100);
 
 // Действия профиля
 const actions = ref([
-  { name: "Настройка", icon: "neuro.png" },
-  { name: "Статистика", icon: "creativity.png" },
-  { name: "Подсказки", icon: "rebus.png" },
-  { name: "Ручной режим", icon: "riddles.png" },
-  { name: "Настройки", icon: "gear-icon.png" },
+  { name: "Настройка", icon: "@/assets/neuro.png" },
+  { name: "Статистика", icon: "@/assets/creativity.png" },
+  { name: "Подсказки", icon: "@/assets/rebus.png" },
+  { name: "Ручной режим", icon: "@/assets/riddles.png" },
+  { name: "Настройки", icon: "@/assets/settings.png" },
 ]);
 
 // Функция обмена
