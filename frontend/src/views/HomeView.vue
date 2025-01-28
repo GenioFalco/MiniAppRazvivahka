@@ -3,15 +3,15 @@
     <!-- Верхняя часть меню с иконками профиля, подписки и фотоальбома -->
     <div class="top-menu">
       <div class="menu-card">
-        <img src="/assets/profile.png" alt="Профиль" class="menu-icon" />
+        <img src="@/assets/profile.png" alt="Профиль" class="menu-icon" />
         <span>Профиль</span>
       </div>
       <div class="menu-card">
-        <img src="/assets/subscription.png" alt="Подписка" class="menu-icon" />
+        <img src="@/assets/subscription.png" alt="Подписка" class="menu-icon" />
         <span>Подписка</span>
       </div>
       <div class="menu-card">
-        <img src="/assets/photoalbum.png" alt="Фотоальбом" class="menu-icon" />
+        <img src="@/assets/photoalbum.png" alt="Фотоальбом" class="menu-icon" />
         <span>Фотоальбом</span>
       </div>
     </div>
@@ -19,41 +19,49 @@
     <!-- Список категорий -->
     <div class="categories">
       <div class="category-item">
-        <img src="/assets/creativity.png" alt="Творчество" class="category-icon" />
+        <img src="@/assets/creativity.png" alt="Творчество" class="category-icon" />
         <span>Творчество</span>
       </div>
       <div class="category-item">
-        <img src="/assets/daily.png" alt="Задания на день" class="category-icon" />
+        <img src="@/assets/daily.png" alt="Задания на день" class="category-icon" />
         <span>Задания на день</span>
       </div>
       <div class="category-item">
-        <img src="/assets/riddles.png" alt="Загадки" class="category-icon" />
+        <img src="@/assets/riddles.png" alt="Загадки" class="category-icon" />
         <span>Загадки</span>
       </div>
       <div class="category-item">
-        <img src="/assets/tonguetwisters.png" alt="Скороговорки" class="category-icon" />
+        <img src="@/assets/tonguetwisters.png" alt="Скороговорки" class="category-icon" />
         <span>Скороговорки</span>
       </div>
       <div class="category-item">
-        <img src="/assets/rebus.png" alt="Ребусы" class="category-icon" />
+        <img src="@/assets/rebus.png" alt="Ребусы" class="category-icon" />
         <span>Ребусы</span>
       </div>
       <div class="category-item">
-        <img src="/assets/articulation.png" alt="Артикулярная гимнастика" class="category-icon" />
+        <img src="@/assets/articulation.png" alt="Артикулярная гимнастика" class="category-icon" />
         <span>Артикулярная гимнастика</span>
       </div>
       <div class="category-item">
-        <img src="/assets/neuro.png" alt="Нейрогимнастика" class="category-icon" />
+        <img src="@/assets/neuro.png" alt="Нейрогимнастика" class="category-icon" />
         <span>Нейрогимнастика</span>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: "MainMenu",
-};
+<script setup>
+// Импортируем изображения
+import '@/assets/profile.png'
+import '@/assets/subscription.png'
+import '@/assets/photoalbum.png'
+import '@/assets/creativity.png'
+import '@/assets/daily.png'
+import '@/assets/riddles.png'
+import '@/assets/tonguetwisters.png'
+import '@/assets/rebus.png'
+import '@/assets/articulation.png'
+import '@/assets/neuro.png'
 </script>
 
 <style scoped>
