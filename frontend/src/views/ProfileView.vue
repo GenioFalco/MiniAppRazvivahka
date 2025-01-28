@@ -12,15 +12,15 @@
     <!-- User Stats -->
     <div class="stats w-full px-6 flex items-center justify-between my-4">
       <div class="flex items-center">
-        <img src="coin-icon.png" alt="Coins" class="w-6 h-6 mr-2" />
+        <img src="@/assets/coin.png" alt="Coins" class="w-6 h-6 mr-2" />
         <span>1,555,000</span>
       </div>
       <div class="flex items-center">
-        <img src="daily.png" alt="Targets" class="w-6 h-6 mr-2" />
+        <img src="@/assets/daily.png" alt="Targets" class="w-6 h-6 mr-2" />
         <span>25</span>
       </div>
       <div class="flex items-center">
-        <img src="trophy-icon.png" alt="Trophies" class="w-6 h-6 mr-2" />
+        <img src="@/assets/trophy.png" alt="Trophies" class="w-6 h-6 mr-2" />
         <span>3</span>
       </div>
     </div>
@@ -36,7 +36,7 @@
 
     <!-- Character -->
     <div class="character my-6">
-      <img src="profile.png" alt="Character" class="w-40 h-40" />
+      <img src="@/assets/profile.png" alt="Character" class="w-40 h-40" />
       <button
         class="mt-4 px-6 py-2 bg-blue-600 rounded-full text-lg font-bold shadow-lg hover:bg-blue-700 transition"
         @click="exchange"
