@@ -22,14 +22,19 @@ const router = createRouter({
   ]
 })
 
-// Middleware для проверки Telegram WebApp
+// Middleware для проверки окружения
 router.beforeEach((to, from, next) => {
   const telegram = window.Telegram?.WebApp
+  
+  // Если приложение запущено в Telegram
   if (telegram) {
-    // Если приложение запущено в Telegram
     telegram.ready()
     telegram.expand()
+  } else {
+    console.log('Running in browser mode')
   }
+  
+  // Всегда разрешаем навигацию
   next()
 })
 

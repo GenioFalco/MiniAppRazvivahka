@@ -88,26 +88,26 @@ const handleClick = async (category) => {
       // Обработка разных типов кнопок
       switch(category) {
         case 'profile':
-          router.push('/profile')
+          router.push({ name: 'profile' })
           break;
         case 'subscription':
         case 'photoalbum':
         case 'shop':
         case 'link':
           // Для верхних кнопок меню
-          router.push(`/tasks?category=${category}`)
+          router.push({ name: 'tasks', query: { category } })
           break;
         default:
           // Для категорий внизу
-          router.push(`/tasks?category=${category}`)
+          router.push({ name: 'tasks', query: { category } })
       }
     }, 150)
   } catch (error) {
     console.error('Error in handleClick:', error)
     if (category === 'profile') {
-      router.push('/profile')
+      router.push({ name: 'profile' })
     } else {
-      router.push(`/tasks?category=${category}`)
+      router.push({ name: 'tasks', query: { category } })
     }
   }
 }

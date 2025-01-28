@@ -1,54 +1,58 @@
 <template>
-  <div class="profile container">
+  <div class="profile bg-gradient-to-b from-blue-900 to-blue-800 h-screen w-screen flex flex-col items-center text-white">
     <!-- Header -->
-    <header class="header">
-      <button class="back-button clickable" @click="goBack">&#8592;</button>
-      <h1 class="username">Тима#564</h1>
-      <button class="settings-button clickable">
-        <img src="@/assets/gear-icon.png" alt="Settings" class="icon" />
+    <header class="w-full flex items-center justify-between px-4 py-3">
+      <button class="text-2xl">&#8592;</button>
+      <h1 class="text-xl font-bold">Тима#564</h1>
+      <button>
+        <img src="gear-icon.png" alt="Settings" class="w-6 h-6" />
       </button>
     </header>
 
     <!-- User Stats -->
-    <div class="stats">
-      <div class="stat-item clickable">
-        <img src="@/assets/coin-icon.png" alt="Coins" class="icon" />
+    <div class="stats w-full px-6 flex items-center justify-between my-4">
+      <div class="flex items-center">
+        <img src="coin-icon.png" alt="Coins" class="w-6 h-6 mr-2" />
         <span>1,555,000</span>
       </div>
-      <div class="stat-item clickable">
-        <img src="@/assets/daily.png" alt="Targets" class="icon" />
+      <div class="flex items-center">
+        <img src="daily.png" alt="Targets" class="w-6 h-6 mr-2" />
         <span>25</span>
       </div>
-      <div class="stat-item clickable">
-        <img src="@/assets/trophy-icon.png" alt="Trophies" class="icon" />
+      <div class="flex items-center">
+        <img src="trophy-icon.png" alt="Trophies" class="w-6 h-6 mr-2" />
         <span>3</span>
       </div>
     </div>
 
     <!-- XP Bar -->
-    <div class="xp-container">
-      <div class="xp-bar">
-        <div class="xp-progress" :style="{ width: xpProgress + '%' }"></div>
-      </div>
-      <p class="xp-text">Уровень {{ level }} ({{ xp }}/100 XP)</p>
+    <div class="xp-bar w-3/4 bg-gray-700 h-4 rounded-full overflow-hidden">
+      <div
+        class="bg-blue-500 h-full"
+        :style="{ width: xpProgress + '%' }"
+      ></div>
     </div>
+    <p class="mt-2 text-sm">Уровень {{ level }} ({{ xp }}/100 XP)</p>
 
     <!-- Character -->
-    <div class="character">
-      <img src="@/assets/profile.png" alt="Character" class="character-image" />
-      <button class="exchange-button clickable" @click="exchange">
+    <div class="character my-6">
+      <img src="profile.png" alt="Character" class="w-40 h-40" />
+      <button
+        class="mt-4 px-6 py-2 bg-blue-600 rounded-full text-lg font-bold shadow-lg hover:bg-blue-700 transition"
+        @click="exchange"
+      >
         Обменять
       </button>
     </div>
 
     <!-- Actions -->
-    <div class="actions">
+    <div class="actions flex justify-around w-full px-6">
       <button
         v-for="(action, index) in actions"
         :key="index"
-        class="action-button clickable"
+        class="p-3 bg-blue-600 rounded-full shadow-lg hover:bg-blue-700 transition"
       >
-        <img :src="require(`@/assets/${action.icon}`)" :alt="action.name" class="action-icon" />
+        <img :src="action.icon" :alt="action.name" class="w-6 h-6" />
       </button>
     </div>
   </div>
@@ -56,153 +60,29 @@
 
 <script setup>
 import { ref } from "vue";
-import { useRouter } from 'vue-router';
 
-const router = useRouter();
-
+// Параметры профиля
 const level = ref(7);
 const xp = ref(25);
 const xpProgress = ref((xp.value / 100) * 100);
 
+// Действия профиля
 const actions = ref([
-  { name: "Творчество", icon: "creativity.png" },
-  { name: "Задания", icon: "daily.png" },
-  { name: "Ребусы", icon: "rebus.png" },
-  { name: "Загадки", icon: "riddles.png" },
-  { name: "Артикулярная", icon: "articulation.png" },
-  { name: "Нейрогимнастика", icon: "neuro.png" },
-  { name: "Скороговорки", icon: "tonguetwisters.png" },
+  { name: "Настройка", icon: "neuro.png" },
+  { name: "Статистика", icon: "creativity.png" },
+  { name: "Подсказки", icon: "rebus.png" },
+  { name: "Ручной режим", icon: "riddles.png" },
+  { name: "Настройки", icon: "gear-icon.png" },
 ]);
 
+// Функция обмена
 function exchange() {
   alert("Функция обмена не реализована!");
-}
-
-function goBack() {
-  router.push('/');
 }
 </script>
 
 <style scoped>
 .profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-  background: var(--tg-theme-bg-color);
-  color: var(--tg-theme-text-color);
-}
-
-.header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.back-button, .settings-button {
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: var(--tg-theme-text-color);
-  padding: 10px;
-  cursor: pointer;
-}
-
-.username {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.stats {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.stat-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  background: var(--tg-theme-secondary-bg-color, rgba(255, 255, 255, 0.1));
-  border-radius: 12px;
-}
-
-.icon {
-  width: 24px;
-  height: 24px;
-}
-
-.xp-container {
-  width: 100%;
-  margin-bottom: 30px;
-}
-
-.xp-bar {
-  width: 100%;
-  height: 16px;
-  background: var(--tg-theme-secondary-bg-color, rgba(255, 255, 255, 0.1));
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.xp-progress {
-  height: 100%;
-  background: var(--tg-theme-button-color);
-  transition: width 0.3s ease;
-}
-
-.xp-text {
-  text-align: center;
-  margin-top: 8px;
-  font-size: 14px;
-  color: var(--tg-theme-hint-color);
-}
-
-.character {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.character-image {
-  width: 160px;
-  height: 160px;
-  margin-bottom: 20px;
-}
-
-.exchange-button {
-  background: var(--tg-theme-button-color);
-  color: var(--tg-theme-button-text-color);
-  border: none;
-  padding: 12px 24px;
-  border-radius: 20px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.actions {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.action-button {
-  background: var(--tg-theme-secondary-bg-color, rgba(255, 255, 255, 0.1));
-  border: none;
-  padding: 12px;
-  border-radius: 50%;
-}
-
-.action-icon {
-  width: 24px;
-  height: 24px;
+  font-family: "Arial", sans-serif;
 }
 </style>
