@@ -123,12 +123,12 @@ const playClickSound = () => {
   gap: 15px;
   margin-bottom: 30px;
   width: 100%;
-  max-width: 600px;
+  max-width: min(90vw, 800px); /* Адаптивная максимальная ширина */
 }
 
 /* Профиль слева */
 .profile-card {
-  width: 120px;
+  width: min(120px, 20%);
   height: 255px;
   display: flex;
   flex-direction: column;
@@ -173,7 +173,7 @@ const playClickSound = () => {
   grid-template-columns: 1fr;
   gap: 15px;
   width: 100%;
-  max-width: 600px;
+  max-width: min(90vw, 800px); /* Адаптивная максимальная ширина */
 }
 
 .category-item {
@@ -255,6 +255,21 @@ span {
   }
   .press-down {
     animation: none;
+  }
+}
+
+/* Медиа-запросы для разных размеров экрана */
+@media (min-width: 1200px) {
+  .top-menu,
+  .categories {
+    max-width: min(80vw, 1000px); /* Больше места на очень широких экранах */
+  }
+}
+
+@media (min-width: 1600px) {
+  .top-menu,
+  .categories {
+    max-width: min(70vw, 1200px); /* Еще больше места на сверхшироких экранах */
   }
 }
 </style>
