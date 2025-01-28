@@ -1,9 +1,9 @@
 <template>
   <div class="main-menu">
-    <!-- Верхняя часть меню с профилем слева и сеткой 2x2 справа -->
+    <!-- Верхнее меню -->
     <div class="top-menu">
-      <!-- Профиль на всю высоту слева -->
-      <div class="menu-card" @click="handleClick('profile')">
+      <!-- Профиль слева -->
+      <div class="profile-card" @click="handleClick('profile')">
         <img src="@/assets/profile.png" alt="Профиль" class="menu-icon" />
         <span>Профиль</span>
       </div>
@@ -120,12 +120,43 @@ const playClickSound = () => {
 }
 
 .top-menu {
-  display: grid;
-  grid-template-columns: 120px 1fr; /* Профиль слева, сетка справа */
+  display: flex;
   gap: 15px;
   margin-bottom: 30px;
   width: 100%;
-  max-width: 375px; /* Уменьшаем максимальную ширину для более компактного вида */
+  max-width: 400px;
+}
+
+/* Профиль слева */
+.profile-card {
+  width: 100px;
+  height: 215px; /* Высота равна двум карточкам + gap */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+}
+
+.profile-card .menu-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+/* Сетка 2x2 справа */
+.menu-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 15px;
+  height: 215px; /* Фиксированная высота */
 }
 
 .menu-card {
@@ -134,52 +165,37 @@ const playClickSound = () => {
   align-items: center;
   justify-content: center;
   text-align: center;
-  cursor: pointer;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  padding: 10px;
+  padding: 15px;
+  cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: all 0.2s ease;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  height: 100%;
-  aspect-ratio: 1; /* Делаем все карточки квадратными */
 }
 
-/* Специальный стиль для карточки профиля */
-.menu-card:first-child {
-  grid-row: span 2;
-  height: 100%; /* Высота будет равна высоте сетки справа */
-  aspect-ratio: auto; /* Отменяем квадратную форму для профиля */
-}
-
-/* Контейнер для сетки 2x2 */
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 15px;
-  height: 100%;
-  aspect-ratio: 2/1; /* Соотношение сторон для сетки 2x2 */
-}
-
-.menu-icon {
-  width: 40px; /* Уменьшаем размер иконок */
+.menu-card .menu-icon {
+  width: 40px;
   height: 40px;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
-/* Обновляем стили для профиля */
-.menu-card:first-child .menu-icon {
-  width: 60px; /* Немного уменьшаем иконку профиля */
-  height: 60px;
-  margin-bottom: 10px;
+/* Эффекты при наведении и нажатии */
+@media (hover: hover) {
+  .profile-card:hover,
+  .menu-card:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.2);
+  }
 }
 
-/* Добавляем стили для текста */
-.menu-card span {
-  font-size: 14px;
-  line-height: 1.2;
+@media (hover: none) {
+  .profile-card:active,
+  .menu-card:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  }
 }
 
 .categories {
@@ -212,10 +228,6 @@ const playClickSound = () => {
     transform: scale(1.05);
     background: rgba(255, 255, 255, 0.2);
   }
-  
-  .menu-card:hover {
-    transform: scale(1.05);
-  }
 }
 
 /* Эффект вдавливания только для мобильных */
@@ -223,14 +235,6 @@ const playClickSound = () => {
   .category-item:active {
     transform: scale(0.95);
     box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-  }
-  
-  .menu-card:active {
-    transform: scale(0.95);
-  }
-  
-  .press-down {
-    animation: pressDownSimple 0.15s ease-out forwards;
   }
 }
 
