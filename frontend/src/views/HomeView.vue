@@ -55,17 +55,33 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const handleClick = (category) => {
-  // Вибрация на мобильных устройствах
-  if (navigator.vibrate) {
-    navigator.vibrate(50) // 50мс вибрации
+const handleClick = async (category) => {
+  try {
+    // Пробуем разные способы вибрации
+    if (window.navigator && window.navigator.vibrate) {
+      // Стандартный API вибрации
+      window.navigator.vibrate([100, 50, 100]) // Двойная вибрация
+    } else if (window.Telegram?.WebApp?.HapticFeedback) {
+      // Используем Telegram HapticFeedback если доступен
+      window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy')
+    }
+
+    // Добавляем класс для анимации
+    const elements = document.querySelectorAll('.category-item, .menu-card')
+    elements.forEach(el => {
+      if (el.contains(event.target)) {
+        el.classList.add('pressed')
+        setTimeout(() => el.classList.remove('pressed'), 200)
+      }
+    })
+
+    // Навигация
+    router.push(`/tasks?category=${category}`)
+  } catch (error) {
+    console.error('Error in handleClick:', error)
+    // Всё равно выполняем навигацию даже если вибрация не сработала
+    router.push(`/tasks?category=${category}`)
   }
-  
-  // Звуковой эффект (опционально)
-  playClickSound()
-  
-  // Навигация
-  router.push(`/tasks?category=${category}`)
 }
 
 // Функция для воспроизведения звука
@@ -146,12 +162,12 @@ const playClickSound = () => {
 
 /* Эффект при нажатии (для всех устройств) */
 .category-item:active {
-  transform: scale(0.98);
-  background: rgba(255, 255, 255, 0.3);
+  transform: scale(0.96);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .menu-card:active {
-  transform: scale(0.95);
+  transform: scale(0.94);
 }
 
 .category-icon {
@@ -159,14 +175,14 @@ const playClickSound = () => {
   height: 40px;
 }
 
-/* Анимация нажатия */
+/* Улучшенная анимация нажатия */
 @keyframes press {
   0% { transform: scale(1); }
-  50% { transform: scale(0.95); }
+  40% { transform: scale(0.94); }
   100% { transform: scale(1); }
 }
 
-.category-item.pressed {
-  animation: press 0.2s ease-in-out;
+.pressed {
+  animation: press 0.3s cubic-bezier(.25,.46,.45,.94) both;
 }
 </style>
