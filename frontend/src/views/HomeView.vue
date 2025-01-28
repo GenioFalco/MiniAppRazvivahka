@@ -85,11 +85,19 @@ const handleClick = async (category) => {
     })
 
     setTimeout(() => {
-      router.push(`/tasks?category=${category}`)
+      if (category === 'profile') {
+        router.push('/profile')
+      } else {
+        router.push(`/tasks?category=${category}`)
+      }
     }, 150)
   } catch (error) {
     console.error('Error in handleClick:', error)
-    router.push(`/tasks?category=${category}`)
+    if (category === 'profile') {
+      router.push('/profile')
+    } else {
+      router.push(`/tasks?category=${category}`)
+    }
   }
 }
 
