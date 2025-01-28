@@ -57,17 +57,17 @@ const router = useRouter()
 
 const handleClick = async (category) => {
   try {
-    // Более сильная вибрация
+    // Усиленная вибрация
     if (window.navigator && window.navigator.vibrate) {
-      window.navigator.vibrate([100, 30, 100, 30, 100]) // Тройная вибрация
+      window.navigator.vibrate([200, 50, 200]) // Более длительная и сильная вибрация
     }
     
-    // Добавляем класс для анимации встряски
+    // Добавляем класс для анимации вдавливания
     const elements = document.querySelectorAll('.category-item, .menu-card')
     elements.forEach(el => {
       if (el.contains(event.target)) {
-        el.classList.add('shake')
-        setTimeout(() => el.classList.remove('shake'), 500)
+        el.classList.add('press-effect')
+        setTimeout(() => el.classList.remove('press-effect'), 300)
       }
     })
 
@@ -145,34 +145,22 @@ const playClickSound = () => {
   padding: 10px;
   gap: 10px;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
-  -webkit-tap-highlight-color: transparent;
   position: relative;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transform: translateY(0);
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
+  transform-origin: center center;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Эффект при наведении (для ПК) */
-@media (hover: hover) {
-  .category-item:hover {
-    transform: scale(1.02);
-    background: rgba(255, 255, 255, 0.2);
-  }
-}
-
-/* Эффект при нажатии (для всех устройств) */
+/* Эффект при нажатии */
 .category-item:active {
-  transform: scale(0.95);
-  background: rgba(255, 255, 255, 0.3);
-  transition: all 0.1s ease-in-out;
+  transform: scale(0.97) translateY(3px);
+  background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  transform: translateY(1px);
 }
 
 .menu-card:active {
-  transform: scale(0.92);
-  transition: all 0.1s ease-in-out;
+  transform: scale(0.95) translateY(2px);
 }
 
 .category-icon {
@@ -180,47 +168,23 @@ const playClickSound = () => {
   height: 40px;
 }
 
-/* Улучшенная анимация нажатия */
-@keyframes press {
-  0% { transform: scale(1); }
-  40% { transform: scale(0.94); }
-  100% { transform: scale(1); }
+/* Заменяем анимацию встряски на вдавливание */
+@keyframes pressDown {
+  0% { 
+    transform: scale(1) translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  40% { 
+    transform: scale(0.97) translateY(3px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  100% { 
+    transform: scale(1) translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
 }
 
-.pressed {
-  animation: press 0.3s cubic-bezier(.25,.46,.45,.94) both;
-}
-
-/* Анимация встряски */
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
-  20%, 40%, 60%, 80% { transform: translateX(2px); }
-}
-
-.shake {
-  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
-
-/* Добавляем подсветку при нажатии */
-.category-item::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 10px;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.category-item:active::after {
-  opacity: 1;
+.press-effect {
+  animation: pressDown 0.3s cubic-bezier(.25,.46,.45,.94) both;
 }
 </style>
