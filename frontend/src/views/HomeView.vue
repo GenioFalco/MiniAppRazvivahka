@@ -57,9 +57,13 @@ const router = useRouter()
 
 const handleClick = async (category) => {
   try {
-    // Усиленная вибрация
-    if (window.navigator && window.navigator.vibrate) {
-      window.navigator.vibrate([200, 50, 200]) // Более длительная и сильная вибрация
+    // Короткая, резкая вибрация в стиле iOS
+    if (window.Telegram?.WebApp?.HapticFeedback) {
+      // Используем Telegram API для тактильной отдачи
+      window.Telegram.WebApp.HapticFeedback.impactOccurred('light')
+    } else if (window.navigator && window.navigator.vibrate) {
+      // Если Telegram API недоступен, используем стандартный API
+      window.navigator.vibrate(10) // Очень короткая вибрация для имитации iOS
     }
     
     // Добавляем класс для анимации вдавливания
@@ -67,14 +71,14 @@ const handleClick = async (category) => {
     elements.forEach(el => {
       if (el.contains(event.target)) {
         el.classList.add('press-effect')
-        setTimeout(() => el.classList.remove('press-effect'), 300)
+        setTimeout(() => el.classList.remove('press-effect'), 200) // Уменьшаем время анимации
       }
     })
 
-    // Навигация с небольшой задержкой для анимации
+    // Уменьшаем задержку навигации
     setTimeout(() => {
       router.push(`/tasks?category=${category}`)
-    }, 300)
+    }, 200)
   } catch (error) {
     console.error('Error in handleClick:', error)
     router.push(`/tasks?category=${category}`)
@@ -147,20 +151,21 @@ const playClickSound = () => {
   cursor: pointer;
   position: relative;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: all 0.15s ease;
+  transition: all 0.1s ease; /* Уменьшаем время перехода */
   transform-origin: center center;
   -webkit-tap-highlight-color: transparent;
+  user-select: none; /* Предотвращаем выделение текста */
 }
 
-/* Эффект при нажатии */
+/* Эффект при нажатии - более быстрый и четкий */
 .category-item:active {
-  transform: scale(0.97) translateY(3px);
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  transform: scale(0.98) translateY(1px); /* Уменьшаем эффект */
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
 }
 
 .menu-card:active {
-  transform: scale(0.95) translateY(2px);
+  transform: scale(0.97);
 }
 
 .category-icon {
@@ -168,23 +173,29 @@ const playClickSound = () => {
   height: 40px;
 }
 
-/* Заменяем анимацию встряски на вдавливание */
+/* Обновленная анимация нажатия - более короткая и четкая */
 @keyframes pressDown {
   0% { 
-    transform: scale(1) translateY(0);
+    transform: scale(1);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  40% { 
-    transform: scale(0.97) translateY(3px);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   }
   100% { 
-    transform: scale(1) translateY(0);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transform: scale(0.98) translateY(1px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
   }
 }
 
 .press-effect {
-  animation: pressDown 0.3s cubic-bezier(.25,.46,.45,.94) both;
+  animation: pressDown 0.15s ease-out forwards;
+}
+
+/* Отключаем анимацию для устройств, предпочитающих отсутствие анимации */
+@media (prefers-reduced-motion: reduce) {
+  .category-item {
+    transition: none;
+  }
+  .press-effect {
+    animation: none;
+  }
 }
 </style>
