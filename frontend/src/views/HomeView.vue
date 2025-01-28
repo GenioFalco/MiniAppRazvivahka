@@ -57,18 +57,17 @@ const router = useRouter()
 
 const handleClick = async (category) => {
   try {
-    // Усиленная вибрация для мобильных
-    if (window.Telegram?.WebApp?.HapticFeedback) {
-      // Двойной импульс для более заметной отдачи
+    // Прямой вызов вибрации сразу при нажатии
+    if (window.Telegram?.WebApp) {
+      // Используем все доступные методы вибрации Telegram
       window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy')
-      setTimeout(() => {
-        window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy')
-      }, 50)
+      window.Telegram.WebApp.HapticFeedback.notificationOccurred('success')
+      window.Telegram.WebApp.HapticFeedback.selectionChanged()
     }
-    
-    if (window.navigator && window.navigator.vibrate) {
-      // Серия коротких вибраций для более заметного эффекта
-      window.navigator.vibrate([30, 30, 30])
+
+    // Стандартная вибрация как запасной вариант
+    if ('vibrate' in navigator) {
+      navigator.vibrate([50, 50, 50])
     }
     
     // Эффект нажатия
