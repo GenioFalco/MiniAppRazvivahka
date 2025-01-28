@@ -1,6 +1,7 @@
 <template>
   <div class="app" :class="{ 'dark': isDarkTheme }">
-    <RouterView />
+    <RouterView v-if="isInitialized" />
+    <div v-else class="loading">Загрузка...</div>
   </div>
 </template>
 
@@ -8,15 +9,34 @@
 import { ref, onMounted, computed } from 'vue'
 import { RouterView } from 'vue-router'
 
+const isInitialized = ref(false)
 const isDarkTheme = computed(() => {
   return window.Telegram?.WebApp?.colorScheme === 'dark'
 })
 
-// Инициализация Telegram WebApp
 onMounted(() => {
+  // Проверяем, запущено ли приложение в Telegram
   if (window.Telegram?.WebApp) {
+    // Инициализируем Telegram WebApp
     window.Telegram.WebApp.ready()
     window.Telegram.WebApp.expand()
+    
+    // Получаем тему
+    document.documentElement.className = window.Telegram.WebApp.colorScheme
+    
+    // Устанавливаем цвета из Telegram WebApp
+    document.documentElement.style.setProperty('--tg-theme-bg-color', window.Telegram.WebApp.backgroundColor)
+    document.documentElement.style.setProperty('--tg-theme-text-color', window.Telegram.WebApp.textColor)
+    document.documentElement.style.setProperty('--tg-theme-hint-color', window.Telegram.WebApp.backgroundColor)
+    document.documentElement.style.setProperty('--tg-theme-link-color', window.Telegram.WebApp.linkColor)
+    document.documentElement.style.setProperty('--tg-theme-button-color', window.Telegram.WebApp.buttonColor)
+    document.documentElement.style.setProperty('--tg-theme-button-text-color', window.Telegram.WebApp.buttonTextColor)
+    
+    // Помечаем, что инициализация завершена
+    isInitialized.value = true
+  } else {
+    // Если запущено не в Telegram, просто показываем контент
+    isInitialized.value = true
   }
 })
 </script>
@@ -44,6 +64,15 @@ body {
 .app {
   min-height: 100vh;
   padding: 1rem;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.2rem;
+  color: var(--tg-theme-text-color);
 }
 
 .dark {
