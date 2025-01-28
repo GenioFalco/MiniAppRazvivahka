@@ -85,18 +85,29 @@ const handleClick = async (category) => {
     })
 
     setTimeout(() => {
-      if (category === 'profile') {
-        router.push({ name: 'profile' })
-      } else {
-        router.push({ name: 'tasks', query: { category } })
+      // Обработка разных типов кнопок
+      switch(category) {
+        case 'profile':
+          router.push('/MiniAppRazvivahka/profile')
+          break;
+        case 'subscription':
+        case 'photoalbum':
+        case 'shop':
+        case 'link':
+          // Для верхних кнопок меню
+          router.push(`/MiniAppRazvivahka/tasks?category=${category}`)
+          break;
+        default:
+          // Для категорий внизу
+          router.push(`/MiniAppRazvivahka/tasks?category=${category}`)
       }
     }, 150)
   } catch (error) {
     console.error('Error in handleClick:', error)
     if (category === 'profile') {
-      router.push({ name: 'profile' })
+      router.push('/MiniAppRazvivahka/profile')
     } else {
-      router.push({ name: 'tasks', query: { category } })
+      router.push(`/MiniAppRazvivahka/tasks?category=${category}`)
     }
   }
 }
