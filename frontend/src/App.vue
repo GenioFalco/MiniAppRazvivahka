@@ -77,18 +77,34 @@ onMounted(() => {
   --tg-theme-secondary-bg-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   background-color: var(--tg-theme-bg-color);
   color: var(--tg-theme-text-color);
-  margin: 0;
-  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .app {
-  min-height: 100vh;
-  padding: 1rem;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .loading {
