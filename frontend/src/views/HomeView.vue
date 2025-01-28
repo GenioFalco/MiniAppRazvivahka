@@ -57,29 +57,26 @@ const router = useRouter()
 
 const handleClick = async (category) => {
   try {
-    // Пробуем разные способы вибрации
+    // Более сильная вибрация
     if (window.navigator && window.navigator.vibrate) {
-      // Стандартный API вибрации
-      window.navigator.vibrate([100, 50, 100]) // Двойная вибрация
-    } else if (window.Telegram?.WebApp?.HapticFeedback) {
-      // Используем Telegram HapticFeedback если доступен
-      window.Telegram.WebApp.HapticFeedback.impactOccurred('heavy')
+      window.navigator.vibrate([100, 30, 100, 30, 100]) // Тройная вибрация
     }
-
-    // Добавляем класс для анимации
+    
+    // Добавляем класс для анимации встряски
     const elements = document.querySelectorAll('.category-item, .menu-card')
     elements.forEach(el => {
       if (el.contains(event.target)) {
-        el.classList.add('pressed')
-        setTimeout(() => el.classList.remove('pressed'), 200)
+        el.classList.add('shake')
+        setTimeout(() => el.classList.remove('shake'), 500)
       }
     })
 
-    // Навигация
-    router.push(`/tasks?category=${category}`)
+    // Навигация с небольшой задержкой для анимации
+    setTimeout(() => {
+      router.push(`/tasks?category=${category}`)
+    }, 300)
   } catch (error) {
     console.error('Error in handleClick:', error)
-    // Всё равно выполняем навигацию даже если вибрация не сработала
     router.push(`/tasks?category=${category}`)
   }
 }
@@ -150,6 +147,10 @@ const playClickSound = () => {
   cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease;
   -webkit-tap-highlight-color: transparent;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transform: translateY(0);
+  transition: all 0.2s ease;
 }
 
 /* Эффект при наведении (для ПК) */
@@ -162,12 +163,16 @@ const playClickSound = () => {
 
 /* Эффект при нажатии (для всех устройств) */
 .category-item:active {
-  transform: scale(0.96);
-  background: rgba(255, 255, 255, 0.25);
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.1s ease-in-out;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  transform: translateY(1px);
 }
 
 .menu-card:active {
-  transform: scale(0.94);
+  transform: scale(0.92);
+  transition: all 0.1s ease-in-out;
 }
 
 .category-icon {
@@ -184,5 +189,38 @@ const playClickSound = () => {
 
 .pressed {
   animation: press 0.3s cubic-bezier(.25,.46,.45,.94) both;
+}
+
+/* Анимация встряски */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+  20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+.shake {
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Добавляем подсветку при нажатии */
+.category-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.category-item:active::after {
+  opacity: 1;
 }
 </style>
