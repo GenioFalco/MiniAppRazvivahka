@@ -5,14 +5,14 @@
       <button class="text-2xl">&#8592;</button>
       <h1 class="text-xl font-bold">Тима#564</h1>
       <button>
-        <img src="@/assets/settings.png" alt="Settings" class="w-6 h-6" />
+        <img src="@/assets/gear-icon.png" alt="Settings" class="w-6 h-6" />
       </button>
     </header>
 
     <!-- User Stats -->
     <div class="stats w-full px-6 flex items-center justify-between my-4">
       <div class="flex items-center">
-        <img src="@/assets/coin.png" alt="Coins" class="w-6 h-6 mr-2" />
+        <img src="@/assets/coin-icon.png" alt="Coins" class="w-6 h-6 mr-2" />
         <span>1,555,000</span>
       </div>
       <div class="flex items-center">
@@ -20,7 +20,7 @@
         <span>25</span>
       </div>
       <div class="flex items-center">
-        <img src="@/assets/trophy.png" alt="Trophies" class="w-6 h-6 mr-2" />
+        <img src="@/assets/trophy-icon.png" alt="Trophies" class="w-6 h-6 mr-2" />
         <span>3</span>
       </div>
     </div>
@@ -72,7 +72,7 @@ const actions = ref([
   { name: "Статистика", icon: "@/assets/creativity.png" },
   { name: "Подсказки", icon: "@/assets/rebus.png" },
   { name: "Ручной режим", icon: "@/assets/riddles.png" },
-  { name: "Настройки", icon: "@/assets/settings.png" },
+  { name: "Настройки", icon: "@/assets/gear-icon.png" },
 ]);
 
 // Функция обмена
