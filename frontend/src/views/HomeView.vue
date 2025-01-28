@@ -120,24 +120,23 @@ const playClickSound = () => {
 
 .top-menu {
   display: flex;
-  gap: 8px;
-  margin-bottom: 15px;
+  gap: 15px;
+  margin-bottom: 30px;
   width: 100%;
-  max-width: 320px;
-  justify-content: center;
+  max-width: 375px;
 }
 
 .profile-card {
-  width: 65px;
-  height: 90px;
+  width: 120px;
+  height: 180px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 8px;
+  border-radius: 10px;
+  padding: 15px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: all 0.2s ease;
@@ -146,40 +145,40 @@ const playClickSound = () => {
 }
 
 .menu-grid {
+  flex: 1;
   display: grid;
-  grid-template-columns: repeat(2, 65px);
-  gap: 8px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
 }
 
 .menu-card {
-  width: 65px;
-  height: 90px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 8px;
+  border-radius: 10px;
+  padding: 15px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: all 0.2s ease;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+  height: 80px;
 }
 
 /* Размеры иконок */
 .menu-icon {
-  width: 28px;
-  height: 28px;
-  margin-bottom: 4px;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 8px;
 }
 
 .profile-card .menu-icon {
-  width: 32px;
-  height: 32px;
-  margin-bottom: 6px;
+  width: 70px;
+  height: 70px;
+  margin-bottom: 15px;
 }
 
 .category-icon {
@@ -190,8 +189,30 @@ const playClickSound = () => {
 
 /* Стили для текста */
 span {
-  font-size: 11px;
-  line-height: 1.1;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 375px;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 /* Эффекты при наведении и нажатии */
