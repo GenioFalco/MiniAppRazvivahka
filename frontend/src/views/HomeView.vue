@@ -109,7 +109,7 @@ const playClickSound = () => {
   flex-direction: column;
   align-items: center;
   background: linear-gradient(180deg, #4a90e2, #003f7f);
-  padding: 15px;
+  padding: 20px;
   min-height: 100vh;
   width: 100%;
   box-sizing: border-box;
@@ -120,23 +120,23 @@ const playClickSound = () => {
 
 .top-menu {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 15px;
+  margin-bottom: 30px;
   width: 100%;
-  max-width: 350px;
+  max-width: 600px;
 }
 
 /* Профиль слева */
 .profile-card {
-  width: 90px;
-  height: 190px;
+  width: 120px;
+  height: 255px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  padding: 10px;
+  padding: 15px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: all 0.2s ease;
@@ -148,8 +148,8 @@ const playClickSound = () => {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 10px;
-  height: 190px;
+  gap: 15px;
+  height: 255px;
 }
 
 .menu-card {
@@ -160,7 +160,7 @@ const playClickSound = () => {
   text-align: center;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  padding: 10px;
+  padding: 15px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: all 0.2s ease;
@@ -171,10 +171,9 @@ const playClickSound = () => {
 .categories {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
+  gap: 15px;
   width: 100%;
-  max-width: 350px;
-  margin: 0 auto;
+  max-width: 600px;
 }
 
 .category-item {
@@ -182,7 +181,7 @@ const playClickSound = () => {
   align-items: center;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  padding: 10px 15px;
+  padding: 15px;
   gap: 15px;
   cursor: pointer;
   position: relative;
@@ -190,59 +189,38 @@ const playClickSound = () => {
   transition: all 0.2s ease;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  height: 45px;
 }
 
 /* Размеры иконок */
 .menu-icon {
-  width: 35px;
-  height: 35px;
-  margin-bottom: 5px;
-}
-
-.profile-card .menu-icon {
   width: 50px;
   height: 50px;
   margin-bottom: 8px;
 }
 
+.profile-card .menu-icon {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 10px;
+}
+
 .category-icon {
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   flex-shrink: 0;
 }
 
 /* Стили для текста */
 span {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.2;
-  white-space: nowrap;
-}
-
-/* Медиа-запросы для адаптивности */
-@media (min-width: 768px) {
-  .main-menu {
-    padding: 20px;
-  }
-
-  .top-menu,
-  .categories {
-    max-width: 400px;
-  }
-
-  .category-item {
-    height: 50px;
-  }
-
-  span {
-    font-size: 14px;
-  }
 }
 
 /* Эффекты при наведении и нажатии */
 @media (hover: hover) {
   .profile-card:hover,
-  .menu-card:hover {
+  .menu-card:hover,
+  .category-item:hover {
     transform: scale(1.05);
     background: rgba(255, 255, 255, 0.2);
   }
@@ -250,34 +228,23 @@ span {
 
 @media (hover: none) {
   .profile-card:active,
-  .menu-card:active {
-    transform: scale(0.95);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-  }
-}
-
-/* Эффект при наведении только для ПК */
-@media (hover: hover) {
-  .category-item:hover {
-    transform: scale(1.05);
-    background: rgba(255, 255, 255, 0.2);
-  }
-}
-
-/* Эффект вдавливания только для мобильных */
-@media (hover: none) {
+  .menu-card:active,
   .category-item:active {
     transform: scale(0.95);
     box-shadow: 0 1px 2px rgba(0,0,0,0.15);
   }
 }
 
-/* Анимация вдавливания для мобильных */
+/* Анимация вдавливания */
 @keyframes pressDownSimple {
   to { 
     transform: scale(0.95);
     box-shadow: 0 1px 2px rgba(0,0,0,0.15);
   }
+}
+
+.press-down {
+  animation: pressDownSimple 0.15s ease-out forwards;
 }
 
 /* Отключаем анимации для устройств с отключенной анимацией */
