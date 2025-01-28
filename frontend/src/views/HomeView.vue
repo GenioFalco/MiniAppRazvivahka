@@ -258,17 +258,38 @@ span {
 }
 
 /* Медиа-запросы для разных размеров экрана */
+@media (min-width: 768px) {
+  .top-menu,
+  .categories {
+    max-width: min(85vw, 600px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .top-menu,
+  .categories {
+    max-width: min(80vw, 800px);
+  }
+}
+
 @media (min-width: 1200px) {
   .top-menu,
   .categories {
-    max-width: min(80vw, 1000px); /* Больше места на очень широких экранах */
+    max-width: min(75vw, 1000px);
   }
 }
 
 @media (min-width: 1600px) {
   .top-menu,
   .categories {
-    max-width: min(70vw, 1200px); /* Еще больше места на сверхшироких экранах */
+    max-width: min(70vw, 1200px);
+  }
+}
+
+@media (min-width: 1920px) {
+  .top-menu,
+  .categories {
+    max-width: min(65vw, 1400px);
   }
 }
 </style>
