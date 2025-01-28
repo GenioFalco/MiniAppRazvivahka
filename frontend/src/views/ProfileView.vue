@@ -1,186 +1,208 @@
 <template>
-  <div class="profile">
-    <div class="profile-header">
-      <div class="avatar">
-        {{ userInitials }}
-      </div>
-      <h1>{{ userData.first_name }} {{ userData.last_name }}</h1>
-      <p class="username">@{{ userData.username }}</p>
-    </div>
+  <div class="profile container">
+    <!-- Header -->
+    <header class="header">
+      <button class="back-button clickable" @click="goBack">&#8592;</button>
+      <h1 class="username">Тима#564</h1>
+      <button class="settings-button clickable">
+        <img src="@/assets/gear-icon.png" alt="Settings" class="icon" />
+      </button>
+    </header>
 
+    <!-- User Stats -->
     <div class="stats">
-      <div class="stat-card">
-        <h3>Решено задач</h3>
-        <p class="stat-value">{{ stats.solved }}</p>
+      <div class="stat-item clickable">
+        <img src="@/assets/coin-icon.png" alt="Coins" class="icon" />
+        <span>1,555,000</span>
       </div>
-      <div class="stat-card">
-        <h3>Очки</h3>
-        <p class="stat-value">{{ stats.points }}</p>
+      <div class="stat-item clickable">
+        <img src="@/assets/daily.png" alt="Targets" class="icon" />
+        <span>25</span>
       </div>
-      <div class="stat-card">
-        <h3>Уровень</h3>
-        <p class="stat-value">{{ stats.level }}</p>
+      <div class="stat-item clickable">
+        <img src="@/assets/trophy-icon.png" alt="Trophies" class="icon" />
+        <span>3</span>
       </div>
     </div>
 
-    <div class="achievements">
-      <h2>Достижения</h2>
-      <div class="achievements-grid">
-        <div 
-          v-for="achievement in achievements" 
-          :key="achievement.id"
-          class="achievement-card"
-          :class="{ 'achievement-locked': !achievement.unlocked }"
-        >
-          <div class="achievement-icon">{{ achievement.icon }}</div>
-          <h3>{{ achievement.name }}</h3>
-          <p>{{ achievement.description }}</p>
-        </div>
+    <!-- XP Bar -->
+    <div class="xp-container">
+      <div class="xp-bar">
+        <div class="xp-progress" :style="{ width: xpProgress + '%' }"></div>
       </div>
+      <p class="xp-text">Уровень {{ level }} ({{ xp }}/100 XP)</p>
+    </div>
+
+    <!-- Character -->
+    <div class="character">
+      <img src="@/assets/profile.png" alt="Character" class="character-image" />
+      <button class="exchange-button clickable" @click="exchange">
+        Обменять
+      </button>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button
+        v-for="(action, index) in actions"
+        :key="index"
+        class="action-button clickable"
+      >
+        <img :src="require(`@/assets/${action.icon}`)" :alt="action.name" class="action-icon" />
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref } from "vue";
+import { useRouter } from 'vue-router';
 
-const userData = ref({
-  first_name: 'Пользователь',
-  last_name: 'Telegram',
-  username: 'user',
-})
+const router = useRouter();
 
-const stats = ref({
-  solved: 0,
-  points: 0,
-  level: 1
-})
+const level = ref(7);
+const xp = ref(25);
+const xpProgress = ref((xp.value / 100) * 100);
 
-const achievements = ref([
-  {
-    id: 1,
-    name: 'Первые шаги',
-    description: 'Решите первую задачу',
-    icon: '🎯',
-    unlocked: true
-  },
-  {
-    id: 2,
-    name: 'Математик',
-    description: 'Решите 10 задач по математике',
-    icon: '🔢',
-    unlocked: false
-  },
-  {
-    id: 3,
-    name: 'Логик',
-    description: 'Решите 10 логических задач',
-    icon: '🧩',
-    unlocked: false
-  }
-])
+const actions = ref([
+  { name: "Творчество", icon: "creativity.png" },
+  { name: "Задания", icon: "daily.png" },
+  { name: "Ребусы", icon: "rebus.png" },
+  { name: "Загадки", icon: "riddles.png" },
+  { name: "Артикулярная", icon: "articulation.png" },
+  { name: "Нейрогимнастика", icon: "neuro.png" },
+  { name: "Скороговорки", icon: "tonguetwisters.png" },
+]);
 
-const userInitials = computed(() => {
-  const first = userData.value.first_name.charAt(0)
-  const last = userData.value.last_name.charAt(0)
-  return `${first}${last}`
-})
+function exchange() {
+  alert("Функция обмена не реализована!");
+}
 
-onMounted(() => {
-  // Получаем данные пользователя из Telegram WebApp
-  if (window.Telegram?.WebApp) {
-    const tgUser = window.Telegram.WebApp.initDataUnsafe?.user
-    if (tgUser) {
-      userData.value = {
-        first_name: tgUser.first_name,
-        last_name: tgUser.last_name || '',
-        username: tgUser.username || 'user'
-      }
-    }
-  }
-})
+function goBack() {
+  router.push('/');
+}
 </script>
 
 <style scoped>
 .profile {
-  padding: 1rem;
-  max-width: 800px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: var(--tg-theme-bg-color);
+  color: var(--tg-theme-text-color);
 }
 
-.profile-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.avatar {
-  width: 80px;
-  height: 80px;
-  background: var(--tg-theme-button-color, #2196F3);
-  color: var(--tg-theme-button-text-color, white);
-  border-radius: 50%;
+.header {
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 0 auto 1rem;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.back-button, .settings-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--tg-theme-text-color);
+  padding: 10px;
+  cursor: pointer;
 }
 
 .username {
-  color: var(--tg-theme-hint-color, #666);
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.stat-card {
-  background: var(--tg-theme-secondary-bg-color, white);
-  padding: 1rem;
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--tg-theme-secondary-bg-color, rgba(255, 255, 255, 0.1));
   border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.stat-value {
-  font-size: 1.5rem;
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.xp-container {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.xp-bar {
+  width: 100%;
+  height: 16px;
+  background: var(--tg-theme-secondary-bg-color, rgba(255, 255, 255, 0.1));
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.xp-progress {
+  height: 100%;
+  background: var(--tg-theme-button-color);
+  transition: width 0.3s ease;
+}
+
+.xp-text {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--tg-theme-hint-color);
+}
+
+.character {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.character-image {
+  width: 160px;
+  height: 160px;
+  margin-bottom: 20px;
+}
+
+.exchange-button {
+  background: var(--tg-theme-button-color);
+  color: var(--tg-theme-button-text-color);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 20px;
+  font-size: 16px;
   font-weight: bold;
-  color: var(--tg-theme-button-color, #2196F3);
 }
 
-.achievements h2 {
-  margin-bottom: 1rem;
-  text-align: center;
+.actions {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
-.achievements-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+.action-button {
+  background: var(--tg-theme-secondary-bg-color, rgba(255, 255, 255, 0.1));
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
 }
 
-.achievement-card {
-  background: var(--tg-theme-secondary-bg-color, white);
-  padding: 1rem;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.action-icon {
+  width: 24px;
+  height: 24px;
 }
-
-.achievement-icon {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.achievement-locked {
-  opacity: 0.5;
-}
-
-.achievement-locked .achievement-icon {
-  filter: grayscale(1);
-}
-</style> 
+</style>
