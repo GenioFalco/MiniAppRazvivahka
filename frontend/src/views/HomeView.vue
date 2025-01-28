@@ -119,16 +119,38 @@ const playClickSound = () => {
 }
 
 .top-menu {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 колонки одинакового размера */
+  display: flex;
   gap: 15px;
   margin-bottom: 30px;
   width: 100%;
   max-width: min(90vw, 800px);
 }
 
-/* Общие стили для всех карточек */
-.profile-card,
+.profile-card {
+  width: 120px;
+  height: 255px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.menu-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
 .menu-card {
   display: flex;
   flex-direction: column;
@@ -143,20 +165,7 @@ const playClickSound = () => {
   transition: all 0.2s ease;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  aspect-ratio: 1; /* Все карточки квадратные */
-}
-
-/* Профиль занимает две строки */
-.profile-card {
-  grid-row: span 2;
-}
-
-/* Сетка 2x2 справа */
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  grid-column: 2 / span 2; /* Занимает 2 колонки справа */
+  aspect-ratio: 1;
 }
 
 /* Размеры иконок */
