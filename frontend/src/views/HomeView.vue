@@ -1,28 +1,28 @@
 <template>
   <div class="main-menu">
     <!-- Верхнее меню -->
-    <div class="top-menu">
+    <div class="top-menu container">
       <!-- Профиль слева -->
-      <div class="profile-card" @click="handleClick('profile')">
+      <div class="profile-card clickable" @click="handleClick('profile')">
         <img src="@/assets/profile.png" alt="Профиль" class="menu-icon" />
         <span>Профиль</span>
       </div>
       
       <!-- Сетка 2x2 справа -->
       <div class="menu-grid">
-        <div class="menu-card" @click="handleClick('subscription')">
+        <div class="menu-card clickable" @click="handleClick('subscription')">
           <img src="@/assets/subscription.png" alt="Подписка" class="menu-icon" />
           <span>Подписка</span>
         </div>
-        <div class="menu-card" @click="handleClick('photoalbum')">
+        <div class="menu-card clickable" @click="handleClick('photoalbum')">
           <img src="@/assets/photoalbum.png" alt="Фотоальбом" class="menu-icon" />
           <span>Фотоальбом</span>
         </div>
-        <div class="menu-card" @click="handleClick('shop')">
+        <div class="menu-card clickable" @click="handleClick('shop')">
           <img src="@/assets/shop.png" alt="Магазин" class="menu-icon" />
           <span>Магазин</span>
         </div>
-        <div class="menu-card" @click="handleClick('link')">
+        <div class="menu-card clickable" @click="handleClick('link')">
           <img src="@/assets/link.png" alt="Ссылки" class="menu-icon" />
           <span>Ссылки</span>
         </div>
@@ -30,32 +30,32 @@
     </div>
 
     <!-- Список категорий -->
-    <div class="categories">
-      <div class="category-item" @click="handleClick('creativity')">
+    <div class="categories container">
+      <div class="category-item clickable" @click="handleClick('creativity')">
         <img src="@/assets/creativity.png" alt="Творчество" class="category-icon" />
         <span>Творчество</span>
       </div>
-      <div class="category-item" @click="handleClick('daily')">
+      <div class="category-item clickable" @click="handleClick('daily')">
         <img src="@/assets/daily.png" alt="Задания на день" class="category-icon" />
         <span>Задания на день</span>
       </div>
-      <div class="category-item" @click="handleClick('riddles')">
+      <div class="category-item clickable" @click="handleClick('riddles')">
         <img src="@/assets/riddles.png" alt="Загадки" class="category-icon" />
         <span>Загадки</span>
       </div>
-      <div class="category-item" @click="handleClick('tonguetwisters')">
+      <div class="category-item clickable" @click="handleClick('tonguetwisters')">
         <img src="@/assets/tonguetwisters.png" alt="Скороговорки" class="category-icon" />
         <span>Скороговорки</span>
       </div>
-      <div class="category-item" @click="handleClick('rebus')">
+      <div class="category-item clickable" @click="handleClick('rebus')">
         <img src="@/assets/rebus.png" alt="Ребусы" class="category-icon" />
         <span>Ребусы</span>
       </div>
-      <div class="category-item" @click="handleClick('articulation')">
+      <div class="category-item clickable" @click="handleClick('articulation')">
         <img src="@/assets/articulation.png" alt="Артикулярная гимнастика" class="category-icon" />
         <span>Артикулярная гимнастика</span>
       </div>
-      <div class="category-item" @click="handleClick('neuro')">
+      <div class="category-item clickable" @click="handleClick('neuro')">
         <img src="@/assets/neuro.png" alt="Нейрогимнастика" class="category-icon" />
         <span>Нейрогимнастика</span>
       </div>
@@ -123,7 +123,6 @@ const playClickSound = () => {
   gap: 15px;
   margin-bottom: 30px;
   width: 100%;
-  max-width: 375px;
 }
 
 .profile-card {
@@ -198,7 +197,6 @@ span {
   flex-direction: column;
   gap: 15px;
   width: 100%;
-  max-width: 375px;
 }
 
 .category-item {
@@ -254,42 +252,6 @@ span {
   }
   .press-down {
     animation: none;
-  }
-}
-
-/* Медиа-запросы для разных размеров экрана */
-@media (min-width: 768px) {
-  .top-menu,
-  .categories {
-    max-width: min(85vw, 600px);
-  }
-}
-
-@media (min-width: 1024px) {
-  .top-menu,
-  .categories {
-    max-width: min(80vw, 800px);
-  }
-}
-
-@media (min-width: 1200px) {
-  .top-menu,
-  .categories {
-    max-width: min(75vw, 1000px);
-  }
-}
-
-@media (min-width: 1600px) {
-  .top-menu,
-  .categories {
-    max-width: min(70vw, 1200px);
-  }
-}
-
-@media (min-width: 1920px) {
-  .top-menu,
-  .categories {
-    max-width: min(65vw, 1400px);
   }
 }
 </style>

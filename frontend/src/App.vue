@@ -67,6 +67,16 @@ onMounted(() => {
 </script>
 
 <style>
+@import './styles/adaptive.css';
+
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: white;
+  min-height: 100vh;
+}
+
 :root {
   --tg-theme-bg-color: var(--tg-theme-bg-color, #fff);
   --tg-theme-text-color: var(--tg-theme-text-color, #000);
