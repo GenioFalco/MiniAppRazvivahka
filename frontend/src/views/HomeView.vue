@@ -123,22 +123,22 @@ const playClickSound = () => {
   gap: 15px;
   margin-bottom: 30px;
   width: 100%;
-  max-width: min(90vw, 800px); /* Адаптивная максимальная ширина */
+  max-width: min(90vw, 800px);
 }
 
 /* Сетка 2x2 справа */
 .menu-grid {
-  flex: 1;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 15px;
   height: 255px;
+  width: calc(100% - 120px - 15px); /* Вся ширина минус профиль и отступ */
 }
 
 /* Профиль слева */
 .profile-card {
-  width: calc((100% - 15px) / 2); /* Ширина равна одной кнопке из сетки 2x2 */
+  width: 120px; /* Фиксированная ширина */
   height: 255px;
   display: flex;
   flex-direction: column;
@@ -150,7 +150,7 @@ const playClickSound = () => {
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: all 0.2s ease;
-  flex-shrink: 0; /* Предотвращаем сжатие */
+  flex-shrink: 0;
 }
 
 .menu-card {
@@ -167,6 +167,7 @@ const playClickSound = () => {
   transition: all 0.2s ease;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+  aspect-ratio: 1; /* Делаем карточки квадратными */
 }
 
 .categories {
