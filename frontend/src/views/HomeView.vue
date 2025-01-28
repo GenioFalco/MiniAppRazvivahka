@@ -2,15 +2,15 @@
   <div class="main-menu">
     <!-- Верхняя часть меню с иконками профиля, подписки и фотоальбома -->
     <div class="top-menu">
-      <div class="menu-card">
+      <div class="menu-card" @click="handleClick('profile')">
         <img src="@/assets/profile.png" alt="Профиль" class="menu-icon" />
         <span>Профиль</span>
       </div>
-      <div class="menu-card">
+      <div class="menu-card" @click="handleClick('subscription')">
         <img src="@/assets/subscription.png" alt="Подписка" class="menu-icon" />
         <span>Подписка</span>
       </div>
-      <div class="menu-card">
+      <div class="menu-card" @click="handleClick('photoalbum')">
         <img src="@/assets/photoalbum.png" alt="Фотоальбом" class="menu-icon" />
         <span>Фотоальбом</span>
       </div>
@@ -18,31 +18,31 @@
 
     <!-- Список категорий -->
     <div class="categories">
-      <div class="category-item">
+      <div class="category-item" @click="handleClick('creativity')">
         <img src="@/assets/creativity.png" alt="Творчество" class="category-icon" />
         <span>Творчество</span>
       </div>
-      <div class="category-item">
+      <div class="category-item" @click="handleClick('daily')">
         <img src="@/assets/daily.png" alt="Задания на день" class="category-icon" />
         <span>Задания на день</span>
       </div>
-      <div class="category-item">
+      <div class="category-item" @click="handleClick('riddles')">
         <img src="@/assets/riddles.png" alt="Загадки" class="category-icon" />
         <span>Загадки</span>
       </div>
-      <div class="category-item">
+      <div class="category-item" @click="handleClick('tonguetwisters')">
         <img src="@/assets/tonguetwisters.png" alt="Скороговорки" class="category-icon" />
         <span>Скороговорки</span>
       </div>
-      <div class="category-item">
+      <div class="category-item" @click="handleClick('rebus')">
         <img src="@/assets/rebus.png" alt="Ребусы" class="category-icon" />
         <span>Ребусы</span>
       </div>
-      <div class="category-item">
+      <div class="category-item" @click="handleClick('articulation')">
         <img src="@/assets/articulation.png" alt="Артикулярная гимнастика" class="category-icon" />
         <span>Артикулярная гимнастика</span>
       </div>
-      <div class="category-item">
+      <div class="category-item" @click="handleClick('neuro')">
         <img src="@/assets/neuro.png" alt="Нейрогимнастика" class="category-icon" />
         <span>Нейрогимнастика</span>
       </div>
@@ -55,8 +55,26 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const navigateToCategory = (category) => {
+const handleClick = (category) => {
+  // Вибрация на мобильных устройствах
+  if (navigator.vibrate) {
+    navigator.vibrate(50) // 50мс вибрации
+  }
+  
+  // Звуковой эффект (опционально)
+  playClickSound()
+  
+  // Навигация
   router.push(`/tasks?category=${category}`)
+}
+
+// Функция для воспроизведения звука
+const playClickSound = () => {
+  const audio = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU')
+  audio.volume = 0.2 // Тихий звук
+  audio.play().catch(() => {
+    // Игнорируем ошибку, если браузер блокирует автовоспроизведение
+  })
 }
 </script>
 
@@ -87,6 +105,8 @@ const navigateToCategory = (category) => {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; /* Убираем стандартное выделение на iOS */
 }
 
 .menu-icon {
@@ -111,16 +131,42 @@ const navigateToCategory = (category) => {
   border-radius: 10px;
   padding: 10px;
   gap: 10px;
+  cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.category-item:hover {
-  transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.2);
+/* Эффект при наведении (для ПК) */
+@media (hover: hover) {
+  .category-item:hover {
+    transform: scale(1.02);
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Эффект при нажатии (для всех устройств) */
+.category-item:active {
+  transform: scale(0.98);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.menu-card:active {
+  transform: scale(0.95);
 }
 
 .category-icon {
   width: 40px;
   height: 40px;
+}
+
+/* Анимация нажатия */
+@keyframes press {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.category-item.pressed {
+  animation: press 0.2s ease-in-out;
 }
 </style>
