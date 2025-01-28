@@ -120,23 +120,24 @@ const playClickSound = () => {
 
 .top-menu {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 8px;
+  margin-bottom: 15px;
   width: 100%;
-  max-width: min(90vw, 375px);
+  max-width: 320px;
+  justify-content: center;
 }
 
 .profile-card {
-  width: 80px;
-  height: 120px;
+  width: 65px;
+  height: 90px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 8px;
+  padding: 8px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: all 0.2s ease;
@@ -145,40 +146,40 @@ const playClickSound = () => {
 }
 
 .menu-grid {
-  flex: 1;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(2, 65px);
+  gap: 8px;
 }
 
 .menu-card {
+  width: 65px;
+  height: 90px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 8px;
+  padding: 8px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: all 0.2s ease;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  aspect-ratio: 1;
 }
 
 /* Размеры иконок */
 .menu-icon {
-  width: 35px;
-  height: 35px;
-  margin-bottom: 5px;
+  width: 28px;
+  height: 28px;
+  margin-bottom: 4px;
 }
 
 .profile-card .menu-icon {
-  width: 45px;
-  height: 45px;
-  margin-bottom: 8px;
+  width: 32px;
+  height: 32px;
+  margin-bottom: 6px;
 }
 
 .category-icon {
@@ -189,8 +190,8 @@ const playClickSound = () => {
 
 /* Стили для текста */
 span {
-  font-size: 12px;
-  line-height: 1.2;
+  font-size: 11px;
+  line-height: 1.1;
 }
 
 /* Эффекты при наведении и нажатии */
