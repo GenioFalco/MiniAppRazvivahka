@@ -1,102 +1,116 @@
 <template>
-  <div class="home">
-    <div class="menu-list">
-      <div class="menu-item" @click="navigateToCategory('creativity')">
-        <div class="menu-icon">🎨</div>
-        <div class="menu-text">ТВОРЧЕСТВО</div>
+  <div class="main-menu">
+    <!-- Верхняя часть меню с иконками профиля, подписки и фотоальбома -->
+    <div class="top-menu">
+      <div class="menu-card">
+        <img src="/assets/profile.png" alt="Профиль" class="menu-icon" />
+        <span>Профиль</span>
       </div>
-      
-      <div class="menu-item" @click="navigateToCategory('daily')">
-        <div class="menu-icon">©️</div>
-        <div class="menu-text">ЗАДАНИЯ НА ДЕНЬ</div>
+      <div class="menu-card">
+        <img src="/assets/subscription.png" alt="Подписка" class="menu-icon" />
+        <span>Подписка</span>
       </div>
-      
-      <div class="menu-item" @click="navigateToCategory('riddles')">
-        <div class="menu-icon">💬</div>
-        <div class="menu-text">ЗАГАДКИ</div>
+      <div class="menu-card">
+        <img src="/assets/photoalbum.png" alt="Фотоальбом" class="menu-icon" />
+        <span>Фотоальбом</span>
       </div>
-      
-      <div class="menu-item" @click="navigateToCategory('tonguetwisters')">
-        <div class="menu-icon">⏰</div>
-        <div class="menu-text">СКОРОГОВОРКИ</div>
+    </div>
+
+    <!-- Список категорий -->
+    <div class="categories">
+      <div class="category-item">
+        <img src="/assets/creativity.png" alt="Творчество" class="category-icon" />
+        <span>Творчество</span>
       </div>
-      
-      <div class="menu-item" @click="navigateToCategory('rebus')">
-        <div class="menu-icon">❓</div>
-        <div class="menu-text">РЕБУСЫ</div>
+      <div class="category-item">
+        <img src="/assets/daily.png" alt="Задания на день" class="category-icon" />
+        <span>Задания на день</span>
       </div>
-      
-      <div class="menu-item" @click="navigateToCategory('articulation')">
-        <div class="menu-icon">👋</div>
-        <div class="menu-text">АРТИКУЛЯРНАЯ ГИМНАСТИКА</div>
+      <div class="category-item">
+        <img src="/assets/riddles.png" alt="Загадки" class="category-icon" />
+        <span>Загадки</span>
       </div>
-      
-      <div class="menu-item" @click="navigateToCategory('neuro')">
-        <div class="menu-icon">🧠</div>
-        <div class="menu-text">НЕЙРОГИМНАСТИКА</div>
+      <div class="category-item">
+        <img src="/assets/tonguetwisters.png" alt="Скороговорки" class="category-icon" />
+        <span>Скороговорки</span>
+      </div>
+      <div class="category-item">
+        <img src="/assets/rebus.png" alt="Ребусы" class="category-icon" />
+        <span>Ребусы</span>
+      </div>
+      <div class="category-item">
+        <img src="/assets/articulation.png" alt="Артикулярная гимнастика" class="category-icon" />
+        <span>Артикулярная гимнастика</span>
+      </div>
+      <div class="category-item">
+        <img src="/assets/neuro.png" alt="Нейрогимнастика" class="category-icon" />
+        <span>Нейрогимнастика</span>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-
-const navigateToCategory = (category) => {
-  router.push(`/tasks?category=${category}`)
-}
+<script>
+export default {
+  name: "MainMenu",
+};
 </script>
 
 <style scoped>
-.home {
-  padding: 0;
-  background-color: var(--tg-theme-bg-color);
-  min-height: 100vh;
-}
-
-.menu-list {
+.main-menu {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-}
-
-.menu-item {
-  display: flex;
   align-items: center;
-  padding: 16px;
-  background-color: var(--tg-theme-secondary-bg-color);
-  cursor: pointer;
-  transition: background-color 0.2s;
+  background: linear-gradient(180deg, #4a90e2, #003f7f);
+  padding: 20px;
+  height: 100vh;
+  color: white;
+  font-family: 'Arial', sans-serif;
 }
 
-.menu-item:active {
-  background-color: var(--tg-theme-button-color);
-  opacity: 0.7;
+.top-menu {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.menu-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .menu-icon {
-  width: 32px;
-  height: 32px;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 5px;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  width: 100%;
+}
+
+.category-item {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  margin-right: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+  gap: 10px;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
-.menu-text {
-  color: var(--tg-theme-text-color);
-  font-size: 16px;
-  font-weight: 500;
+.category-item:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.2);
 }
 
-/* Добавляем эффект при наведении только на устройствах с мышью */
-@media (hover: hover) {
-  .menu-item:hover {
-    background-color: var(--tg-theme-button-color);
-    opacity: 0.7;
-  }
+.category-icon {
+  width: 40px;
+  height: 40px;
 }
 </style>
