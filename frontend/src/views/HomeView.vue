@@ -1,18 +1,31 @@
 <template>
   <div class="main-menu">
-    <!-- Верхняя часть меню с иконками профиля, подписки и фотоальбома -->
+    <!-- Верхняя часть меню с профилем слева и сеткой 2x2 справа -->
     <div class="top-menu">
+      <!-- Профиль на всю высоту слева -->
       <div class="menu-card" @click="handleClick('profile')">
         <img src="@/assets/profile.png" alt="Профиль" class="menu-icon" />
         <span>Профиль</span>
       </div>
-      <div class="menu-card" @click="handleClick('subscription')">
-        <img src="@/assets/subscription.png" alt="Подписка" class="menu-icon" />
-        <span>Подписка</span>
-      </div>
-      <div class="menu-card" @click="handleClick('photoalbum')">
-        <img src="@/assets/photoalbum.png" alt="Фотоальбом" class="menu-icon" />
-        <span>Фотоальбом</span>
+      
+      <!-- Сетка 2x2 справа -->
+      <div class="menu-grid">
+        <div class="menu-card" @click="handleClick('subscription')">
+          <img src="@/assets/subscription.png" alt="Подписка" class="menu-icon" />
+          <span>Подписка</span>
+        </div>
+        <div class="menu-card" @click="handleClick('photoalbum')">
+          <img src="@/assets/photoalbum.png" alt="Фотоальбом" class="menu-icon" />
+          <span>Фотоальбом</span>
+        </div>
+        <div class="menu-card" @click="handleClick('shop')">
+          <img src="@/assets/shop.png" alt="Магазин" class="menu-icon" />
+          <span>Магазин</span>
+        </div>
+        <div class="menu-card" @click="handleClick('link')">
+          <img src="@/assets/link.png" alt="Ссылки" class="menu-icon" />
+          <span>Ссылки</span>
+        </div>
       </div>
     </div>
 
@@ -107,26 +120,57 @@ const playClickSound = () => {
 }
 
 .top-menu {
-  display: flex;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: 120px 240px; /* Профиль слева, сетка 2x2 справа */
+  gap: 15px;
   margin-bottom: 30px;
+  width: 100%;
+  max-width: 600px;
 }
 
 .menu-card {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
   cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: all 0.2s ease;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+  height: 100%;
+}
+
+/* Специальный стиль для карточки профиля */
+.menu-card:first-child {
+  grid-row: span 2; /* Растягиваем на 2 строки */
+  height: 255px; /* Высота равна двум карточкам + gap */
+}
+
+/* Контейнер для сетки 2x2 */
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 15px;
+  height: 100%;
 }
 
 .menu-icon {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 5px;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 8px;
+}
+
+/* Обновляем стили для профиля */
+.menu-card:first-child .menu-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
 }
 
 .categories {
