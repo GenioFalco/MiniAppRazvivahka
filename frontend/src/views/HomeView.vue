@@ -126,9 +126,19 @@ const playClickSound = () => {
   max-width: min(90vw, 800px); /* Адаптивная максимальная ширина */
 }
 
+/* Сетка 2x2 справа */
+.menu-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 15px;
+  height: 255px;
+}
+
 /* Профиль слева */
 .profile-card {
-  width: min(120px, 20%);
+  width: calc((100% - 15px) / 2); /* Ширина равна одной кнопке из сетки 2x2 */
   height: 255px;
   display: flex;
   flex-direction: column;
@@ -140,16 +150,7 @@ const playClickSound = () => {
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: all 0.2s ease;
-}
-
-/* Сетка 2x2 справа */
-.menu-grid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 15px;
-  height: 255px;
+  flex-shrink: 0; /* Предотвращаем сжатие */
 }
 
 .menu-card {
