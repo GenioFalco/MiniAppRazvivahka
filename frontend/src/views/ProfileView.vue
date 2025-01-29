@@ -73,12 +73,13 @@ const router = useRouter();
 
 onMounted(() => {
   if (window.Telegram?.WebApp) {
+    // Инициализация WebApp
+    window.Telegram.WebApp.ready();
+    window.Telegram.WebApp.expand();
+    
     // Показ кнопки назад
     window.Telegram.WebApp.BackButton.show();
-
-    // Добавление обработчика события для кнопки назад
-    window.Telegram.WebApp.onEvent('backButtonPressed', () => {
-      // Переход на предыдущую страницу (измените маршрут при необходимости)
+    window.Telegram.WebApp.BackButton.onClick(() => {
       router.push('/');
     });
   }
@@ -88,9 +89,6 @@ onUnmounted(() => {
   if (window.Telegram?.WebApp) {
     // Скрытие кнопки назад
     window.Telegram.WebApp.BackButton.hide();
-
-    // Удаление обработчика события
-    window.Telegram.WebApp.offEvent('backButtonPressed');
   }
 });
 
