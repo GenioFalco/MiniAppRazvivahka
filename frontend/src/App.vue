@@ -22,11 +22,11 @@ watch(() => route.path, (newPath) => {
   console.log('Route changed to:', newPath)
   if (window.Telegram?.WebApp) {
     if (newPath === '/profile') {
-      console.log('Showing back button for profile')
-      window.Telegram.WebApp.BackButton.show()
+      console.log('Enabling back button for profile')
+      window.Telegram.WebApp.enableClosingConfirmation()
     } else {
-      console.log('Hiding back button')
-      window.Telegram.WebApp.BackButton.hide()
+      console.log('Disabling back button')
+      window.Telegram.WebApp.disableClosingConfirmation()
     }
   }
 })
@@ -78,18 +78,19 @@ onMounted(() => {
       window.Telegram.WebApp.MainButton.hide()
       
       // Настраиваем BackButton для всего приложения
-      window.Telegram.WebApp.BackButton.onClick(() => {
-        console.log('Back button clicked, current route:', route.path)
+      window.Telegram.WebApp.setBackButtonHandler(() => {
+        console.log('Back button pressed, current route:', route.path)
         if (route.path === '/profile') {
-          window.Telegram.WebApp.BackButton.hide()
           router.push('/')
+          return true
         }
+        return false
       })
       
       // Если мы на странице профиля, показываем кнопку назад
       if (route.path === '/profile') {
-        console.log('Initial route is profile, showing back button')
-        window.Telegram.WebApp.BackButton.show()
+        console.log('Initial route is profile, enabling back button')
+        window.Telegram.WebApp.enableClosingConfirmation()
       }
       
       // Получаем тему
