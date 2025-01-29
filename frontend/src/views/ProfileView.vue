@@ -71,6 +71,22 @@ import articulationIcon from '@/assets/articulation.png'
 
 const router = useRouter();
 
+onMounted(() => {
+  if (window.Telegram?.WebApp) {
+    // Правильная инициализация кнопки назад
+    window.Telegram.WebApp.setBackButtonHandler(() => {
+      router.push('/');
+    });
+  }
+});
+
+onUnmounted(() => {
+  if (window.Telegram?.WebApp) {
+    // Очищаем обработчик при размонтировании
+    window.Telegram.WebApp.setBackButtonHandler(null);
+  }
+});
+
 const level = ref(7);
 const xp = ref(25);
 const xpProgress = ref((xp.value / 100) * 100);
@@ -88,22 +104,6 @@ const actions = ref([
 function exchange() {
   alert("Функция обмена не реализована!");
 }
-
-onMounted(() => {
-  if (window.Telegram?.WebApp) {
-    window.Telegram.WebApp.BackButton.show();
-    window.Telegram.WebApp.BackButton.onClick(() => {
-      router.push('/');
-    });
-  }
-});
-
-onUnmounted(() => {
-  if (window.Telegram?.WebApp) {
-    window.Telegram.WebApp.BackButton.hide();
-    window.Telegram.WebApp.BackButton.offClick();
-  }
-});
 </script>
 
 <style scoped>
