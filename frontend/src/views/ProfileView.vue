@@ -73,9 +73,12 @@ const router = useRouter();
 
 onMounted(() => {
   if (window.Telegram?.WebApp) {
-    // Правильная инициализация кнопки назад через web_app_setup_back_button
-    window.Telegram.web_app_setup_back_button;
-    window.Telegram.WebApp.onEvent('back_button_pressed', () => {
+    // Показ кнопки назад
+    window.Telegram.WebApp.BackButton.show();
+
+    // Добавление обработчика события для кнопки назад
+    window.Telegram.WebApp.onEvent('backButtonPressed', () => {
+      // Переход на предыдущую страницу (измените маршрут при необходимости)
       router.push('/');
     });
   }
@@ -83,9 +86,11 @@ onMounted(() => {
 
 onUnmounted(() => {
   if (window.Telegram?.WebApp) {
-    // Скрываем кнопку и удаляем обработчик при размонтировании
+    // Скрытие кнопки назад
     window.Telegram.WebApp.BackButton.hide();
-    window.Telegram.WebApp.offEvent('back_button_pressed');
+
+    // Удаление обработчика события
+    window.Telegram.WebApp.offEvent('backButtonPressed');
   }
 });
 
