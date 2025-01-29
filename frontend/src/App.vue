@@ -6,13 +6,28 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { RouterView } from 'vue-router'
+import { ref, onMounted, computed, watch } from 'vue'
+import { RouterView, useRoute } from 'vue-router'
 
+const route = useRoute()
 const isInitialized = ref(false)
 const isDarkTheme = computed(() => {
   console.log('Checking theme:', window.Telegram?.WebApp?.colorScheme)
   return window.Telegram?.WebApp?.colorScheme === 'dark'
+})
+
+// Следим за изменением маршрута
+watch(() => route.path, (newPath) => {
+  console.log('Route changed to:', newPath)
+  if (window.Telegram?.WebApp) {
+    if (newPath === '/profile') {
+      console.log('Showing back button for profile')
+      window.Telegram.WebApp.BackButton.show()
+    } else {
+      console.log('Hiding back button')
+      window.Telegram.WebApp.BackButton.hide()
+    }
+  }
 })
 
 onMounted(() => {
