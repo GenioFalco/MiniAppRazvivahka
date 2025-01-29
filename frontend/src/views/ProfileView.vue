@@ -54,8 +54,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
-import { useRouter } from 'vue-router';
+import { ref } from "vue";
 import gearIcon from '@/assets/gear-icon.png'
 import coinIcon from '@/assets/coin-icon.png'
 import dailyIcon from '@/assets/daily.png'
@@ -68,26 +67,6 @@ import rebusIcon from '@/assets/rebus.png'
 import riddlesIcon from '@/assets/riddles.png'
 import tongueTwisterIcon from '@/assets/tonguetwisters.png'
 import articulationIcon from '@/assets/articulation.png'
-
-const router = useRouter();
-
-onMounted(() => {
-  if (window.Telegram?.WebApp) {
-    console.log('Setting up back button in ProfileView')
-    // Настраиваем обработчик кнопки назад
-    window.Telegram.WebApp.BackButton.onClick(() => {
-      console.log('Back button clicked')
-      router.push('/')
-    })
-  }
-});
-
-onUnmounted(() => {
-  if (window.Telegram?.WebApp) {
-    console.log('Cleaning up back button in ProfileView')
-    window.Telegram.WebApp.BackButton.offClick()
-  }
-});
 
 const level = ref(7);
 const xp = ref(25);

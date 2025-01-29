@@ -7,9 +7,10 @@
 
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue'
-import { RouterView, useRoute } from 'vue-router'
+import { RouterView, useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
+const router = useRouter()
 const isInitialized = ref(false)
 const isDarkTheme = computed(() => {
   console.log('Checking theme:', window.Telegram?.WebApp?.colorScheme)
@@ -43,9 +44,23 @@ onMounted(() => {
       window.Telegram.WebApp.ready()
       window.Telegram.WebApp.expand()
       
-      // Настраиваем MainButton и BackButton
+      // Настраиваем MainButton
       window.Telegram.WebApp.MainButton.hide()
-      window.Telegram.WebApp.BackButton.hide()
+      
+      // Настраиваем BackButton для всего приложения
+      window.Telegram.WebApp.BackButton.onClick(() => {
+        console.log('Back button clicked, current route:', route.path)
+        if (route.path === '/profile') {
+          window.Telegram.WebApp.BackButton.hide()
+          router.push('/')
+        }
+      })
+      
+      // Если мы на странице профиля, показываем кнопку назад
+      if (route.path === '/profile') {
+        console.log('Initial route is profile, showing back button')
+        window.Telegram.WebApp.BackButton.show()
+      }
       
       // Получаем тему
       const colorScheme = window.Telegram.WebApp.colorScheme
@@ -88,12 +103,37 @@ onMounted(() => {
 <style>
 @import './styles/adaptive.css';
 
+html {
+  touch-action: none; /* Отключаем жесты масштабирования на мобильных */
+  -ms-touch-action: none;
+  overflow: hidden;
+}
+
+body {
+  touch-action: none;
+  -ms-touch-action: none;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: var(--tg-theme-bg-color);
+  color: var(--tg-theme-text-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: white;
   min-height: 100vh;
+  touch-action: none; /* Отключаем жесты масштабирования */
+  -ms-touch-action: none;
+  user-select: none; /* Запрещаем выделение текста */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 :root {
@@ -104,21 +144,6 @@ onMounted(() => {
   --tg-theme-button-color: var(--tg-theme-button-color, #2678b6);
   --tg-theme-button-text-color: var(--tg-theme-button-text-color, #fff);
   --tg-theme-secondary-bg-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-body {
-  background-color: var(--tg-theme-bg-color);
-  color: var(--tg-theme-text-color);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .app {
