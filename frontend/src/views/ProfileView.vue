@@ -2,13 +2,16 @@
   <div class="profile">
     <!-- Header -->
     <header>
-      <div class="user-info">
-        <img :src="profileIcon" alt="Profile" class="profile-mini" />
-        <span class="username">ТИМА#564</span>
+      <button class="back-button" @click="goBack">←</button>
+      <div class="header-content">
+        <div class="user-info">
+          <img :src="profileIcon" alt="Profile" class="profile-mini" />
+          <span class="username">ТИМА#564</span>
+        </div>
+        <button class="settings-button">
+          <img :src="gearIcon" alt="Settings" />
+        </button>
       </div>
-      <button class="settings-button">
-        <img :src="gearIcon" alt="Settings" />
-      </button>
     </header>
 
     <!-- Stats Bar -->
@@ -87,26 +90,9 @@ function exchange() {
   alert("Функция обмена не реализована!");
 }
 
-onMounted(() => {
-  // Включаем встроенную кнопку "Назад"
-  if (window.Telegram?.WebApp) {
-    // Показываем кнопку назад
-    window.Telegram.WebApp.BackButton.show();
-    // Устанавливаем обработчик нажатия
-    window.Telegram.WebApp.BackButton.onClick(() => {
-      router.push('/');
-    });
-  }
-});
-
-onUnmounted(() => {
-  // Скрываем кнопку при уходе со страницы
-  if (window.Telegram?.WebApp) {
-    window.Telegram.WebApp.BackButton.hide();
-    // Удаляем обработчик нажатия
-    window.Telegram.WebApp.BackButton.offClick();
-  }
-});
+function goBack() {
+  router.push('/');
+}
 </script>
 
 <style scoped>
@@ -114,17 +100,33 @@ onUnmounted(() => {
   background: linear-gradient(180deg, #1e3a8a 0%, #1e40af 100%);
   min-height: 100vh;
   color: white;
-  padding: 1rem;
+  padding: 0;
   display: flex;
   flex-direction: column;
 }
 
 header {
   display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 0;
+}
+
+.header-content {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  padding: 0 0.5rem;
+  padding: 0 1rem;
+}
+
+.back-button {
+  font-size: 1.5rem;
+  color: white;
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  cursor: pointer;
 }
 
 .user-info {
