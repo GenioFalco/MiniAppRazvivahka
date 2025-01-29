@@ -73,15 +73,18 @@ const router = useRouter();
 
 onMounted(() => {
   if (window.Telegram?.WebApp) {
-    // Настройка кнопки назад
-    const backButton = window.Telegram.WebApp.BackButton;
-    backButton.show();
-    backButton.onClick(() => router.push('/'));
+    // Включаем отображение кнопки назад в заголовке
+    window.Telegram.WebApp.BackButton.show();
+    window.Telegram.WebApp.BackButton.onClick(() => {
+      router.push('/');
+      window.Telegram.WebApp.BackButton.hide();
+    });
   }
 });
 
 onUnmounted(() => {
   if (window.Telegram?.WebApp) {
+    // Скрываем кнопку при уходе со страницы
     window.Telegram.WebApp.BackButton.hide();
   }
 });

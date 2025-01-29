@@ -67,12 +67,6 @@ onMounted(() => {
     // Если запущено не в Telegram, просто показываем контент
     isInitialized.value = true
   }
-
-  if (window.Telegram?.WebApp) {
-    // Инициализация WebApp
-    window.Telegram.WebApp.ready();
-    window.Telegram.WebApp.expand();
-  }
 })
 </script>
 
