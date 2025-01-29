@@ -73,8 +73,9 @@ const router = useRouter();
 
 onMounted(() => {
   if (window.Telegram?.WebApp) {
-    // Правильная инициализация кнопки назад
-    window.Telegram.WebApp.setBackButtonHandler(() => {
+    // Правильная инициализация кнопки назад через web_app_setup_back_button
+    window.Telegram.WebApp.BackButton.show();
+    window.Telegram.WebApp.onEvent('back_button_pressed', () => {
       router.push('/');
     });
   }
@@ -82,8 +83,9 @@ onMounted(() => {
 
 onUnmounted(() => {
   if (window.Telegram?.WebApp) {
-    // Очищаем обработчик при размонтировании
-    window.Telegram.WebApp.setBackButtonHandler(null);
+    // Скрываем кнопку и удаляем обработчик при размонтировании
+    window.Telegram.WebApp.BackButton.hide();
+    window.Telegram.WebApp.offEvent('back_button_pressed');
   }
 });
 
