@@ -74,7 +74,7 @@ const router = useRouter();
 onMounted(() => {
   if (window.Telegram?.WebApp) {
     // Правильная инициализация кнопки назад через web_app_setup_back_button
-    window.Telegram.WebApp.BackButton.show();
+    window.Telegram.web_app_setup_back_button;
     window.Telegram.WebApp.onEvent('back_button_pressed', () => {
       router.push('/');
     });
