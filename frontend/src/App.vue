@@ -33,9 +33,39 @@ watch(() => route.path, (newPath) => {
 
 onMounted(() => {
   console.log('App mounted')
-  console.log('Telegram object:', window.Telegram)
-  console.log('WebApp object:', window.Telegram?.WebApp)
   
+  // Эмулируем объект Telegram WebApp для тестирования в браузере
+  if (!window.Telegram) {
+    window.Telegram = {
+      WebApp: {
+        ready: () => console.log('WebApp ready called'),
+        expand: () => console.log('WebApp expand called'),
+        BackButton: {
+          show: () => console.log('BackButton show called'),
+          hide: () => console.log('BackButton hide called'),
+          onClick: (callback) => {
+            console.log('BackButton onClick registered')
+            window.Telegram.WebApp.BackButton._callback = callback
+          },
+          offClick: () => {
+            console.log('BackButton offClick called')
+            delete window.Telegram.WebApp.BackButton._callback
+          }
+        },
+        MainButton: {
+          show: () => console.log('MainButton show called'),
+          hide: () => console.log('MainButton hide called')
+        },
+        colorScheme: 'dark',
+        backgroundColor: '#1f1f1f',
+        textColor: '#ffffff',
+        linkColor: '#64b5f6',
+        buttonColor: '#64b5f6',
+        buttonTextColor: '#ffffff'
+      }
+    }
+  }
+
   // Проверяем, запущено ли приложение в Telegram
   if (window.Telegram?.WebApp) {
     console.log('Telegram WebApp found, initializing...')
