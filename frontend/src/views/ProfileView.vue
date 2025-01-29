@@ -64,7 +64,7 @@ import neuroIcon from '@/assets/neuro.png'
 import creativityIcon from '@/assets/creativity.png'
 import rebusIcon from '@/assets/rebus.png'
 import riddlesIcon from '@/assets/riddles.png'
-import tongueTwisterIcon from '@/assets/tongue_twister.png'
+import tongueTwisterIcon from '@/assets/tonguetwisters.png'
 import articulationIcon from '@/assets/articulation.png'
 
 const level = ref(7);
