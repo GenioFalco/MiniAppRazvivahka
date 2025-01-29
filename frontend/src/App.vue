@@ -28,6 +28,10 @@ onMounted(() => {
       window.Telegram.WebApp.ready()
       window.Telegram.WebApp.expand()
       
+      // Настраиваем MainButton и BackButton
+      window.Telegram.WebApp.MainButton.hide()
+      window.Telegram.WebApp.BackButton.hide()
+      
       // Получаем тему
       const colorScheme = window.Telegram.WebApp.colorScheme
       console.log('Color scheme:', colorScheme)

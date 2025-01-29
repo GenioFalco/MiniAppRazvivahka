@@ -90,9 +90,11 @@ function exchange() {
 onMounted(() => {
   // Включаем встроенную кнопку "Назад"
   if (window.Telegram?.WebApp) {
+    // Показываем кнопку назад
     window.Telegram.WebApp.BackButton.show();
+    // Устанавливаем обработчик нажатия
     window.Telegram.WebApp.BackButton.onClick(() => {
-      router.back();
+      router.push('/');
     });
   }
 });
@@ -101,6 +103,8 @@ onUnmounted(() => {
   // Скрываем кнопку при уходе со страницы
   if (window.Telegram?.WebApp) {
     window.Telegram.WebApp.BackButton.hide();
+    // Удаляем обработчик нажатия
+    window.Telegram.WebApp.BackButton.offClick();
   }
 });
 </script>
