@@ -2,7 +2,6 @@
   <div class="profile">
     <!-- Header -->
     <header>
-      <button class="back-button" @click="goBack">←</button>
       <div class="header-content">
         <div class="user-info">
           <img :src="profileIcon" alt="Profile" class="profile-mini" />
@@ -90,9 +89,21 @@ function exchange() {
   alert("Функция обмена не реализована!");
 }
 
-function goBack() {
-  router.push('/');
-}
+onMounted(() => {
+  if (window.Telegram?.WebApp) {
+    window.Telegram.WebApp.BackButton.show();
+    window.Telegram.WebApp.BackButton.onClick(() => {
+      router.push('/');
+    });
+  }
+});
+
+onUnmounted(() => {
+  if (window.Telegram?.WebApp) {
+    window.Telegram.WebApp.BackButton.hide();
+    window.Telegram.WebApp.BackButton.offClick();
+  }
+});
 </script>
 
 <style scoped>
@@ -106,27 +117,14 @@ function goBack() {
 }
 
 header {
-  display: flex;
-  flex-direction: column;
   background: rgba(0, 0, 0, 0.2);
-  padding: 0.5rem 0;
+  padding: 1rem;
 }
 
 .header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1rem;
-}
-
-.back-button {
-  font-size: 1.5rem;
-  color: white;
-  background: none;
-  border: none;
-  padding: 0.5rem 1rem;
-  text-align: left;
-  cursor: pointer;
 }
 
 .user-info {
