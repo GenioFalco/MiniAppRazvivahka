@@ -2,7 +2,6 @@
   <div class="profile">
     <!-- Header -->
     <header>
-      <button class="back-button">←</button>
       <div class="user-info">
         <img :src="profileIcon" alt="Profile" class="profile-mini" />
         <span class="username">ТИМА#564</span>
@@ -53,7 +52,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
+import { useRouter } from 'vue-router';
 import gearIcon from '@/assets/gear-icon.png'
 import coinIcon from '@/assets/coin-icon.png'
 import dailyIcon from '@/assets/daily.png'
@@ -66,6 +66,8 @@ import rebusIcon from '@/assets/rebus.png'
 import riddlesIcon from '@/assets/riddles.png'
 import tongueTwisterIcon from '@/assets/tonguetwisters.png'
 import articulationIcon from '@/assets/articulation.png'
+
+const router = useRouter();
 
 const level = ref(7);
 const xp = ref(25);
@@ -84,6 +86,23 @@ const actions = ref([
 function exchange() {
   alert("Функция обмена не реализована!");
 }
+
+onMounted(() => {
+  // Включаем встроенную кнопку "Назад"
+  if (window.Telegram?.WebApp) {
+    window.Telegram.WebApp.BackButton.show();
+    window.Telegram.WebApp.BackButton.onClick(() => {
+      router.back();
+    });
+  }
+});
+
+onUnmounted(() => {
+  // Скрываем кнопку при уходе со страницы
+  if (window.Telegram?.WebApp) {
+    window.Telegram.WebApp.BackButton.hide();
+  }
+});
 </script>
 
 <style scoped>
@@ -101,14 +120,7 @@ header {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
-}
-
-.back-button {
-  font-size: 1.5rem;
-  color: white;
-  background: none;
-  border: none;
-  padding: 0.5rem;
+  padding: 0 0.5rem;
 }
 
 .user-info {
