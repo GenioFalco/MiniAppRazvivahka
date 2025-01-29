@@ -59,21 +59,26 @@ import coinIcon from '@/assets/coin-icon.png'
 import dailyIcon from '@/assets/daily.png'
 import trophyIcon from '@/assets/trophy-icon.png'
 import profileIcon from '@/assets/profile.png'
+import dailyIcon2 from '@/assets/daily.png'
 import neuroIcon from '@/assets/neuro.png'
 import creativityIcon from '@/assets/creativity.png'
 import rebusIcon from '@/assets/rebus.png'
 import riddlesIcon from '@/assets/riddles.png'
+import tongueTwisterIcon from '@/assets/tongue_twister.png'
+import articulationIcon from '@/assets/articulation.png'
 
 const level = ref(7);
 const xp = ref(25);
 const xpProgress = ref((xp.value / 100) * 100);
 
 const actions = ref([
-  { name: "Настройка", icon: neuroIcon },
-  { name: "Статистика", icon: creativityIcon },
-  { name: "Подсказки", icon: rebusIcon },
-  { name: "Ручной режим", icon: riddlesIcon },
-  { name: "Настройки", icon: gearIcon },
+  { name: "Ежедневные задания", icon: dailyIcon2 },
+  { name: "Творчество", icon: creativityIcon },
+  { name: "Ребусы", icon: rebusIcon },
+  { name: "Загадки", icon: riddlesIcon },
+  { name: "Скороговорки", icon: tongueTwisterIcon },
+  { name: "Нейрогимнастика", icon: neuroIcon },
+  { name: "Артикулярная гимнастика", icon: articulationIcon },
 ]);
 
 function exchange() {

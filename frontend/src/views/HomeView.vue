@@ -23,8 +23,8 @@
           <span>Магазин</span>
         </div>
         <div class="menu-card clickable" @click="handleClick('link')">
-          <img src="@/assets/link.png" alt="Ссылки" class="menu-icon" />
-          <span>Ссылки</span>
+          <img src="@/assets/daily_admission.png" alt="Ежедневный вход" class="menu-icon" />
+          <span>Ежедневный вход</span>
         </div>
       </div>
     </div>
