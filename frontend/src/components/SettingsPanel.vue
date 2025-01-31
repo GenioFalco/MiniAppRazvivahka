@@ -78,7 +78,7 @@ function selectCharacter(char) {
   left: 0;
   right: 0;
   height: 85vh;
-  background: #0F243C;
+  background: #2A82C4;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   padding: 1.5rem 1.5rem 2rem 1.5rem;
@@ -95,7 +95,7 @@ function selectCharacter(char) {
   margin-bottom: 1.5rem;
   position: sticky;
   top: 0;
-  background: #0F243C;
+  background: #2A82C4;
   padding: 0.5rem 0;
   z-index: 2;
 }
