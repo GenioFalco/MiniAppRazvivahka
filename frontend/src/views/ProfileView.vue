@@ -363,30 +363,37 @@ header {
   }
 
   .character-container {
-    margin-top: -20vh;
+    margin-top: -10vh;
   }
 
   .character-image {
     width: clamp(16rem, 45vh, 24rem);
+    margin-bottom: -2%;
   }
 
   .exchange-button {
     padding: clamp(1rem, 3vh, 2rem) clamp(3rem, 6vh, 5rem);
     font-size: clamp(1.2rem, 3vh, 1.6rem);
+    margin-top: -4%;
   }
 }
 
 @media (min-width: 1200px) {
   .character-container {
-    margin-top: -25vh;
+    margin-top: -5vh;
   }
 
   .character-image {
     width: clamp(20rem, 50vh, 28rem);
+    margin-bottom: -1%;
   }
 
   .bottom-actions-container {
     height: clamp(45vh, 50vh, 55vh);
+  }
+
+  .exchange-button {
+    margin-top: -2%;
   }
 }
 
