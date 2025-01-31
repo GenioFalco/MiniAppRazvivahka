@@ -117,6 +117,10 @@ function exchange() {
   padding: 0;
   display: flex;
   flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
 }
 
 /* Стили для верхней панели */
@@ -169,7 +173,7 @@ header {
   background: rgba(255, 255, 255, 0.1);
   padding: 0.75rem;
   border-radius: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem;
 }
 
 .stat-item {
@@ -186,7 +190,8 @@ header {
 /* Стили для индикатора прогресса уровня */
 .level-info {
   text-align: center;
-  margin-bottom: 2rem;
+  margin: 1rem;
+  padding: 0.5rem;
 }
 
 .xp-bar {
@@ -210,13 +215,14 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  margin: 1rem 0;
+  gap: 1.5rem;
+  margin: 2rem 0;
+  padding: 0 1rem;
 }
 
 .character-image {
-  width: 12rem;
-  height: 12rem;
+  width: min(12rem, 40%);
+  height: auto;
   object-fit: contain;
 }
 
@@ -248,6 +254,8 @@ header {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   height: 65vh;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 /* Контейнер с кнопками внизу панели */
@@ -262,6 +270,8 @@ header {
   background: rgba(255, 255, 255, 0.1);
   padding: 0.75rem;
   border-radius: 1rem;
+  max-width: calc(100% - 2rem);
+  margin: 0 auto;
 }
 
 /* Стили для кнопок действий */
@@ -305,5 +315,32 @@ header {
 .action-button img {
   width: 1.25rem;
   height: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .stats-bar {
+    margin: 1.5rem 2rem;
+    padding: 1rem;
+  }
+
+  .level-info {
+    margin: 1.5rem 2rem;
+  }
+
+  .character-container {
+    margin: 3rem 0;
+    gap: 2rem;
+  }
+
+  .bottom-actions-container {
+    padding: 2rem;
+  }
+
+  .bottom-actions {
+    padding: 1rem;
+    bottom: 2rem;
+    left: 2rem;
+    right: 2rem;
+  }
 }
 </style>
