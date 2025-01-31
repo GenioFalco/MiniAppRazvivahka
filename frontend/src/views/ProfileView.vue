@@ -118,18 +118,18 @@ function exchange() {
   padding: 0;
   display: flex;
   flex-direction: column;
-  max-width: 600px;
-  margin: 0 auto;
-  position: relative;
   width: 100%;
+  max-width: 100%;
+  position: relative;
   overflow: hidden;
 }
 
 /* Стили для верхней панели */
 header {
   background: rgba(0, 0, 0, 0.2);
-  padding: 1rem;
+  padding: clamp(0.5rem, 2vh, 1rem);
   flex-shrink: 0;
+  width: 100%;
 }
 
 .header-content {
@@ -174,10 +174,14 @@ header {
   justify-content: space-between;
   align-items: center;
   background: rgba(255, 255, 255, 0.1);
-  padding: 0.75rem;
+  padding: clamp(0.5rem, 2vh, 1rem);
   border-radius: 1rem;
-  margin: 1rem;
+  margin: clamp(0.5rem, 2vh, 1rem);
   flex-shrink: 0;
+  width: calc(100% - clamp(1rem, 4vh, 2rem));
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .stat-item {
@@ -194,9 +198,13 @@ header {
 /* Стили для индикатора прогресса уровня */
 .level-info {
   text-align: center;
-  margin: 1rem;
-  padding: 0.5rem;
+  margin: clamp(0.5rem, 2vh, 1rem);
+  padding: clamp(0.25rem, 1vh, 0.5rem);
   flex-shrink: 0;
+  width: calc(100% - clamp(1rem, 4vh, 2rem));
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .xp-bar {
@@ -220,15 +228,19 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
-  margin: 2rem 0;
-  padding: 0 1rem;
+  gap: clamp(1rem, 3vh, 2rem);
+  padding: clamp(1rem, 3vh, 2rem);
   flex: 1;
   justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .character-image {
-  width: min(12rem, 40%);
+  width: clamp(8rem, 30vh, 16rem);
   height: auto;
   object-fit: contain;
 }
@@ -238,10 +250,10 @@ header {
   background: #3b82f6;
   color: white;
   border: none;
-  padding: 0.75rem 2rem;
+  padding: clamp(0.5rem, 2vh, 1rem) clamp(1.5rem, 4vh, 3rem);
   border-radius: 2rem;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 2vh, 1.2rem);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
 }
@@ -256,43 +268,43 @@ header {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 1.5rem 1rem;
+  padding: clamp(1rem, 3vh, 2rem);
   background: rgba(0, 0, 0, 0.2);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  height: 65vh;
+  height: clamp(45vh, 65vh, 70vh);
+  width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  width: 100%;
 }
 
 /* Контейнер с кнопками внизу панели */
 .bottom-actions {
   position: absolute;
-  bottom: 1.5rem;
-  left: 1rem;
-  right: 1rem;
+  bottom: clamp(1rem, 3vh, 2rem);
+  left: clamp(1rem, 3vh, 2rem);
+  right: clamp(1rem, 3vh, 2rem);
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: rgba(255, 255, 255, 0.1);
-  padding: 0.75rem;
+  padding: clamp(0.5rem, 2vh, 1rem);
   border-radius: 1rem;
-  max-width: calc(100% - 2rem);
-  margin: 0 auto;
+  width: calc(100% - clamp(2rem, 6vh, 4rem));
 }
 
 /* Стили для кнопок действий */
 .action-button {
   background: none;
   border: none;
-  padding: 0.5rem;
+  padding: clamp(0.25rem, 1vh, 0.5rem);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  min-width: 2.5rem;
+  min-width: clamp(2rem, 6vh, 3rem);
+  min-height: clamp(2rem, 6vh, 3rem);
   position: relative;
 }
 
@@ -321,40 +333,41 @@ header {
 
 /* Размеры иконок в кнопках */
 .action-button img {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: clamp(1rem, 3vh, 1.5rem);
+  height: clamp(1rem, 3vh, 1.5rem);
 }
 
 @media (min-width: 768px) {
   .profile {
-    height: 100vh;
-    max-height: 100vh;
-  }
-
-  .stats-bar {
-    margin: 1.5rem 2rem;
-    padding: 1rem;
-  }
-
-  .level-info {
-    margin: 1.5rem 2rem;
-  }
-
-  .character-container {
-    margin: 0;
-    padding: 2rem 1rem;
+    max-width: min(100%, 600px);
+    margin: 0 auto;
   }
 
   .bottom-actions-container {
-    padding: 2rem;
-    height: 65vh;
+    max-width: min(100%, 600px);
   }
 
-  .bottom-actions {
-    padding: 1rem;
-    bottom: 2rem;
-    left: 2rem;
-    right: 2rem;
+  .character-container {
+    padding: clamp(2rem, 5vh, 4rem);
+  }
+
+  .character-image {
+    width: clamp(10rem, 35vh, 20rem);
+  }
+}
+
+@media (max-height: 600px) {
+  .bottom-actions-container {
+    height: 55vh;
+  }
+
+  .character-container {
+    gap: clamp(0.5rem, 2vh, 1rem);
+    padding: clamp(0.5rem, 2vh, 1rem);
+  }
+
+  .character-image {
+    width: clamp(6rem, 25vh, 12rem);
   }
 }
 </style>
