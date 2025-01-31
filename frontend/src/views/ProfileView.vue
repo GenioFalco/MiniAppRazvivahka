@@ -137,7 +137,7 @@ function updateCharacter(newCharacter) {
 <style scoped>
 /* Основной контейнер */
 .profile {
-  background: linear-gradient(180deg, #1e3a8a 0%, #1e40af 100%);
+  background: linear-gradient(180deg, #4a90e2, #003f7f);
   min-height: 100vh;
   height: 100vh;
   color: white;
