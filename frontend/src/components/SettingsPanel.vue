@@ -78,10 +78,10 @@ function selectCharacter(char) {
   left: 0;
   right: 0;
   height: 85vh;
-  background: #2A82C4;
+  background: #4C7C94;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 2rem 1.5rem;
   color: white;
   z-index: 1000;
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
@@ -92,10 +92,10 @@ function selectCharacter(char) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   position: sticky;
   top: 0;
-  background: #2A82C4;
+  background: #4C7C94;
   padding: 0.5rem 0;
   z-index: 2;
 }
@@ -118,13 +118,13 @@ function selectCharacter(char) {
 .settings-content {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
   height: calc(100% - 4rem);
   overflow-y: scroll;
-  padding-bottom: 2rem;
+  padding-bottom: 4rem;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE и Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 /* Скрываем скроллбар для Chrome, Safari и Opera */
@@ -135,8 +135,7 @@ function selectCharacter(char) {
 .setting-group {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 0.5rem 0;
+  gap: 0.75rem;
 }
 
 .setting-group label {
@@ -146,11 +145,14 @@ function selectCharacter(char) {
 
 .nickname-input {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
+  width: 100%;
+  align-items: center;
 }
 
 .nickname-input input {
   flex: 1;
+  min-width: 0;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -172,6 +174,8 @@ function selectCharacter(char) {
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s;
+  white-space: nowrap;
+  min-width: fit-content;
 }
 
 .save-button:hover {
