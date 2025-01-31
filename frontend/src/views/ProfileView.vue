@@ -1,6 +1,7 @@
 <template>
+  <!-- Основной контейнер профиля -->
   <div class="profile">
-    <!-- Header -->
+    <!-- Верхняя панель с именем пользователя и кнопкой настроек -->
     <header>
       <div class="header-content">
         <div class="user-info">
@@ -13,7 +14,7 @@
       </div>
     </header>
 
-    <!-- Stats Bar -->
+    <!-- Верхняя панель статистики (монеты, ежедневные задания, трофеи) -->
     <div class="stats-bar">
       <div class="stat-item">
         <img :src="coinIcon" alt="Coins" />
@@ -29,7 +30,7 @@
       </div>
     </div>
 
-    <!-- Level Progress -->
+    <!-- Индикатор прогресса уровня -->
     <div class="level-info">
       <span>Уровень 7</span>
       <div class="xp-bar">
@@ -38,13 +39,13 @@
       <span class="xp-text">XP {{ xp }}/100</span>
     </div>
 
-    <!-- Character -->
+    <!-- Контейнер с персонажем и кнопкой обмена -->
     <div class="character-container">
       <img :src="profileIcon" alt="Character" class="character-image" />
       <button class="exchange-button">ОБМЕНЯТЬ</button>
     </div>
 
-    <!-- Bottom Actions -->
+    <!-- Нижняя панель с кнопками действий -->
     <div class="bottom-actions-container">
       <div class="bottom-actions">
         <button 
@@ -62,6 +63,7 @@
 </template>
 
 <script setup>
+// Импорт необходимых компонентов и изображений
 import { ref } from "vue";
 import gearIcon from '@/assets/gear-icon.png'
 import coinIcon from '@/assets/coin-icon.png'
@@ -76,10 +78,12 @@ import riddlesIcon from '@/assets/riddles.png'
 import tongueTwisterIcon from '@/assets/tonguetwisters.png'
 import articulationIcon from '@/assets/articulation.png'
 
+// Состояние для уровня и опыта
 const level = ref(7);
 const xp = ref(25);
-const xpProgress = ref((xp.value / 100) * 100);
+const xpProgress = ref((xp.value / 100) * 100); // Вычисление процента прогресса
 
+// Массив кнопок для нижней панели
 const actions = ref([
   { name: "Ежедневные задания", icon: dailyIcon2 },
   { name: "Творчество", icon: creativityIcon },
@@ -90,18 +94,22 @@ const actions = ref([
   { name: "Артикулярная гимнастика", icon: articulationIcon },
 ]);
 
+// Состояние для активной кнопки
 const activeButtonIndex = ref(0); // Первая кнопка активна по умолчанию
 
+// Функция для изменения активной кнопки
 function setActiveButton(index) {
   activeButtonIndex.value = index;
 }
 
+// Функция обмена (пока не реализована)
 function exchange() {
   alert("Функция обмена не реализована!");
 }
 </script>
 
 <style scoped>
+/* Основной контейнер */
 .profile {
   background: linear-gradient(180deg, #1e3a8a 0%, #1e40af 100%);
   min-height: 100vh;
@@ -111,6 +119,7 @@ function exchange() {
   flex-direction: column;
 }
 
+/* Стили для верхней панели */
 header {
   background: rgba(0, 0, 0, 0.2);
   padding: 1rem;
@@ -122,6 +131,7 @@ header {
   align-items: center;
 }
 
+/* Стили для информации о пользователе */
 .user-info {
   display: flex;
   align-items: center;
@@ -139,6 +149,7 @@ header {
   font-size: 1.2rem;
 }
 
+/* Стили для кнопки настроек */
 .settings-button {
   background: none;
   border: none;
@@ -150,6 +161,7 @@ header {
   height: 1.5rem;
 }
 
+/* Стили для верхней панели статистики */
 .stats-bar {
   display: flex;
   justify-content: space-between;
@@ -171,6 +183,7 @@ header {
   height: 1.5rem;
 }
 
+/* Стили для индикатора прогресса уровня */
 .level-info {
   text-align: center;
   margin-bottom: 2rem;
@@ -192,6 +205,7 @@ header {
   transition: width 0.3s ease;
 }
 
+/* Стили для контейнера с персонажем */
 .character-container {
   display: flex;
   flex-direction: column;
@@ -206,6 +220,7 @@ header {
   object-fit: contain;
 }
 
+/* Стили для кнопки обмена */
 .exchange-button {
   background: #3b82f6;
   color: white;
@@ -222,6 +237,7 @@ header {
   transform: scale(0.98);
 }
 
+/* Стили для нижней панели с кнопками */
 .bottom-actions-container {
   position: absolute;
   bottom: 0;
@@ -234,6 +250,7 @@ header {
   height: 65vh;
 }
 
+/* Контейнер с кнопками внизу панели */
 .bottom-actions {
   position: absolute;
   bottom: 1.5rem;
@@ -247,6 +264,7 @@ header {
   border-radius: 1rem;
 }
 
+/* Стили для кнопок действий */
 .action-button {
   background: none;
   border: none;
@@ -260,10 +278,12 @@ header {
   position: relative;
 }
 
+/* Стили для активной кнопки */
 .action-button.active {
   background: rgba(255, 255, 255, 0.2);
 }
 
+/* Индикатор активной кнопки (точка снизу) */
 .action-button.active::after {
   content: '';
   position: absolute;
@@ -276,10 +296,12 @@ header {
   border-radius: 50%;
 }
 
+/* Эффект при наведении на кнопку */
 .action-button:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
+/* Размеры иконок в кнопках */
 .action-button img {
   width: 1.25rem;
   height: 1.25rem;
