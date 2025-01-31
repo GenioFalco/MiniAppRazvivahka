@@ -77,8 +77,8 @@ function selectCharacter(char) {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 70vh;
-  background: linear-gradient(180deg, #1e3a8a 0%, #1e40af 100%);
+  height: 85vh;
+  background: #4C7C94;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   padding: 1.5rem;
@@ -92,6 +92,11 @@ function selectCharacter(char) {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+  position: sticky;
+  top: 0;
+  background: #4C7C94;
+  padding: 0.5rem 0;
+  z-index: 2;
 }
 
 .settings-header h2 {
@@ -113,6 +118,44 @@ function selectCharacter(char) {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  height: calc(100% - 4rem);
+  overflow-y: auto;
+  padding-bottom: 2rem;
+  -webkit-overflow-scrolling: touch; /* Для плавного скролла на iOS */
+}
+
+/* Стилизация скроллбара для ПК */
+.settings-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.settings-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.settings-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.settings-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+  .settings-content {
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    height: calc(100% - 4rem);
+  }
+
+  .setting-group {
+    scroll-snap-align: start;
+    min-height: calc(100% - 4rem);
+    padding: 1rem 0;
+  }
 }
 
 .setting-group {
