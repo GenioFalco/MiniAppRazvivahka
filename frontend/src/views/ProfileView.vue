@@ -197,7 +197,7 @@ header {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin: auto 0;
+  margin: 1rem 0;
 }
 
 .character-image {
@@ -223,14 +223,22 @@ header {
 }
 
 .bottom-actions-container {
-  margin-top: auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   padding: 1.5rem 1rem;
   background: rgba(0, 0, 0, 0.2);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  height: 65vh;
 }
 
 .bottom-actions {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1rem;
+  right: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
