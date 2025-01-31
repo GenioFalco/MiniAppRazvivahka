@@ -275,6 +275,7 @@ header {
   height: clamp(45vh, 65vh, 70vh);
   width: 100vw;
   margin: 0;
+  z-index: 1;
 }
 
 /* Контейнер с кнопками внизу панели */
@@ -289,6 +290,7 @@ header {
   background: rgba(255, 255, 255, 0.1);
   padding: clamp(0.5rem, 2vh, 1rem);
   border-radius: 1rem;
+  z-index: 2;
 }
 
 /* Стили для кнопок действий */
@@ -304,6 +306,8 @@ header {
   min-width: clamp(2rem, 6vh, 3rem);
   min-height: clamp(2rem, 6vh, 3rem);
   position: relative;
+  z-index: 3;
+  cursor: pointer;
 }
 
 /* Стили для активной кнопки */
@@ -322,6 +326,7 @@ header {
   height: 4px;
   background: #3b82f6;
   border-radius: 50%;
+  z-index: 3;
 }
 
 /* Эффект при наведении на кнопку */
@@ -333,6 +338,7 @@ header {
 .action-button img {
   width: clamp(1rem, 3vh, 1.5rem);
   height: clamp(1rem, 3vh, 1.5rem);
+  pointer-events: none;
 }
 
 @media (min-width: 768px) {
