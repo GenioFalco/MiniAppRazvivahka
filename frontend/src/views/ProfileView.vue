@@ -232,19 +232,18 @@ header {
   gap: 0;
   padding: 0;
   flex: 1;
-  justify-content: flex-end;
+  justify-content: center;
   width: 100%;
   margin: 0 auto;
   position: relative;
   z-index: 2;
-  margin-bottom: 25vh;
+  margin-top: -5vh;
 }
 
 .character-image {
-  width: clamp(12rem, 45vh, 24rem);
+  width: clamp(12rem, 40vh, 20rem);
   height: auto;
   object-fit: contain;
-  margin-bottom: -5%;
   position: relative;
   z-index: 2;
 }
@@ -254,15 +253,16 @@ header {
   background: #3b82f6;
   color: white;
   border: none;
-  padding: clamp(0.5rem, 2vh, 1rem) clamp(1.5rem, 4vh, 3rem);
+  padding: clamp(0.75rem, 2.5vh, 1.5rem) clamp(2rem, 5vh, 4rem);
   border-radius: 2rem;
   font-weight: bold;
-  font-size: clamp(1rem, 2vh, 1.2rem);
+  font-size: clamp(1.1rem, 2.5vh, 1.4rem);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
   position: relative;
   z-index: 2;
-  margin-top: -8%;
+  margin-top: -5%;
+  letter-spacing: 0.05em;
 }
 
 .exchange-button:active {
@@ -279,7 +279,7 @@ header {
   background: rgba(0, 0, 0, 0.2);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  height: clamp(45vh, 65vh, 70vh);
+  height: clamp(40vh, 55vh, 60vh);
   width: 100vw;
   margin: 0;
   z-index: 1;
@@ -361,35 +361,49 @@ header {
   }
 
   .character-container {
-    margin-bottom: 30vh;
+    margin-top: -8vh;
   }
 
   .character-image {
-    width: clamp(16rem, 50vh, 28rem);
-    margin-bottom: -8%;
+    width: clamp(16rem, 45vh, 24rem);
   }
 
   .exchange-button {
-    margin-top: -10%;
+    padding: clamp(1rem, 3vh, 2rem) clamp(3rem, 6vh, 5rem);
+    font-size: clamp(1.2rem, 3vh, 1.6rem);
+  }
+}
+
+@media (min-width: 1200px) {
+  .character-container {
+    margin-top: -10vh;
+  }
+
+  .character-image {
+    width: clamp(20rem, 50vh, 28rem);
+  }
+
+  .bottom-actions-container {
+    height: clamp(45vh, 50vh, 55vh);
   }
 }
 
 @media (max-height: 600px) {
-  .bottom-actions-container {
-    height: 55vh;
-  }
-
   .character-container {
-    margin-bottom: 20vh;
+    margin-top: -3vh;
   }
 
   .character-image {
-    width: clamp(10rem, 40vh, 20rem);
-    margin-bottom: -3%;
+    width: clamp(10rem, 35vh, 18rem);
   }
 
   .exchange-button {
-    margin-top: -5%;
+    padding: clamp(0.5rem, 2vh, 1rem) clamp(1.5rem, 4vh, 3rem);
+    font-size: clamp(1rem, 2vh, 1.2rem);
+  }
+
+  .bottom-actions-container {
+    height: 50vh;
   }
 }
 </style>
