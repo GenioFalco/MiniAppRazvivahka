@@ -51,20 +51,6 @@
           <img :src="action.icon" :alt="action.name" />
         </button>
       </div>
-      <div class="bottom-stats-bar">
-        <div class="stat-item">
-          <img :src="coinIcon" alt="Coins" />
-          <span>1,555,000</span>
-        </div>
-        <div class="stat-item">
-          <img :src="dailyIcon" alt="Daily" />
-          <span>25</span>
-        </div>
-        <div class="stat-item">
-          <img :src="trophyIcon" alt="Trophies" />
-          <span>3</span>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -228,58 +214,31 @@ header {
   margin-top: auto;
   padding: 1rem;
   background: rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
 }
 
 .bottom-actions {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   background: rgba(255, 255, 255, 0.1);
-  padding: 0.75rem;
+  padding: 0.5rem;
   border-radius: 1rem;
-  gap: 0.5rem;
 }
 
 .action-button {
   background: none;
   border: none;
-  padding: 0.75rem;
+  padding: 0.5rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background-color 0.2s ease;
-}
-
-.action-button:active {
-  background: rgba(255, 255, 255, 0.2);
+  min-width: 2.5rem;
 }
 
 .action-button img {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-.bottom-stats-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 0.75rem;
-  border-radius: 1rem;
-}
-
-.bottom-stats-bar .stat-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.bottom-stats-bar .stat-item img {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 </style>
