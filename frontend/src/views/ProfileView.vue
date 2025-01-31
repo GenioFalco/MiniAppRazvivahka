@@ -45,10 +45,12 @@
     </div>
 
     <!-- Bottom Actions -->
-    <div class="bottom-actions">
-      <button v-for="(action, index) in actions" :key="index" class="action-button">
-        <img :src="action.icon" :alt="action.name" />
-      </button>
+    <div class="bottom-actions-container">
+      <div class="bottom-actions">
+        <button v-for="(action, index) in actions" :key="index" class="action-button">
+          <img :src="action.icon" :alt="action.name" />
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -208,15 +210,24 @@ header {
   transform: scale(0.98);
 }
 
+.bottom-actions-container {
+  margin-top: auto;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+}
+
 .bottom-actions {
   display: flex;
   justify-content: space-around;
-  padding: 1rem 0;
-  margin-top: auto;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.75rem;
+  border-radius: 1rem;
+  gap: 0.5rem;
 }
 
 .action-button {
-  background: rgba(255, 255, 255, 0.1);
+  background: none;
   border: none;
   padding: 0.75rem;
   border-radius: 50%;
@@ -226,12 +237,12 @@ header {
   transition: background-color 0.2s ease;
 }
 
+.action-button:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 .action-button img {
   width: 1.5rem;
   height: 1.5rem;
-}
-
-.action-button:active {
-  background: rgba(255, 255, 255, 0.2);
 }
 </style>
