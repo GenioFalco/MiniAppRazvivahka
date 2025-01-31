@@ -78,13 +78,14 @@ function selectCharacter(char) {
   left: 0;
   right: 0;
   height: 85vh;
-  background: #4C7C94;
+  background: #2A82C4;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   padding: 1.5rem;
   color: white;
   z-index: 1000;
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 .settings-header {
@@ -94,7 +95,7 @@ function selectCharacter(char) {
   margin-bottom: 2rem;
   position: sticky;
   top: 0;
-  background: #4C7C94;
+  background: #2A82C4;
   padding: 0.5rem 0;
   z-index: 2;
 }
@@ -119,49 +120,23 @@ function selectCharacter(char) {
   flex-direction: column;
   gap: 2rem;
   height: calc(100% - 4rem);
-  overflow-y: auto;
+  overflow-y: scroll;
   padding-bottom: 2rem;
-  -webkit-overflow-scrolling: touch; /* Для плавного скролла на iOS */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE и Edge */
 }
 
-/* Стилизация скроллбара для ПК */
+/* Скрываем скроллбар для Chrome, Safari и Opera */
 .settings-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.settings-content::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-}
-
-.settings-content::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-}
-
-.settings-content::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-/* Стили для мобильных устройств */
-@media (max-width: 768px) {
-  .settings-content {
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
-    height: calc(100% - 4rem);
-  }
-
-  .setting-group {
-    scroll-snap-align: start;
-    min-height: calc(100% - 4rem);
-    padding: 1rem 0;
-  }
+  display: none;
 }
 
 .setting-group {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 0.5rem 0;
 }
 
 .setting-group label {
@@ -261,5 +236,16 @@ function selectCharacter(char) {
 .slide-up-enter-from,
 .slide-up-leave-to {
   transform: translateY(100%);
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+  .settings-content {
+    scroll-snap-type: y proximity;
+  }
+
+  .setting-group {
+    scroll-snap-align: start;
+  }
 }
 </style> 
