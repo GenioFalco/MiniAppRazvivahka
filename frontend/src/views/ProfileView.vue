@@ -125,6 +125,7 @@ function exchange() {
   margin: 0;
   left: 0;
   right: 0;
+  z-index: 1;
 }
 
 /* Стили для верхней панели */
@@ -238,6 +239,7 @@ header {
   position: relative;
   z-index: 2;
   margin-top: -15vh;
+  pointer-events: none;
 }
 
 .character-image {
@@ -247,6 +249,7 @@ header {
   position: relative;
   z-index: 2;
   margin-bottom: -5%;
+  pointer-events: none;
 }
 
 /* Стили для кнопки обмена */
@@ -265,6 +268,7 @@ header {
   margin-top: -8%;
   letter-spacing: 0.05em;
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .exchange-button:active {
@@ -284,7 +288,7 @@ header {
   height: clamp(40vh, 55vh, 60vh);
   width: 100vw;
   margin: 0;
-  z-index: 1;
+  z-index: 10;
 }
 
 /* Контейнер с кнопками внизу панели */
@@ -299,7 +303,7 @@ header {
   background: rgba(255, 255, 255, 0.1);
   padding: clamp(0.5rem, 2vh, 1rem);
   border-radius: 1rem;
-  z-index: 3;
+  z-index: 11;
 }
 
 /* Стили для кнопок действий */
@@ -315,8 +319,9 @@ header {
   min-width: clamp(2rem, 6vh, 3rem);
   min-height: clamp(2rem, 6vh, 3rem);
   position: relative;
-  z-index: 4;
+  z-index: 12;
   cursor: pointer;
+  pointer-events: auto;
 }
 
 /* Стили для активной кнопки */
