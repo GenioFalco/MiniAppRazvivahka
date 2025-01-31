@@ -246,6 +246,7 @@ header {
   object-fit: contain;
   position: relative;
   z-index: 2;
+  margin-bottom: -5%;
 }
 
 /* Стили для кнопки обмена */
@@ -261,8 +262,9 @@ header {
   transition: transform 0.2s ease;
   position: relative;
   z-index: 2;
-  margin-top: -15%;
+  margin-top: -8%;
   letter-spacing: 0.05em;
+  cursor: pointer;
 }
 
 .exchange-button:active {
@@ -297,7 +299,7 @@ header {
   background: rgba(255, 255, 255, 0.1);
   padding: clamp(0.5rem, 2vh, 1rem);
   border-radius: 1rem;
-  z-index: 2;
+  z-index: 3;
 }
 
 /* Стили для кнопок действий */
@@ -313,7 +315,7 @@ header {
   min-width: clamp(2rem, 6vh, 3rem);
   min-height: clamp(2rem, 6vh, 3rem);
   position: relative;
-  z-index: 3;
+  z-index: 4;
   cursor: pointer;
 }
 
@@ -361,7 +363,7 @@ header {
   }
 
   .character-container {
-    margin-top: -8vh;
+    margin-top: -20vh;
   }
 
   .character-image {
@@ -376,7 +378,7 @@ header {
 
 @media (min-width: 1200px) {
   .character-container {
-    margin-top: -10vh;
+    margin-top: -25vh;
   }
 
   .character-image {
