@@ -80,22 +80,18 @@ onMounted(() => {
       
       // Настраиваем BackButton
       const BackButton = window.Telegram.WebApp.BackButton
-      BackButton.show()
       
       BackButton.onClick(() => {
         console.log('Back button clicked, current route:', route.path)
         if (route.path === '/profile') {
           router.push('/')
-          BackButton.hide()
         }
       })
       
-      window.Telegram.WebApp.onEvent('backButtonClicked', () => {
-        console.log('Back button event received')
-        if (route.path === '/profile') {
-          router.push('/')
-        }
-      })
+      // Если мы на странице профиля, показываем кнопку назад
+      if (route.path === '/profile') {
+        BackButton.show()
+      }
       
       // Получаем тему
       const colorScheme = window.Telegram.WebApp.colorScheme
