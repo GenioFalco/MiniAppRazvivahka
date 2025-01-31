@@ -47,7 +47,13 @@
     <!-- Bottom Actions -->
     <div class="bottom-actions-container">
       <div class="bottom-actions">
-        <button v-for="(action, index) in actions" :key="index" class="action-button">
+        <button 
+          v-for="(action, index) in actions" 
+          :key="index" 
+          class="action-button"
+          :class="{ 'active': activeButtonIndex === index }"
+          @click="setActiveButton(index)"
+        >
           <img :src="action.icon" :alt="action.name" />
         </button>
       </div>
@@ -83,6 +89,12 @@ const actions = ref([
   { name: "Нейрогимнастика", icon: neuroIcon },
   { name: "Артикулярная гимнастика", icon: articulationIcon },
 ]);
+
+const activeButtonIndex = ref(0); // Первая кнопка активна по умолчанию
+
+function setActiveButton(index) {
+  activeButtonIndex.value = index;
+}
 
 function exchange() {
   alert("Функция обмена не реализована!");
@@ -233,8 +245,29 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   min-width: 2.5rem;
+  position: relative;
+}
+
+.action-button.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.action-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: #3b82f6;
+  border-radius: 50%;
+}
+
+.action-button:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .action-button img {
