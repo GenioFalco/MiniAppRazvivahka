@@ -113,6 +113,7 @@ function exchange() {
 .profile {
   background: linear-gradient(180deg, #1e3a8a 0%, #1e40af 100%);
   min-height: 100vh;
+  height: 100vh;
   color: white;
   padding: 0;
   display: flex;
@@ -121,12 +122,14 @@ function exchange() {
   margin: 0 auto;
   position: relative;
   width: 100%;
+  overflow: hidden;
 }
 
 /* Стили для верхней панели */
 header {
   background: rgba(0, 0, 0, 0.2);
   padding: 1rem;
+  flex-shrink: 0;
 }
 
 .header-content {
@@ -174,6 +177,7 @@ header {
   padding: 0.75rem;
   border-radius: 1rem;
   margin: 1rem;
+  flex-shrink: 0;
 }
 
 .stat-item {
@@ -192,6 +196,7 @@ header {
   text-align: center;
   margin: 1rem;
   padding: 0.5rem;
+  flex-shrink: 0;
 }
 
 .xp-bar {
@@ -218,6 +223,8 @@ header {
   gap: 1.5rem;
   margin: 2rem 0;
   padding: 0 1rem;
+  flex: 1;
+  justify-content: center;
 }
 
 .character-image {
@@ -256,6 +263,7 @@ header {
   height: 65vh;
   max-width: 600px;
   margin: 0 auto;
+  width: 100%;
 }
 
 /* Контейнер с кнопками внизу панели */
@@ -318,6 +326,11 @@ header {
 }
 
 @media (min-width: 768px) {
+  .profile {
+    height: 100vh;
+    max-height: 100vh;
+  }
+
   .stats-bar {
     margin: 1.5rem 2rem;
     padding: 1rem;
@@ -328,12 +341,13 @@ header {
   }
 
   .character-container {
-    margin: 3rem 0;
-    gap: 2rem;
+    margin: 0;
+    padding: 2rem 1rem;
   }
 
   .bottom-actions-container {
     padding: 2rem;
+    height: 65vh;
   }
 
   .bottom-actions {
