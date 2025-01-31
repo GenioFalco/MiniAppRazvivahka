@@ -118,10 +118,13 @@ function exchange() {
   padding: 0;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 100%;
+  width: 100vw;
+  max-width: 100vw;
   position: relative;
   overflow: hidden;
+  margin: 0;
+  left: 0;
+  right: 0;
 }
 
 /* Стили для верхней панели */
@@ -178,8 +181,7 @@ header {
   border-radius: 1rem;
   margin: clamp(0.5rem, 2vh, 1rem);
   flex-shrink: 0;
-  width: calc(100% - clamp(1rem, 4vh, 2rem));
-  max-width: 600px;
+  width: calc(100% - clamp(2rem, 4vh, 4rem));
   margin-left: auto;
   margin-right: auto;
 }
@@ -201,8 +203,7 @@ header {
   margin: clamp(0.5rem, 2vh, 1rem);
   padding: clamp(0.25rem, 1vh, 0.5rem);
   flex-shrink: 0;
-  width: calc(100% - clamp(1rem, 4vh, 2rem));
-  max-width: 600px;
+  width: calc(100% - clamp(2rem, 4vh, 4rem));
   margin-left: auto;
   margin-right: auto;
 }
@@ -233,7 +234,6 @@ header {
   flex: 1;
   justify-content: center;
   width: 100%;
-  max-width: 600px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
@@ -273,9 +273,8 @@ header {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   height: clamp(45vh, 65vh, 70vh);
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
+  width: 100vw;
+  margin: 0;
 }
 
 /* Контейнер с кнопками внизу панели */
@@ -290,7 +289,6 @@ header {
   background: rgba(255, 255, 255, 0.1);
   padding: clamp(0.5rem, 2vh, 1rem);
   border-radius: 1rem;
-  width: calc(100% - clamp(2rem, 6vh, 4rem));
 }
 
 /* Стили для кнопок действий */
@@ -339,20 +337,14 @@ header {
 
 @media (min-width: 768px) {
   .profile {
-    max-width: min(100%, 600px);
-    margin: 0 auto;
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
   }
 
   .bottom-actions-container {
-    max-width: min(100%, 600px);
-  }
-
-  .character-container {
-    padding: clamp(2rem, 5vh, 4rem);
-  }
-
-  .character-image {
-    width: clamp(10rem, 35vh, 20rem);
+    width: 100vw;
+    margin: 0;
   }
 }
 
