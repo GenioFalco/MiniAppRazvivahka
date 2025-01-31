@@ -237,7 +237,7 @@ header {
   width: 100%;
   margin: 0 auto;
   position: relative;
-  z-index: 2;
+  z-index: 20;
   margin-top: -15vh;
   pointer-events: none;
 }
@@ -247,7 +247,7 @@ header {
   height: auto;
   object-fit: contain;
   position: relative;
-  z-index: 2;
+  z-index: 20;
   margin-bottom: -5%;
   pointer-events: none;
 }
@@ -264,7 +264,7 @@ header {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
   position: relative;
-  z-index: 2;
+  z-index: 20;
   margin-top: -8%;
   letter-spacing: 0.05em;
   cursor: pointer;
@@ -368,7 +368,7 @@ header {
   }
 
   .character-container {
-    margin-top: -10vh;
+    margin-top: -15vh;
   }
 
   .character-image {
@@ -385,7 +385,7 @@ header {
 
 @media (min-width: 1200px) {
   .character-container {
-    margin-top: -5vh;
+    margin-top: -20vh;
   }
 
   .character-image {
