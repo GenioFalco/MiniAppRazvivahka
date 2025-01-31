@@ -6,9 +6,9 @@
       <div class="header-content">
         <div class="user-info">
           <img :src="profileIcon" alt="Profile" class="profile-mini" />
-          <span class="username">ТИМА#564</span>
+          <span class="username">{{ nickname }}</span>
         </div>
-        <button class="settings-button">
+        <button class="settings-button" @click="toggleSettings">
           <img :src="gearIcon" alt="Settings" />
         </button>
       </div>
@@ -59,6 +59,14 @@
         </button>
       </div>
     </div>
+
+    <!-- Компонент настроек -->
+    <SettingsPanel 
+      :is-visible="isSettingsVisible"
+      @close="toggleSettings"
+      @update:nickname="updateNickname"
+      @update:character="updateCharacter"
+    />
   </div>
 </template>
 
@@ -77,6 +85,7 @@ import rebusIcon from '@/assets/rebus.png'
 import riddlesIcon from '@/assets/riddles.png'
 import tongueTwisterIcon from '@/assets/tonguetwisters.png'
 import articulationIcon from '@/assets/articulation.png'
+import SettingsPanel from '@/components/SettingsPanel.vue'
 
 // Состояние для уровня и опыта
 const level = ref(7);
@@ -97,6 +106,10 @@ const actions = ref([
 // Состояние для активной кнопки
 const activeButtonIndex = ref(0); // Первая кнопка активна по умолчанию
 
+// Состояние для настроек
+const isSettingsVisible = ref(false);
+const nickname = ref('ТИМА#564');
+
 // Функция для изменения активной кнопки
 function setActiveButton(index) {
   activeButtonIndex.value = index;
@@ -105,6 +118,19 @@ function setActiveButton(index) {
 // Функция обмена (пока не реализована)
 function exchange() {
   alert("Функция обмена не реализована!");
+}
+
+// Функции для работы с настройками
+function toggleSettings() {
+  isSettingsVisible.value = !isSettingsVisible.value;
+}
+
+function updateNickname(newNickname) {
+  nickname.value = newNickname;
+}
+
+function updateCharacter(newCharacter) {
+  profileIcon.value = newCharacter;
 }
 </script>
 
