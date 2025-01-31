@@ -232,18 +232,19 @@ header {
   gap: 0;
   padding: 0;
   flex: 1;
-  justify-content: center;
+  justify-content: flex-end;
   width: 100%;
   margin: 0 auto;
   position: relative;
   z-index: 2;
+  margin-bottom: 25vh;
 }
 
 .character-image {
   width: clamp(12rem, 45vh, 24rem);
   height: auto;
   object-fit: contain;
-  margin-bottom: -15%;
+  margin-bottom: -5%;
   position: relative;
   z-index: 2;
 }
@@ -261,7 +262,7 @@ header {
   transition: transform 0.2s ease;
   position: relative;
   z-index: 2;
-  margin-top: -10%;
+  margin-top: -8%;
 }
 
 .exchange-button:active {
@@ -359,13 +360,17 @@ header {
     margin: 0;
   }
 
+  .character-container {
+    margin-bottom: 30vh;
+  }
+
   .character-image {
     width: clamp(16rem, 50vh, 28rem);
-    margin-bottom: -20%;
+    margin-bottom: -8%;
   }
 
   .exchange-button {
-    margin-top: -15%;
+    margin-top: -10%;
   }
 }
 
@@ -374,9 +379,13 @@ header {
     height: 55vh;
   }
 
+  .character-container {
+    margin-bottom: 20vh;
+  }
+
   .character-image {
     width: clamp(10rem, 40vh, 20rem);
-    margin-bottom: -10%;
+    margin-bottom: -3%;
   }
 
   .exchange-button {
