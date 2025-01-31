@@ -224,8 +224,10 @@ header {
 
 .bottom-actions-container {
   margin-top: auto;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
   background: rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .bottom-actions {
@@ -233,7 +235,7 @@ header {
   justify-content: space-between;
   align-items: center;
   background: rgba(255, 255, 255, 0.1);
-  padding: 0.5rem;
+  padding: 0.75rem;
   border-radius: 1rem;
 }
 
