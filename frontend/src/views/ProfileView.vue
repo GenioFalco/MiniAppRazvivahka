@@ -44,7 +44,28 @@
       <button class="exchange-button">ОБМЕНЯТЬ</button>
     </div>
 
-    
+    <!-- Bottom Actions -->
+    <div class="bottom-actions-container">
+      <div class="bottom-actions">
+        <button v-for="(action, index) in actions" :key="index" class="action-button">
+          <img :src="action.icon" :alt="action.name" />
+        </button>
+      </div>
+      <div class="bottom-stats-bar">
+        <div class="stat-item">
+          <img :src="coinIcon" alt="Coins" />
+          <span>1,555,000</span>
+        </div>
+        <div class="stat-item">
+          <img :src="dailyIcon" alt="Daily" />
+          <span>25</span>
+        </div>
+        <div class="stat-item">
+          <img :src="trophyIcon" alt="Trophies" />
+          <span>3</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -203,7 +224,14 @@ header {
   transform: scale(0.98);
 }
 
-
+.bottom-actions-container {
+  margin-top: auto;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 
 .bottom-actions {
   display: flex;
