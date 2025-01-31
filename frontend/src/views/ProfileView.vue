@@ -229,20 +229,23 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(1rem, 3vh, 2rem);
-  padding: clamp(1rem, 3vh, 2rem);
+  gap: 0;
+  padding: 0;
   flex: 1;
   justify-content: center;
   width: 100%;
   margin: 0 auto;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .character-image {
-  width: clamp(8rem, 30vh, 16rem);
+  width: clamp(12rem, 45vh, 24rem);
   height: auto;
   object-fit: contain;
+  margin-bottom: -15%;
+  position: relative;
+  z-index: 2;
 }
 
 /* Стили для кнопки обмена */
@@ -256,6 +259,9 @@ header {
   font-size: clamp(1rem, 2vh, 1.2rem);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
+  position: relative;
+  z-index: 2;
+  margin-top: -10%;
 }
 
 .exchange-button:active {
@@ -352,6 +358,15 @@ header {
     width: 100vw;
     margin: 0;
   }
+
+  .character-image {
+    width: clamp(16rem, 50vh, 28rem);
+    margin-bottom: -20%;
+  }
+
+  .exchange-button {
+    margin-top: -15%;
+  }
 }
 
 @media (max-height: 600px) {
@@ -359,13 +374,13 @@ header {
     height: 55vh;
   }
 
-  .character-container {
-    gap: clamp(0.5rem, 2vh, 1rem);
-    padding: clamp(0.5rem, 2vh, 1rem);
+  .character-image {
+    width: clamp(10rem, 40vh, 20rem);
+    margin-bottom: -10%;
   }
 
-  .character-image {
-    width: clamp(6rem, 25vh, 12rem);
+  .exchange-button {
+    margin-top: -5%;
   }
 }
 </style>
