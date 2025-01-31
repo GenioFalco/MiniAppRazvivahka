@@ -237,7 +237,7 @@ header {
   margin: 0 auto;
   position: relative;
   z-index: 2;
-  margin-top: -5vh;
+  margin-top: -8vh;
 }
 
 .character-image {
