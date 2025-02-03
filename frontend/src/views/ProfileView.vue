@@ -42,6 +42,9 @@
     <!-- Контейнер с персонажем и кнопкой обмена -->
     <div class="character-container">
       <img :src="profileIcon" alt="Character" class="character-image" />
+      <div class="character-level">
+        {{ level }}
+      </div>
       <button class="exchange-button">ОБМЕНЯТЬ</button>
     </div>
 
@@ -88,7 +91,7 @@ import articulationIcon from '@/assets/articulation.png'
 import SettingsPanel from '@/components/SettingsPanel.vue'
 
 // Состояние для уровня и опыта
-const level = ref(7);
+const level = ref(0);
 const xp = ref(25);
 const xpProgress = ref((xp.value / 100) * 100); // Вычисление процента прогресса
 
@@ -278,6 +281,25 @@ header {
   pointer-events: none;
 }
 
+.character-level {
+  position: absolute;
+  top: 10%;
+  right: calc(50% - clamp(6rem, 20vh, 10rem));
+  width: 2.5rem;
+  height: 2.5rem;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: white;
+  z-index: 21;
+  backdrop-filter: blur(4px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
 /* Стили для кнопки обмена */
 .exchange-button {
   background: #3b82f6;
@@ -402,6 +424,13 @@ header {
     margin-bottom: -2%;
   }
 
+  .character-level {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.4rem;
+    right: calc(50% - clamp(8rem, 22.5vh, 12rem));
+  }
+
   .exchange-button {
     padding: clamp(1rem, 3vh, 2rem) clamp(3rem, 6vh, 5rem);
     font-size: clamp(1.2rem, 3vh, 1.6rem);
@@ -417,6 +446,13 @@ header {
   .character-image {
     width: clamp(20rem, 50vh, 28rem);
     margin-bottom: -1%;
+  }
+
+  .character-level {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.6rem;
+    right: calc(50% - clamp(10rem, 25vh, 14rem));
   }
 
   .bottom-actions-container {
