@@ -45,7 +45,7 @@
       <div class="character-level">
         {{ level }}
       </div>
-      <button class="exchange-button">ОБМЕНЯТЬ</button>
+      <button class="exchange-button" @click="toggleUpgrade">ПРОКАЧАТЬ</button>
     </div>
 
     <!-- Нижняя панель с кнопками действий -->
@@ -70,6 +70,14 @@
       @update:nickname="updateNickname"
       @update:character="updateCharacter"
     />
+
+    <!-- Компонент прокачки -->
+    <UpgradePanel 
+      :is-visible="isUpgradeVisible"
+      :character-image="profileIcon"
+      @close="toggleUpgrade"
+      @upgrade="handleUpgrade"
+    />
   </div>
 </template>
 
@@ -89,6 +97,7 @@ import riddlesIcon from '@/assets/riddles.png'
 import tongueTwisterIcon from '@/assets/tonguetwisters.png'
 import articulationIcon from '@/assets/articulation.png'
 import SettingsPanel from '@/components/SettingsPanel.vue'
+import UpgradePanel from '@/components/UpgradePanel.vue'
 
 // Состояние для уровня и опыта
 const level = ref(0);
@@ -113,6 +122,9 @@ const activeButtonIndex = ref(0); // Первая кнопка активна п
 const isSettingsVisible = ref(false);
 const nickname = ref('ТИМА#564');
 
+// Состояние для панели прокачки
+const isUpgradeVisible = ref(false);
+
 // Функция для изменения активной кнопки
 function setActiveButton(index) {
   activeButtonIndex.value = index;
@@ -134,6 +146,16 @@ function updateNickname(newNickname) {
 
 function updateCharacter(newCharacter) {
   profileIcon.value = newCharacter;
+}
+
+// Функции для работы с панелью прокачки
+function toggleUpgrade() {
+  isUpgradeVisible.value = !isUpgradeVisible.value;
+}
+
+function handleUpgrade(data) {
+  // Здесь будет логика обработки прокачки
+  console.log('Upgrade data:', data);
 }
 </script>
 
