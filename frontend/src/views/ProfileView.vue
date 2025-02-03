@@ -39,10 +39,10 @@
       <span class="xp-text">XP {{ xp }}/100</span>
     </div>
 
-    <!-- Контейнер с персонажем и кнопкой обмена -->
+    <!-- Контейнер с персонажем и кнопкой прокачки -->
     <div class="character-container">
       <img :src="profileIcon" alt="Character" class="character-image" />
-      <button class="exchange-button">ОБМЕНЯТЬ</button>
+      <button class="exchange-button" @click="toggleUpgradePanel">ПРОКАЧАТЬ</button>
     </div>
 
     <!-- Нижняя панель с кнопками действий -->
@@ -67,6 +67,13 @@
       @update:nickname="updateNickname"
       @update:character="updateCharacter"
     />
+
+    <!-- Компонент панели прокачки -->
+    <UpgradePanel 
+      :is-visible="isUpgradePanelVisible"
+      @close="toggleUpgradePanel"
+      @upgrade="handleUpgrade"
+    />
   </div>
 </template>
 
@@ -86,6 +93,7 @@ import riddlesIcon from '@/assets/riddles.png'
 import tongueTwisterIcon from '@/assets/tonguetwisters.png'
 import articulationIcon from '@/assets/articulation.png'
 import SettingsPanel from '@/components/SettingsPanel.vue'
+import UpgradePanel from '@/components/UpgradePanel.vue'
 
 // Состояние для уровня и опыта
 const level = ref(7);
@@ -110,6 +118,9 @@ const activeButtonIndex = ref(0); // Первая кнопка активна п
 const isSettingsVisible = ref(false);
 const nickname = ref('ТИМА#564');
 
+// Состояние для панели прокачки
+const isUpgradePanelVisible = ref(false);
+
 // Функция для изменения активной кнопки
 function setActiveButton(index) {
   activeButtonIndex.value = index;
@@ -131,6 +142,15 @@ function updateNickname(newNickname) {
 
 function updateCharacter(newCharacter) {
   profileIcon.value = newCharacter;
+}
+
+function toggleUpgradePanel() {
+  isUpgradePanelVisible.value = !isUpgradePanelVisible.value;
+}
+
+function handleUpgrade(data) {
+  // Здесь будет логика обработки прокачки
+  console.log('Upgrade data:', data);
 }
 </script>
 
