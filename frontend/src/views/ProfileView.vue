@@ -283,8 +283,8 @@ header {
 
 .character-level {
   position: absolute;
-  top: 10%;
-  right: calc(50% - clamp(6rem, 20vh, 10rem));
+  top: 35%;
+  right: calc(50% - clamp(5rem, 18vh, 9rem));
   width: 2.5rem;
   height: 2.5rem;
   background: rgba(0, 0, 0, 0.4);
@@ -428,7 +428,7 @@ header {
     width: 3rem;
     height: 3rem;
     font-size: 1.4rem;
-    right: calc(50% - clamp(8rem, 22.5vh, 12rem));
+    right: calc(50% - clamp(7rem, 20vh, 11rem));
   }
 
   .exchange-button {
@@ -452,7 +452,7 @@ header {
     width: 3.5rem;
     height: 3.5rem;
     font-size: 1.6rem;
-    right: calc(50% - clamp(10rem, 25vh, 14rem));
+    right: calc(50% - clamp(9rem, 22vh, 13rem));
   }
 
   .bottom-actions-container {
