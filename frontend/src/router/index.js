@@ -1,23 +1,25 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import MainMenu from '@/components/MainMenu.vue'
+import ProfileView from '@/views/ProfileView.vue'
+import TasksView from '@/views/TasksView.vue'
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: MainMenu
     },
     {
       path: '/profile',
       name: 'profile',
-      component: () => import('../views/ProfileView.vue')
+      component: ProfileView
     },
     {
-      path: '/tasks',
+      path: '/tasks/:category?',
       name: 'tasks',
-      component: () => import('../views/TasksView.vue')
+      component: TasksView
     }
   ]
 })

@@ -42,10 +42,7 @@
     <!-- Контейнер с персонажем и кнопкой обмена -->
     <div class="character-container">
       <img :src="profileIcon" alt="Character" class="character-image" />
-      <div class="character-level">
-        {{ level }}
-      </div>
-      <button class="exchange-button" @click="toggleUpgrade">ПРОКАЧАТЬ</button>
+      <button class="exchange-button">ОБМЕНЯТЬ</button>
     </div>
 
     <!-- Нижняя панель с кнопками действий -->
@@ -56,10 +53,7 @@
           :key="index" 
           class="action-button"
           :class="{ 'active': activeButtonIndex === index }"
-          @click="() => {
-            setActiveButton(index);
-            action.onClick && action.onClick();
-          }"
+          @click="setActiveButton(index)"
         >
           <img :src="action.icon" :alt="action.name" />
         </button>
@@ -72,21 +66,6 @@
       @close="toggleSettings"
       @update:nickname="updateNickname"
       @update:character="updateCharacter"
-    />
-
-    <!-- Компонент прокачки -->
-    <UpgradePanel 
-      :is-visible="isUpgradeVisible"
-      :character-image="profileIcon"
-      @close="toggleUpgrade"
-      @upgrade="handleUpgrade"
-    />
-
-    <!-- Компонент ежедневных наград -->
-    <DailyRewardsPanel 
-      :is-visible="isDailyRewardsVisible"
-      @close="toggleDailyRewards"
-      @claim-reward="handleClaimReward"
     />
   </div>
 </template>
@@ -107,20 +86,15 @@ import riddlesIcon from '@/assets/riddles.png'
 import tongueTwisterIcon from '@/assets/tonguetwisters.png'
 import articulationIcon from '@/assets/articulation.png'
 import SettingsPanel from '@/components/SettingsPanel.vue'
-import UpgradePanel from '@/components/UpgradePanel.vue'
-import DailyRewardsPanel from '@/components/DailyRewardsPanel.vue'
 
 // Состояние для уровня и опыта
-const level = ref(0);
+const level = ref(7);
 const xp = ref(25);
 const xpProgress = ref((xp.value / 100) * 100); // Вычисление процента прогресса
 
-// Состояние для панели ежедневных наград
-const isDailyRewardsVisible = ref(false);
-
 // Массив кнопок для нижней панели
 const actions = ref([
-  { name: "Ежедневные задания", icon: dailyIcon2, onClick: toggleDailyRewards },
+  { name: "Ежедневные задания", icon: dailyIcon2 },
   { name: "Творчество", icon: creativityIcon },
   { name: "Ребусы", icon: rebusIcon },
   { name: "Загадки", icon: riddlesIcon },
@@ -135,9 +109,6 @@ const activeButtonIndex = ref(0); // Первая кнопка активна п
 // Состояние для настроек
 const isSettingsVisible = ref(false);
 const nickname = ref('ТИМА#564');
-
-// Состояние для панели прокачки
-const isUpgradeVisible = ref(false);
 
 // Функция для изменения активной кнопки
 function setActiveButton(index) {
@@ -160,26 +131,6 @@ function updateNickname(newNickname) {
 
 function updateCharacter(newCharacter) {
   profileIcon.value = newCharacter;
-}
-
-// Функции для работы с панелью прокачки
-function toggleUpgrade() {
-  isUpgradeVisible.value = !isUpgradeVisible.value;
-}
-
-function handleUpgrade(data) {
-  // Здесь будет логика обработки прокачки
-  console.log('Upgrade data:', data);
-}
-
-// Функции для работы с панелью ежедневных наград
-function toggleDailyRewards() {
-  isDailyRewardsVisible.value = !isDailyRewardsVisible.value;
-}
-
-function handleClaimReward(data) {
-  // Здесь будет логика обработки получения награды
-  console.log('Claim reward data:', data);
 }
 </script>
 
@@ -327,25 +278,6 @@ header {
   pointer-events: none;
 }
 
-.character-level {
-  position: absolute;
-  top: 35%;
-  right: calc(50% - clamp(5rem, 18vh, 9rem));
-  width: 2.5rem;
-  height: 2.5rem;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 1.2rem;
-  color: white;
-  z-index: 21;
-  backdrop-filter: blur(4px);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
 /* Стили для кнопки обмена */
 .exchange-button {
   background: #3b82f6;
@@ -470,13 +402,6 @@ header {
     margin-bottom: -2%;
   }
 
-  .character-level {
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.4rem;
-    right: calc(50% - clamp(7rem, 20vh, 11rem));
-  }
-
   .exchange-button {
     padding: clamp(1rem, 3vh, 2rem) clamp(3rem, 6vh, 5rem);
     font-size: clamp(1.2rem, 3vh, 1.6rem);
@@ -492,13 +417,6 @@ header {
   .character-image {
     width: clamp(20rem, 50vh, 28rem);
     margin-bottom: -1%;
-  }
-
-  .character-level {
-    width: 3.5rem;
-    height: 3.5rem;
-    font-size: 1.6rem;
-    right: calc(50% - clamp(9rem, 22vh, 13rem));
   }
 
   .bottom-actions-container {
