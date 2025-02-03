@@ -22,7 +22,7 @@
           <img src="@/assets/shop.png" alt="Магазин" class="menu-icon" />
           <span>Магазин</span>
         </div>
-        <div class="menu-card clickable" @click="handleClick('link')">
+        <div class="menu-card clickable" @click="toggleDailyRewards">
           <img src="@/assets/daily_admission.png" alt="Ежедневный вход" class="menu-icon" />
           <span>Ежедневный вход</span>
         </div>
@@ -60,13 +60,34 @@
         <span>Нейрогимнастика</span>
       </div>
     </div>
+
+    <!-- Добавляем компонент панели ежедневных наград -->
+    <DailyRewardsPanel 
+      :is-visible="isDailyRewardsVisible"
+      @close="toggleDailyRewards"
+      @claim-reward="handleClaimReward"
+    />
   </div>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router'
+import DailyRewardsPanel from '@/components/DailyRewardsPanel.vue'
+import { ref } from 'vue'
 
 const router = useRouter()
+
+// Добавляем состояние для панели ежедневных наград
+const isDailyRewardsVisible = ref(false);
+
+function toggleDailyRewards() {
+  isDailyRewardsVisible.value = !isDailyRewardsVisible.value;
+}
+
+function handleClaimReward(data) {
+  // Здесь будет логика обработки получения награды
+  console.log('Claim reward data:', data);
+}
 
 const handleClick = async (category) => {
   try {
@@ -93,7 +114,6 @@ const handleClick = async (category) => {
         case 'subscription':
         case 'photoalbum':
         case 'shop':
-        case 'link':
           // Для верхних кнопок меню
           router.push({ name: 'tasks', query: { category } })
           break;

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import MainMenu from '@/components/MainMenu.vue'
+import HomeView from '@/views/HomeView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import TasksView from '@/views/TasksView.vue'
 
@@ -9,7 +9,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: MainMenu
+      component: HomeView
     },
     {
       path: '/profile',
