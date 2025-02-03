@@ -56,7 +56,10 @@
           :key="index" 
           class="action-button"
           :class="{ 'active': activeButtonIndex === index }"
-          @click="setActiveButton(index)"
+          @click="() => {
+            setActiveButton(index);
+            action.onClick && action.onClick();
+          }"
         >
           <img :src="action.icon" :alt="action.name" />
         </button>
@@ -78,6 +81,13 @@
       @close="toggleUpgrade"
       @upgrade="handleUpgrade"
     />
+
+    <!-- Компонент ежедневных наград -->
+    <DailyRewardsPanel 
+      :is-visible="isDailyRewardsVisible"
+      @close="toggleDailyRewards"
+      @claim-reward="handleClaimReward"
+    />
   </div>
 </template>
 
@@ -98,15 +108,19 @@ import tongueTwisterIcon from '@/assets/tonguetwisters.png'
 import articulationIcon from '@/assets/articulation.png'
 import SettingsPanel from '@/components/SettingsPanel.vue'
 import UpgradePanel from '@/components/UpgradePanel.vue'
+import DailyRewardsPanel from '@/components/DailyRewardsPanel.vue'
 
 // Состояние для уровня и опыта
 const level = ref(0);
 const xp = ref(25);
 const xpProgress = ref((xp.value / 100) * 100); // Вычисление процента прогресса
 
+// Состояние для панели ежедневных наград
+const isDailyRewardsVisible = ref(false);
+
 // Массив кнопок для нижней панели
 const actions = ref([
-  { name: "Ежедневные задания", icon: dailyIcon2 },
+  { name: "Ежедневные задания", icon: dailyIcon2, onClick: toggleDailyRewards },
   { name: "Творчество", icon: creativityIcon },
   { name: "Ребусы", icon: rebusIcon },
   { name: "Загадки", icon: riddlesIcon },
@@ -156,6 +170,16 @@ function toggleUpgrade() {
 function handleUpgrade(data) {
   // Здесь будет логика обработки прокачки
   console.log('Upgrade data:', data);
+}
+
+// Функции для работы с панелью ежедневных наград
+function toggleDailyRewards() {
+  isDailyRewardsVisible.value = !isDailyRewardsVisible.value;
+}
+
+function handleClaimReward(data) {
+  // Здесь будет логика обработки получения награды
+  console.log('Claim reward data:', data);
 }
 </script>
 
