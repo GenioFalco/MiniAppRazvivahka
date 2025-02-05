@@ -73,13 +73,13 @@ function closePhoto() {
   document.body.style.overflow = '';
 }
 
-// Загрузка фотографий из Яндекс.Диска
+// Загрузка фотографий из API
 onMounted(async () => {
   isLoading.value = true;
   error.value = null;
   
   try {
-    const response = await fetch('/api/photos');
+    const response = await fetch('https://razvivahka-api.onrender.com/api/photos');
 
     if (!response.ok) {
       throw new Error(`Ошибка HTTP: ${response.status}`);
@@ -101,7 +101,7 @@ async function retryLoading() {
   error.value = null;
   
   try {
-    const response = await fetch('/api/photos');
+    const response = await fetch('https://razvivahka-api.onrender.com/api/photos');
 
     if (!response.ok) {
       throw new Error(`Ошибка HTTP: ${response.status}`);
