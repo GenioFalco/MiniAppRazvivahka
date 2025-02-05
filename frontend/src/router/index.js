@@ -32,6 +32,13 @@ router.beforeEach((to, from, next) => {
   if (telegram) {
     telegram.ready()
     telegram.expand()
+    
+    // Настраиваем кнопку "назад"
+    if (to.name === 'profile') {
+      telegram.BackButton.show()
+    } else {
+      telegram.BackButton.hide()
+    }
   } else {
     console.log('Running in browser mode')
   }
