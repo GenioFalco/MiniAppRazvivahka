@@ -111,8 +111,10 @@ const handleClick = async (category) => {
         case 'profile':
           router.push({ name: 'profile' })
           break;
-        case 'subscription':
         case 'photoalbum':
+          router.push({ name: 'photoalbum' })
+          break;
+        case 'subscription':
         case 'shop':
           // Для верхних кнопок меню
           router.push({ name: 'tasks', query: { category } })
@@ -126,6 +128,8 @@ const handleClick = async (category) => {
     console.error('Error in handleClick:', error)
     if (category === 'profile') {
       router.push({ name: 'profile' })
+    } else if (category === 'photoalbum') {
+      router.push({ name: 'photoalbum' })
     } else {
       router.push({ name: 'tasks', query: { category } })
     }
