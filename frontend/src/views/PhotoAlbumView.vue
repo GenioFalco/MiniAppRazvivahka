@@ -59,39 +59,33 @@ function closePhoto() {
   document.body.style.overflow = '';
 }
 
-// Загрузка фотографий из канала
-onMounted(async () => {
-  try {
-    // Используем метод getMessages вместо getChat
-    const response = await fetch('https://api.telegram.org/bot7072578872:AAHCAnoA7kgsRc9qgg0j62mNum-9dGp73Kg/getUpdates');
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+// Загрузка фотографий из Google Drive
+onMounted(() => {
+  // Массив с фотографиями из Google Drive
+  // Замените эти URL на реальные ссылки из вашей публичной папки Google Drive
+  photos.value = [
+    {
+      id: 1,
+      url: 'https://drive.google.com/uc?export=view&id=YOUR_PHOTO_ID_1',
+      author: 'Автор 1',
+      date: Math.floor(Date.now() / 1000),
+      caption: 'Описание фото 1'
+    },
+    {
+      id: 2,
+      url: 'https://drive.google.com/uc?export=view&id=YOUR_PHOTO_ID_2',
+      author: 'Автор 2',
+      date: Math.floor(Date.now() / 1000),
+      caption: 'Описание фото 2'
+    },
+    {
+      id: 3,
+      url: 'https://drive.google.com/uc?export=view&id=YOUR_PHOTO_ID_3',
+      author: 'Автор 3',
+      date: Math.floor(Date.now() / 1000),
+      caption: 'Описание фото 3'
     }
-    const data = await response.json();
-    
-    // Временно используем тестовые данные, пока не настроим правильный доступ к API
-    photos.value = [
-      {
-        id: 1,
-        url: 'https://via.placeholder.com/300',
-        author: 'Test User 1',
-        date: Math.floor(Date.now() / 1000),
-        caption: 'Тестовое фото 1'
-      },
-      {
-        id: 2,
-        url: 'https://via.placeholder.com/300',
-        author: 'Test User 2',
-        date: Math.floor(Date.now() / 1000),
-        caption: 'Тестовое фото 2'
-      }
-    ];
-    
-  } catch (error) {
-    console.error('Error loading photos:', error);
-    // Используем простой alert вместо Telegram WebApp методов
-    alert('Не удалось загрузить фотографии. Пожалуйста, попробуйте позже.');
-  }
+  ];
 });
 </script>
 
@@ -101,6 +95,7 @@ onMounted(async () => {
   background: linear-gradient(180deg, #4a90e2, #003f7f);
   padding: 1rem;
   color: white;
+  padding-top: 4rem; /* Добавляем отступ сверху для кнопки назад */
 }
 
 header {
@@ -126,9 +121,9 @@ h1 {
 
 .photos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1rem;
-  padding: 1rem 0;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
 }
 
 .photo-card {
@@ -137,38 +132,43 @@ h1 {
   overflow: hidden;
   transition: transform 0.2s;
   cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .photo-card:hover {
-  transform: scale(1.02);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .photo-container {
-  aspect-ratio: 1;
+  position: relative;
+  padding-bottom: 100%; /* Создаем квадратный контейнер */
   overflow: hidden;
 }
 
 .photo-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 .photo-info {
-  padding: 0.5rem;
-  font-size: 0.9rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .author {
+  display: block;
   font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
 .date {
+  font-size: 0.9rem;
   opacity: 0.8;
-  font-size: 0.8rem;
 }
 
 /* Стили для модального окна */
@@ -182,44 +182,42 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1001;
 }
 
 .modal-content {
   max-width: 90vw;
   max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  position: relative;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
 }
 
 .modal-content img {
   max-width: 100%;
   max-height: 70vh;
   object-fit: contain;
+  border-radius: 8px;
 }
 
 .modal-info {
+  margin-top: 1rem;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
 }
 
 .caption {
-  margin: 0.5rem 0 0 0;
+  margin-top: 0.5rem;
   font-size: 0.9rem;
   line-height: 1.4;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .photos-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  }
-}
-
-@media (min-width: 1024px) {
-  .photos-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
   }
 }
 </style> 
