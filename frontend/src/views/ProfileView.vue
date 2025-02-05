@@ -42,6 +42,7 @@
     <!-- Контейнер с персонажем и кнопкой прокачки -->
     <div class="character-container">
       <img :src="profileIcon" alt="Character" class="character-image" />
+      <div class="character-level">{{ level }}</div>
       <button class="exchange-button" @click="toggleUpgradePanel">ПРОКАЧАТЬ</button>
     </div>
 
@@ -298,6 +299,25 @@ header {
   pointer-events: none;
 }
 
+/* Стили для кружка с уровнем */
+.character-level {
+  position: absolute;
+  top: 35%;
+  right: calc(50% - clamp(5rem, 18vh, 9rem));
+  width: 2.5rem;
+  height: 2.5rem;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: white;
+  pointer-events: none;
+  z-index: 21;
+}
+
 /* Стили для кнопки обмена */
 .exchange-button {
   background: #3b82f6;
@@ -427,6 +447,13 @@ header {
     font-size: clamp(1.2rem, 3vh, 1.6rem);
     margin-top: -4%;
   }
+
+  .character-level {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.4rem;
+    right: calc(50% - clamp(6rem, 20vh, 10rem));
+  }
 }
 
 @media (min-width: 1200px) {
@@ -446,6 +473,13 @@ header {
   .exchange-button {
     margin-top: -2%;
   }
+
+  .character-level {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.6rem;
+    right: calc(50% - clamp(7rem, 22vh, 11rem));
+  }
 }
 
 @media (max-height: 600px) {
@@ -464,6 +498,13 @@ header {
 
   .bottom-actions-container {
     height: 50vh;
+  }
+
+  .character-level {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.2rem;
+    right: calc(50% - clamp(5rem, 18vh, 9rem));
   }
 }
 </style>
