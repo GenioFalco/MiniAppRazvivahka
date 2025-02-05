@@ -4,10 +4,16 @@
   <meta charset="utf-8">
   <title>Развивахка</title>
   <script>
-    // Сохраняем текущий путь в sessionStorage
-    sessionStorage.redirect = location.href;
+    // Получаем текущий путь и сохраняем его
+    const segment = 1;
+    const l = window.location;
+    const path = l.pathname.split('/').slice(0, 1 + segment).join('/');
+    
+    sessionStorage.redirect = l.pathname.slice(path.length) + l.search + l.hash;
+    
+    // Перенаправляем на главную страницу
+    window.location.href = path + '/MiniAppRazvivahka/';
   </script>
-  <meta http-equiv="refresh" content="0;URL='/MiniAppRazvivahka/'">
 </head>
 <body>
   Перенаправление...

@@ -7,10 +7,10 @@
     <script>
       // Восстанавливаем путь после перенаправления с 404.html
       (function(){
-        let redirect = sessionStorage.redirect;
+        const redirect = sessionStorage.redirect;
         delete sessionStorage.redirect;
         if (redirect && redirect !== location.href) {
-          history.replaceState(null, null, redirect.replace('/MiniAppRazvivahka', ''));
+          history.replaceState(null, null, redirect);
         }
       })();
     </script>
