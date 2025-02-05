@@ -38,18 +38,23 @@ async def get_photos():
                 
                 data = await response.json()
                 
+                # Проверяем корректность структуры данных
+                if "_embedded" not in data or "items" not in data["_embedded"]:
+                    logger.error("Некорректный формат данных от Yandex.Диск API")
+                    raise HTTPException(status_code=500, detail="Некорректный формат данных от Yandex.Диск API")
+
                 # Фильтруем и преобразуем данные
                 photos = [
                     {
-                        "id": item["resource_id"],
-                        "url": item["preview"],  # Используем preview вместо file
-                        "author": item["name"].split('.')[0],
-                        "date": item["created"]
+                        "id": item.get("resource_id"),
+                        "url": item.get("preview"),  # Используем preview вместо file
+                        "author": item.get("name", "").split('.')[0],
+                        "date": item.get("created")
                     }
                     for item in data["_embedded"]["items"]
-                    if item["type"] == "file" and 
-                       item["mime_type"].startswith("image/") and
-                       "preview" in item  # Проверяем наличие превью
+                    if item.get("type") == "file" and 
+                       item.get("mime_type", "").startswith("image/") and
+                       "preview" in item
                 ]
                 
                 return photos
