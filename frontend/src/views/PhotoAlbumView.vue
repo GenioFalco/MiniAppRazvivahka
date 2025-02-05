@@ -79,41 +79,43 @@ onMounted(async () => {
   error.value = null;
   
   try {
-    // Публичная ссылка на папку Яндекс.Диска
-    const PUBLIC_FOLDER_URL = 'https://disk.yandex.ru/d/odb9rYQBjq_1Cw';
-    
-    const response = await fetch(
-      `https://cloud-api.yandex.net/v1/disk/public/resources?public_key=${encodeURIComponent(PUBLIC_FOLDER_URL)}&limit=100&preview_size=L`,
-      {
-        headers: {
-          'Accept': 'application/json'
-        }
-      }
-    );
+    const response = await fetch('/api/photos');
 
     if (!response.ok) {
       throw new Error(`Ошибка HTTP: ${response.status}`);
     }
 
-    const data = await response.json();
-    
-    // Преобразуем данные в нужный формат
-    photos.value = data._embedded.items
-      .filter(item => item.type === 'file' && item.mime_type.startsWith('image/'))
-      .map(file => ({
-        id: file.resource_id,
-        url: file.file,
-        author: file.name.split('.')[0],
-        date: new Date(file.created).getTime() / 1000
-      }));
+    photos.value = await response.json();
 
-  } catch (error) {
-    console.error('Ошибка при загрузке фотографий:', error);
-    error.value = 'Не удалось загрузить фотографии. Пожалуйста, попробуйте позже.';
+  } catch (err) {
+    console.error('Ошибка при загрузке фотографий:', err);
+    error.value = 'Не удалось загрузить список фотографий';
   } finally {
     isLoading.value = false;
   }
 });
+
+// Функция для повторной загрузки при ошибке
+async function retryLoading() {
+  isLoading.value = true;
+  error.value = null;
+  
+  try {
+    const response = await fetch('/api/photos');
+
+    if (!response.ok) {
+      throw new Error(`Ошибка HTTP: ${response.status}`);
+    }
+
+    photos.value = await response.json();
+
+  } catch (err) {
+    console.error('Ошибка при загрузке фотографий:', err);
+    error.value = 'Не удалось загрузить список фотографий';
+  } finally {
+    isLoading.value = false;
+  }
+}
 </script>
 
 <style scoped>
