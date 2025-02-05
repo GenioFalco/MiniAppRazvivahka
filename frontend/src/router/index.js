@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import TasksView from '@/views/TasksView.vue'
+import PhotoAlbumView from '@/views/PhotoAlbumView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +21,11 @@ const router = createRouter({
       path: '/tasks/:category?',
       name: 'tasks',
       component: TasksView
+    },
+    {
+      path: '/photoalbum',
+      name: 'photoalbum',
+      component: PhotoAlbumView
     }
   ]
 })
@@ -34,7 +40,7 @@ router.beforeEach((to, from, next) => {
     telegram.expand()
     
     // Настраиваем кнопку "назад"
-    if (to.name === 'profile') {
+    if (to.name === 'profile' || to.name === 'photoalbum') {
       telegram.BackButton.show()
     } else {
       telegram.BackButton.hide()
