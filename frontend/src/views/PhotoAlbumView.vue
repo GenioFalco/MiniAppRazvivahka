@@ -45,7 +45,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
+import photo1 from '@/assets/profile.png';
+import photo2 from '@/assets/daily.png';
 
 const photos = ref([]);
 const selectedPhoto = ref(null);
@@ -79,14 +81,11 @@ onMounted(async () => {
   error.value = null;
   
   try {
-    // Публичная ссылка на папку
     const PUBLIC_FOLDER_URL = 'https://disk.yandex.ru/d/odb9rYQBjq_1Cw';
     
-    // Используем CORS-прокси
+    // Получаем список файлов через API Яндекс.Диска
     const response = await fetch(
-      `https://corsproxy.io/?${encodeURIComponent(
-        `https://cloud-api.yandex.net/v1/disk/public/resources?public_key=${encodeURIComponent(PUBLIC_FOLDER_URL)}&limit=100&preview_size=L&preview_crop=false`
-      )}`,
+      `https://cloud-api.yandex.net/v1/disk/public/resources?public_key=${encodeURIComponent(PUBLIC_FOLDER_URL)}&limit=100&preview_size=XL&preview_crop=false`,
       {
         headers: {
           'Accept': 'application/json'
@@ -100,15 +99,16 @@ onMounted(async () => {
 
     const data = await response.json();
     
-    // Преобразуем данные в нужный формат
+    // Фильтруем только изображения и преобразуем данные
     photos.value = data._embedded.items
       .filter(item => item.type === 'file' && item.mime_type.startsWith('image/'))
       .map(file => ({
         id: file.resource_id,
-        url: file.preview,
-        author: file.name.split('.')[0],
+        url: file.preview,  // Используем preview для отображения
+        author: file.name.split('.')[0], // Имя файла без расширения как автор
         date: new Date(file.created).getTime() / 1000
-      }));
+      }))
+      .sort((a, b) => b.date - a.date); // Сортируем по дате, новые сверху
 
   } catch (err) {
     console.error('Ошибка при загрузке фотографий:', err);
@@ -127,9 +127,7 @@ async function retryLoading() {
     const PUBLIC_FOLDER_URL = 'https://disk.yandex.ru/d/odb9rYQBjq_1Cw';
     
     const response = await fetch(
-      `https://corsproxy.io/?${encodeURIComponent(
-        `https://cloud-api.yandex.net/v1/disk/public/resources?public_key=${encodeURIComponent(PUBLIC_FOLDER_URL)}&limit=100&preview_size=L&preview_crop=false`
-      )}`,
+      `https://cloud-api.yandex.net/v1/disk/public/resources?public_key=${encodeURIComponent(PUBLIC_FOLDER_URL)}&limit=100&preview_size=XL&preview_crop=false`,
       {
         headers: {
           'Accept': 'application/json'
@@ -150,7 +148,8 @@ async function retryLoading() {
         url: file.preview,
         author: file.name.split('.')[0],
         date: new Date(file.created).getTime() / 1000
-      }));
+      }))
+      .sort((a, b) => b.date - a.date);
 
   } catch (err) {
     console.error('Ошибка при загрузке фотографий:', err);
@@ -159,6 +158,17 @@ async function retryLoading() {
     isLoading.value = false;
   }
 }
+
+// Функция для периодического обновления списка фотографий
+onMounted(() => {
+  // Обновляем каждые 30 секунд
+  const interval = setInterval(retryLoading, 30000);
+  
+  // Очищаем интервал при размонтировании компонента
+  onUnmounted(() => {
+    clearInterval(interval);
+  });
+});
 </script>
 
 <style scoped>
