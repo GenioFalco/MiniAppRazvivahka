@@ -6,7 +6,20 @@
       </div>
     </header>
 
-    <div class="photos-grid">
+    <!-- Индикатор загрузки -->
+    <div v-if="isLoading" class="loading-container">
+      <div class="loader"></div>
+      <p>Загрузка фотографий...</p>
+    </div>
+
+    <!-- Сообщение об ошибке -->
+    <div v-else-if="error" class="error-container">
+      <p>{{ error }}</p>
+      <button @click="retryLoading" class="retry-button">Повторить</button>
+    </div>
+
+    <!-- Сетка с фотографиями -->
+    <div v-else class="photos-grid">
       <div v-for="photo in photos" :key="photo.id" class="photo-card">
         <div class="photo-container">
           <img :src="photo.url" :alt="photo.author" @click="openPhoto(photo)" />
@@ -36,6 +49,8 @@ import { ref, onMounted } from 'vue';
 
 const photos = ref([]);
 const selectedPhoto = ref(null);
+const isLoading = ref(true);
+const error = ref(null);
 
 // Функция для форматирования даты
 function formatDate(timestamp) {
@@ -58,19 +73,45 @@ function closePhoto() {
   document.body.style.overflow = '';
 }
 
-// Загрузка фотографий через наш бэкенд
+// Загрузка фотографий из Яндекс.Диска
 onMounted(async () => {
+  isLoading.value = true;
+  error.value = null;
+  
   try {
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
-    const response = await fetch(`${API_BASE_URL}/api/photos`);
+    // Публичная ссылка на папку Яндекс.Диска
+    const PUBLIC_FOLDER_URL = 'https://disk.yandex.ru/d/odb9rYQBjq_1Cw';
+    
+    const response = await fetch(
+      `https://cloud-api.yandex.net/v1/disk/public/resources?public_key=${encodeURIComponent(PUBLIC_FOLDER_URL)}&limit=100&preview_size=L`,
+      {
+        headers: {
+          'Accept': 'application/json'
+        }
+      }
+    );
+
     if (!response.ok) {
-      throw new Error('Не удалось загрузить список фотографий');
+      throw new Error(`Ошибка HTTP: ${response.status}`);
     }
 
-    photos.value = await response.json();
+    const data = await response.json();
+    
+    // Преобразуем данные в нужный формат
+    photos.value = data._embedded.items
+      .filter(item => item.type === 'file' && item.mime_type.startsWith('image/'))
+      .map(file => ({
+        id: file.resource_id,
+        url: file.file,
+        author: file.name.split('.')[0],
+        date: new Date(file.created).getTime() / 1000
+      }));
+
   } catch (error) {
     console.error('Ошибка при загрузке фотографий:', error);
-    alert('Не удалось загрузить фотографии. Пожалуйста, попробуйте позже.');
+    error.value = 'Не удалось загрузить фотографии. Пожалуйста, попробуйте позже.';
+  } finally {
+    isLoading.value = false;
   }
 });
 </script>
@@ -237,5 +278,54 @@ h1 {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 1rem;
   }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  color: white;
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.retry-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.retry-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 </style> 
