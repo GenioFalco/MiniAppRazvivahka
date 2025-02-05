@@ -14,6 +14,7 @@ from typing import List
 
 from app.db.database import get_db, engine
 from app.db.models import Base, Category, Task, User, UserProgress
+from app.routers import photo_album
 
 # Создаем таблицы
 Base.metadata.create_all(bind=engine)
@@ -31,6 +32,9 @@ app = FastAPI(
     description="API для Telegram мини-приложения Развивахка",
     version="1.0.0"
 )
+
+# Подключаем роутеры
+app.include_router(photo_album.router)
 
 # Настройка CORS
 app.add_middleware(
@@ -163,34 +167,6 @@ async def cmd_start(message: types.Message):
             ]
         )
     )
-
-@app.get("/api/photos")
-async def get_photos():
-    """Получение фотографий из Telegram канала"""
-    try:
-        # Получаем последние сообщения из канала
-        channel_username = "doskadlavsex"  # Имя канала без @
-        messages = []
-        
-        async with bot:
-            async for message in bot.get_chat_history(channel_username, limit=50):
-                if message.photo:
-                    # Получаем информацию о фото
-                    photo = message.photo[-1]  # Берем самое большое разрешение
-                    photo_url = await bot.get_file_url(photo.file_id)
-                    
-                    messages.append({
-                        "id": message.message_id,
-                        "url": photo_url,
-                        "author": message.from_user.username or message.from_user.first_name,
-                        "date": int(message.date.timestamp()),
-                        "caption": message.caption or ""
-                    })
-        
-        return messages
-    except Exception as e:
-        logger.error(f"Error getting photos: {e}")
-        raise HTTPException(status_code=500, detail="Error getting photos from channel")
 
 # Запуск бота и FastAPI
 if __name__ == "__main__":

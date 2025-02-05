@@ -58,38 +58,15 @@ function closePhoto() {
   document.body.style.overflow = '';
 }
 
-// Загрузка фотографий из Яндекс.Диска
+// Загрузка фотографий через наш бэкенд
 onMounted(async () => {
   try {
-    // Публичная ссылка на папку Яндекс.Диска
-    const PUBLIC_FOLDER_URL = 'https://disk.yandex.ru/d/odb9rYQBjq_1Cw';
-    
-    // Получаем список файлов из публичной папки
-    const response = await fetch(
-      `https://cloud-api.yandex.net/v1/disk/public/resources?public_key=${encodeURIComponent(PUBLIC_FOLDER_URL)}&limit=100&preview_size=L`,
-      {
-        headers: {
-          'Accept': 'application/json'
-        }
-      }
-    );
-
+    const response = await fetch('/api/photos');
     if (!response.ok) {
       throw new Error('Не удалось загрузить список фотографий');
     }
 
-    const data = await response.json();
-    
-    // Преобразуем данные в нужный формат
-    photos.value = data._embedded.items
-      .filter(item => item.type === 'file' && item.mime_type.startsWith('image/'))
-      .map(file => ({
-        id: file.resource_id,
-        url: file.file, // Прямая ссылка на файл
-        author: file.name.split('.')[0], // Имя файла без расширения как автор
-        date: new Date(file.created).getTime() / 1000
-      }));
-
+    photos.value = await response.json();
   } catch (error) {
     console.error('Ошибка при загрузке фотографий:', error);
     alert('Не удалось загрузить фотографии. Пожалуйста, попробуйте позже.');
