@@ -9,7 +9,7 @@
     <div class="photos-grid">
       <div v-for="photo in photos" :key="photo.id" class="photo-card">
         <div class="photo-container">
-          <img :src="photo.url" :alt="photo.caption" @click="openPhoto(photo)" />
+          <img :src="photo.url" :alt="photo.author" @click="openPhoto(photo)" />
         </div>
         <div class="photo-info">
           <span class="author">{{ photo.author }}</span>
@@ -21,11 +21,10 @@
     <!-- Модальное окно для просмотра фото -->
     <div v-if="selectedPhoto" class="photo-modal" @click="closePhoto">
       <div class="modal-content">
-        <img :src="selectedPhoto.url" :alt="selectedPhoto.caption" />
+        <img :src="selectedPhoto.url" :alt="selectedPhoto.author" />
         <div class="modal-info">
           <span class="author">{{ selectedPhoto.author }}</span>
           <span class="date">{{ formatDate(selectedPhoto.date) }}</span>
-          <p class="caption">{{ selectedPhoto.caption }}</p>
         </div>
       </div>
     </div>
@@ -59,33 +58,42 @@ function closePhoto() {
   document.body.style.overflow = '';
 }
 
-// Загрузка фотографий из Google Drive
-onMounted(() => {
-  // Массив с фотографиями из Google Drive
-  // Замените эти URL на реальные ссылки из вашей публичной папки Google Drive
-  photos.value = [
-    {
-      id: 1,
-      url: 'https://drive.google.com/uc?export=view&id=YOUR_PHOTO_ID_1',
-      author: 'Автор 1',
-      date: Math.floor(Date.now() / 1000),
-      caption: 'Описание фото 1'
-    },
-    {
-      id: 2,
-      url: 'https://drive.google.com/uc?export=view&id=YOUR_PHOTO_ID_2',
-      author: 'Автор 2',
-      date: Math.floor(Date.now() / 1000),
-      caption: 'Описание фото 2'
-    },
-    {
-      id: 3,
-      url: 'https://drive.google.com/uc?export=view&id=YOUR_PHOTO_ID_3',
-      author: 'Автор 3',
-      date: Math.floor(Date.now() / 1000),
-      caption: 'Описание фото 3'
+// Загрузка фотографий из Яндекс.Диска
+onMounted(async () => {
+  try {
+    // Публичная ссылка на папку Яндекс.Диска
+    const PUBLIC_FOLDER_URL = 'https://disk.yandex.ru/d/odb9rYQBjq_1Cw';
+    
+    // Получаем список файлов из публичной папки
+    const response = await fetch(
+      `https://cloud-api.yandex.net/v1/disk/public/resources?public_key=${encodeURIComponent(PUBLIC_FOLDER_URL)}&limit=100&preview_size=L`,
+      {
+        headers: {
+          'Accept': 'application/json'
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error('Не удалось загрузить список фотографий');
     }
-  ];
+
+    const data = await response.json();
+    
+    // Преобразуем данные в нужный формат
+    photos.value = data._embedded.items
+      .filter(item => item.type === 'file' && item.mime_type.startsWith('image/'))
+      .map(file => ({
+        id: file.resource_id,
+        url: file.file, // Прямая ссылка на файл
+        author: file.name.split('.')[0], // Имя файла без расширения как автор
+        date: new Date(file.created).getTime() / 1000
+      }));
+
+  } catch (error) {
+    console.error('Ошибка при загрузке фотографий:', error);
+    alert('Не удалось загрузить фотографии. Пожалуйста, попробуйте позже.');
+  }
 });
 </script>
 
@@ -95,7 +103,6 @@ onMounted(() => {
   background: linear-gradient(180deg, #4a90e2, #003f7f);
   padding: 1rem;
   color: white;
-  padding-top: 4rem; /* Добавляем отступ сверху для кнопки назад */
 }
 
 header {
@@ -153,22 +160,55 @@ h1 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: opacity 0.3s;
 }
 
+/* Добавляем индикатор загрузки */
+.photo-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  opacity: 0;
+}
+
+.photo-container.loading::before {
+  opacity: 1;
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Улучшаем отображение информации о фото */
 .photo-info {
   padding: 1rem;
   background: rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.photo-card:hover .photo-info {
+  transform: translateY(-5px);
 }
 
 .author {
   display: block;
   font-weight: bold;
   margin-bottom: 0.5rem;
+  color: #fff;
 }
 
 .date {
   font-size: 0.9rem;
   opacity: 0.8;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* Стили для модального окна */

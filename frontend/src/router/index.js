@@ -38,15 +38,6 @@ router.beforeEach((to, from, next) => {
   if (telegram) {
     telegram.ready()
     telegram.expand()
-    
-    // Добавляем кнопку назад в интерфейсе приложения
-    if (to.name === 'profile' || to.name === 'photoalbum') {
-      const backButton = document.createElement('button')
-      backButton.textContent = 'Назад'
-      backButton.className = 'back-button'
-      backButton.onclick = () => router.push('/')
-      document.body.appendChild(backButton)
-    }
   } else {
     console.log('Running in browser mode')
   }
