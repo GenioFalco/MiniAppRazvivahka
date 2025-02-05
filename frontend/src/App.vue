@@ -209,4 +209,23 @@ body {
   --tg-theme-button-color: #64b5f6;
   --tg-theme-secondary-bg-color: #2f2f2f;
 }
+
+/* Стили для кнопки назад */
+.back-button {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
 </style>

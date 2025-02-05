@@ -62,29 +62,35 @@ function closePhoto() {
 // Загрузка фотографий из канала
 onMounted(async () => {
   try {
-    // Используем прямой URL к API
-    const response = await fetch('https://api.telegram.org/bot7072578872:AAHCAnoA7kgsRc9qgg0j62mNum-9dGp73Kg/getChat?chat_id=@doskadlavsex');
+    // Используем метод getMessages вместо getChat
+    const response = await fetch('https://api.telegram.org/bot7072578872:AAHCAnoA7kgsRc9qgg0j62mNum-9dGp73Kg/getUpdates');
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
     
-    // Преобразуем данные в нужный формат
-    photos.value = data.result.messages?.filter(msg => msg.photo).map(msg => ({
-      id: msg.message_id,
-      url: msg.photo[msg.photo.length - 1].file_id, // Берем самое большое разрешение
-      author: msg.from?.username || msg.from?.first_name || 'Unknown',
-      date: msg.date,
-      caption: msg.caption || ''
-    })) || [];
+    // Временно используем тестовые данные, пока не настроим правильный доступ к API
+    photos.value = [
+      {
+        id: 1,
+        url: 'https://via.placeholder.com/300',
+        author: 'Test User 1',
+        date: Math.floor(Date.now() / 1000),
+        caption: 'Тестовое фото 1'
+      },
+      {
+        id: 2,
+        url: 'https://via.placeholder.com/300',
+        author: 'Test User 2',
+        date: Math.floor(Date.now() / 1000),
+        caption: 'Тестовое фото 2'
+      }
+    ];
     
   } catch (error) {
     console.error('Error loading photos:', error);
-    // Показываем сообщение об ошибке через Telegram WebApp
-    const telegram = window.Telegram?.WebApp;
-    if (telegram) {
-      telegram.showAlert('Не удалось загрузить фотографии. Пожалуйста, попробуйте позже.');
-    }
+    // Используем простой alert вместо Telegram WebApp методов
+    alert('Не удалось загрузить фотографии. Пожалуйста, попробуйте позже.');
   }
 });
 </script>

@@ -39,16 +39,13 @@ router.beforeEach((to, from, next) => {
     telegram.ready()
     telegram.expand()
     
-    // Убираем использование BackButton, так как он не поддерживается
+    // Добавляем кнопку назад в интерфейсе приложения
     if (to.name === 'profile' || to.name === 'photoalbum') {
-      // Используем MainButton вместо BackButton
-      telegram.MainButton.setText('Назад')
-      telegram.MainButton.show()
-      telegram.MainButton.onClick(() => {
-        router.push('/')
-      })
-    } else {
-      telegram.MainButton.hide()
+      const backButton = document.createElement('button')
+      backButton.textContent = 'Назад'
+      backButton.className = 'back-button'
+      backButton.onclick = () => router.push('/')
+      document.body.appendChild(backButton)
     }
   } else {
     console.log('Running in browser mode')
