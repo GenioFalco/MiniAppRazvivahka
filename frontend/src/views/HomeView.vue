@@ -3,10 +3,10 @@
     <!-- Верхнее меню -->
     <div class="top-menu container">
       <!-- Профиль слева -->
-      <div class="profile-card clickable" @click="handleClick('profile')">
+      <router-link to="/profile" class="profile-card clickable">
         <img src="@/assets/profile.png" alt="Профиль" class="menu-icon" />
         <span>Профиль</span>
-      </div>
+      </router-link>
       
       <!-- Сетка 2x2 справа -->
       <div class="menu-grid">
