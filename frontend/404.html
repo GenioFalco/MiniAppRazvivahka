@@ -16,7 +16,16 @@
       })();
     </script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <title>Развивашка</title>
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+      // Это 404 страница для поддержки маршрутизации SPA на GitHub Pages.
+      // При перезагрузке несуществующего пути (например, /profile) происходит редирект на index с использованием hash.
+      var path = window.location.pathname;
+      var query = window.location.search;
+      // Редиректируем на index с сохранением пути в hash
+      window.location.replace('/MiniAppRazvivahka/#' + path + query);
+    </script>
+    <meta http-equiv="refresh" content="0;url=/MiniAppRazvivahka/">
   </head>
   <body>
     <div id="app"></div>
