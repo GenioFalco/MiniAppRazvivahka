@@ -21,13 +21,12 @@ const isDarkTheme = computed(() => {
 watch(() => route.path, (newPath) => {
   console.log('Route changed to:', newPath)
   if (window.Telegram?.WebApp) {
-    const BackButton = window.Telegram.WebApp.BackButton
-    if (newPath === '/profile') {
-      console.log('Showing back button for profile')
-      BackButton.show()
-    } else {
-      console.log('Hiding back button')
-      BackButton.hide()
+    // Используем history.back() вместо BackButton
+    if (newPath === '/profile' || newPath === '/photoalbum') {
+      window.history.pushState(null, '', newPath);
+      window.addEventListener('popstate', () => {
+        router.push('/');
+      });
     }
   }
 })
@@ -41,18 +40,6 @@ onMounted(() => {
       WebApp: {
         ready: () => console.log('WebApp ready called'),
         expand: () => console.log('WebApp expand called'),
-        BackButton: {
-          show: () => console.log('BackButton show called'),
-          hide: () => console.log('BackButton hide called'),
-          onClick: (callback) => {
-            console.log('BackButton onClick registered')
-            window.Telegram.WebApp.BackButton._callback = callback
-          },
-          offClick: () => {
-            console.log('BackButton offClick called')
-            delete window.Telegram.WebApp.BackButton._callback
-          }
-        },
         MainButton: {
           show: () => console.log('MainButton show called'),
           hide: () => console.log('MainButton hide called')
@@ -77,21 +64,6 @@ onMounted(() => {
       
       // Настраиваем MainButton
       window.Telegram.WebApp.MainButton.hide()
-      
-      // Настраиваем BackButton
-      const BackButton = window.Telegram.WebApp.BackButton
-      
-      BackButton.onClick(() => {
-        console.log('Back button clicked, current route:', route.path)
-        if (route.path === '/profile') {
-          router.push('/')
-        }
-      })
-      
-      // Если мы на странице профиля, показываем кнопку назад
-      if (route.path === '/profile') {
-        BackButton.show()
-      }
       
       // Получаем тему
       const colorScheme = window.Telegram.WebApp.colorScheme
