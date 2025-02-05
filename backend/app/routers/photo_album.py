@@ -25,13 +25,15 @@ async def get_photos():
                 params={
                     "public_key": PUBLIC_FOLDER_URL,
                     "limit": 100,
-                    "preview_size": "L"
+                    "preview_size": "XL",
+                    "preview_crop": False
                 },
                 headers={
                     "Accept": "application/json"
                 }
             ) as response:
                 if response.status != 200:
+                    logger.error(f"Yandex.Disk API error: {response.status}")
                     raise HTTPException(status_code=500, detail="Ошибка при получении списка фотографий")
                 
                 data = await response.json()
@@ -40,12 +42,14 @@ async def get_photos():
                 photos = [
                     {
                         "id": item["resource_id"],
-                        "url": item["file"],
+                        "url": item["preview"],  # Используем preview вместо file
                         "author": item["name"].split('.')[0],
                         "date": item["created"]
                     }
                     for item in data["_embedded"]["items"]
-                    if item["type"] == "file" and item["mime_type"].startswith("image/")
+                    if item["type"] == "file" and 
+                       item["mime_type"].startswith("image/") and
+                       "preview" in item  # Проверяем наличие превью
                 ]
                 
                 return photos

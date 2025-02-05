@@ -81,34 +81,15 @@ onMounted(async () => {
   error.value = null;
   
   try {
-    const PUBLIC_FOLDER_URL = 'https://disk.yandex.ru/d/odb9rYQBjq_1Cw';
-    
-    // Получаем список файлов через API Яндекс.Диска
-    const response = await fetch(
-      `https://cloud-api.yandex.net/v1/disk/public/resources?public_key=${encodeURIComponent(PUBLIC_FOLDER_URL)}&limit=100&preview_size=XL&preview_crop=false`,
-      {
-        headers: {
-          'Accept': 'application/json'
-        }
-      }
-    );
+    const baseUrl = import.meta.env.PROD ? 'https://razvivahka-api.onrender.com' : '';
+    const response = await fetch(`${baseUrl}/api/photos`);
 
     if (!response.ok) {
       throw new Error(`Ошибка HTTP: ${response.status}`);
     }
 
     const data = await response.json();
-    
-    // Фильтруем только изображения и преобразуем данные
-    photos.value = data._embedded.items
-      .filter(item => item.type === 'file' && item.mime_type.startsWith('image/'))
-      .map(file => ({
-        id: file.resource_id,
-        url: file.preview,  // Используем preview для отображения
-        author: file.name.split('.')[0], // Имя файла без расширения как автор
-        date: new Date(file.created).getTime() / 1000
-      }))
-      .sort((a, b) => b.date - a.date); // Сортируем по дате, новые сверху
+    photos.value = data.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   } catch (err) {
     console.error('Ошибка при загрузке фотографий:', err);
@@ -124,32 +105,15 @@ async function retryLoading() {
   error.value = null;
   
   try {
-    const PUBLIC_FOLDER_URL = 'https://disk.yandex.ru/d/odb9rYQBjq_1Cw';
-    
-    const response = await fetch(
-      `https://cloud-api.yandex.net/v1/disk/public/resources?public_key=${encodeURIComponent(PUBLIC_FOLDER_URL)}&limit=100&preview_size=XL&preview_crop=false`,
-      {
-        headers: {
-          'Accept': 'application/json'
-        }
-      }
-    );
+    const baseUrl = import.meta.env.PROD ? 'https://razvivahka-api.onrender.com' : '';
+    const response = await fetch(`${baseUrl}/api/photos`);
 
     if (!response.ok) {
       throw new Error(`Ошибка HTTP: ${response.status}`);
     }
 
     const data = await response.json();
-    
-    photos.value = data._embedded.items
-      .filter(item => item.type === 'file' && item.mime_type.startsWith('image/'))
-      .map(file => ({
-        id: file.resource_id,
-        url: file.preview,
-        author: file.name.split('.')[0],
-        date: new Date(file.created).getTime() / 1000
-      }))
-      .sort((a, b) => b.date - a.date);
+    photos.value = data.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   } catch (err) {
     console.error('Ошибка при загрузке фотографий:', err);
