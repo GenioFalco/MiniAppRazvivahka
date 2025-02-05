@@ -62,17 +62,28 @@ function closePhoto() {
 // Загрузка фотографий из канала
 onMounted(async () => {
   try {
-    const response = await fetch('https://geniofalco.github.io/MiniAppRazvivahka/api/photos');
+    // Используем прямой URL к API
+    const response = await fetch('https://api.telegram.org/bot7072578872:AAHCAnoA7kgsRc9qgg0j62mNum-9dGp73Kg/getChat?chat_id=@doskadlavsex');
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    photos.value = await response.json();
+    const data = await response.json();
+    
+    // Преобразуем данные в нужный формат
+    photos.value = data.result.messages?.filter(msg => msg.photo).map(msg => ({
+      id: msg.message_id,
+      url: msg.photo[msg.photo.length - 1].file_id, // Берем самое большое разрешение
+      author: msg.from?.username || msg.from?.first_name || 'Unknown',
+      date: msg.date,
+      caption: msg.caption || ''
+    })) || [];
+    
   } catch (error) {
     console.error('Error loading photos:', error);
-    // Показываем сообщение об ошибке пользователю
+    // Показываем сообщение об ошибке через Telegram WebApp
     const telegram = window.Telegram?.WebApp;
     if (telegram) {
-      telegram.showAlert('Не удалось загрузить фотографии. Попробуйте позже.');
+      telegram.showAlert('Не удалось загрузить фотографии. Пожалуйста, попробуйте позже.');
     }
   }
 });
