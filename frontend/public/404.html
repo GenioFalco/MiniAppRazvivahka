@@ -4,15 +4,21 @@
   <meta charset="utf-8">
   <title>Развивахка</title>
   <script>
-    // Получаем текущий путь и сохраняем его
-    const segment = 1;
+    // Получаем текущий путь
+    const pathSegmentsToKeep = 1;
     const l = window.location;
-    const path = l.pathname.split('/').slice(0, 1 + segment).join('/');
     
-    sessionStorage.redirect = l.pathname.slice(path.length) + l.search + l.hash;
+    // Сохраняем полный путь в sessionStorage
+    const cleanedPath = l.pathname.split('/').slice(pathSegmentsToKeep).join('/');
+    sessionStorage.redirect = cleanedPath + l.search + l.hash;
     
     // Перенаправляем на главную страницу
-    window.location.href = path + '/MiniAppRazvivahka/';
+    l.replace(
+      l.protocol + '//' + l.hostname + 
+      (l.port ? ':' + l.port : '') +
+      l.pathname.split('/').slice(0, pathSegmentsToKeep).join('/') + 
+      '/MiniAppRazvivahka/'
+    );
   </script>
 </head>
 <body>
