@@ -80,7 +80,7 @@
 
 <script setup>
 // Импорт необходимых компонентов и изображений
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import gearIcon from '@/assets/gear-icon.png'
 import coinIcon from '@/assets/coin-icon.png'
 import dailyIcon from '@/assets/daily.png'
@@ -153,6 +153,20 @@ function handleUpgrade(data) {
   // Здесь будет логика обработки прокачки
   console.log('Upgrade data:', data);
 }
+
+onMounted(() => {
+  if (window.Telegram && window.Telegram.WebApp) {
+    const BackButton = window.Telegram.WebApp.BackButton;
+    BackButton.show();
+    BackButton.onClick(() => {
+      window.Telegram.WebApp.showAlert("Нет пути назад!");
+      BackButton.hide();
+    });
+    window.Telegram.WebApp.onEvent('backButtonClicked', () => {
+      // Здесь можно обработать событие кнопки 'Назад', если требуется
+    });
+  }
+});
 </script>
 
 <style scoped>
