@@ -159,11 +159,12 @@ onMounted(() => {
     const BackButton = window.Telegram.WebApp.BackButton;
     BackButton.show();
     BackButton.onClick(() => {
-      window.Telegram.WebApp.showAlert("Нет пути назад!");
-      BackButton.hide();
+      // Перенаправляем на главное меню
+      router.push({ name: 'home' });
     });
     window.Telegram.WebApp.onEvent('backButtonClicked', () => {
-      // Здесь можно обработать событие кнопки 'Назад', если требуется
+      // Перенаправляем на главное меню
+      router.push({ name: 'home' });
     });
   }
 });

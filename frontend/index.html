@@ -11,8 +11,8 @@
         const redirect = sessionStorage.redirect;
         delete sessionStorage.redirect;
         if (redirect && redirect !== location.href) {
-          const baseUrl = '/MiniAppRazvivahka/';
-          history.replaceState(null, null, baseUrl + redirect);
+          const base = '/MiniAppRazvivahka/';
+          history.replaceState(null, null, base + redirect);
         }
       })();
     </script>
