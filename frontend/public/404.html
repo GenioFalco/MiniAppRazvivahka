@@ -1,27 +1,19 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Развивахка</title>
-  <script>
-    // Получаем текущий путь
-    const pathSegmentsToKeep = 1;
-    const l = window.location;
-    
-    // Сохраняем полный путь в sessionStorage
-    const cleanedPath = l.pathname.split('/').slice(pathSegmentsToKeep).join('/');
-    sessionStorage.redirect = cleanedPath + l.search + l.hash;
-    
-    // Перенаправляем на главную страницу
-    l.replace(
-      l.protocol + '//' + l.hostname + 
-      (l.port ? ':' + l.port : '') +
-      l.pathname.split('/').slice(0, pathSegmentsToKeep).join('/') + 
-      '/MiniAppRazvivahka/'
-    );
-  </script>
-</head>
-<body>
-  Перенаправление...
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+      // Получаем текущий путь и параметры запроса
+      var path = window.location.pathname;
+      var search = window.location.search;
+      // Перенаправляем на базовый URL с hash, сохраняя путь и query
+      window.location.replace('/MiniAppRazvivahka/#' + path + search);
+    </script>
+    <meta http-equiv="refresh" content="0;URL='/MiniAppRazvivahka/'">
+  </head>
+  <body>
+  </body>
 </html> 
