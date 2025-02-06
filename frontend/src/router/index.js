@@ -5,7 +5,7 @@ import TasksView from '@/views/TasksView.vue'
 import PhotoAlbumView from '@/views/PhotoAlbumView.vue'
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory('/'),
   routes: [
     {
       path: '/',
