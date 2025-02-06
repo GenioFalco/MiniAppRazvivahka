@@ -6,13 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
     <script type="text/javascript">
-      // Получаем текущий путь и параметры запроса
-      var path = window.location.pathname;
-      var search = window.location.search;
-      // Перенаправляем на базовый URL с hash, сохраняя путь и query
-      window.location.replace('/MiniAppRazvivahka/' + path + search);
+      (function () {
+        var base = '/MiniAppRazvivahka/';
+        var path = window.location.pathname; // например, "/MiniAppRazvivahka/profile"
+        var search = window.location.search; // если есть query-параметры
+        // Убираем префикс, если он присутствует
+        if (path.indexOf(base) === 0) {
+          path = path.slice(base.length);
+        }
+        // Если путь не пустой, добавляем "/" перед ним, иначе оставляем пустым
+        if (path && path[0] !== '/') {
+          path = '/' + path;
+        }
+        // Формируем новый URL с хеш-частью
+        var redirectTo = base + '#' + (path || '');
+        // Можно добавить параметры запроса, если нужно
+        redirectTo += search;
+        window.location.replace(redirectTo);
+      })();
     </script>
-    <meta http-equiv="refresh" content="0;URL='/MiniAppRazvivahka/'">
+    <meta http-equiv="refresh" content="0; URL='/MiniAppRazvivahka/'">
   </head>
   <body>
   </body>
